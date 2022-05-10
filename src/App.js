@@ -11,7 +11,7 @@ export default function App() {
     <Authenticator>
       {({ signOut, user }) => (
         <main>
-          <h1>Hello {user.username} X</h1>
+          <h1>Hello {user.username} Y</h1>
           <button onClick={signOut}>Sign out</button>
         </main>
       )}
