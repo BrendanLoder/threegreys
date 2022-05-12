@@ -9,7 +9,7 @@ Amplify.configure(awsExports);
 
 const initialState = { name: '', description: '' }
 
-const App = ({ signOut, user }) => {
+const App = () => {
 
   const [formState, setFormState] = useState(initialState)
   const [todos, setTodos] = useState([])
@@ -51,12 +51,15 @@ const styles = {
     button: { backgroundColor: 'black', color: 'white', outline: 'none', fontSize: 18, padding: '12px 0px' }
   }
 
-  console.log(user)
-
   return (
-    <div style={styles.container}>
-        <h1>Hi {user.username}!</h1>
-        <Button onClick={() => signOut()} value="Sign Out">Sign Out </Button>
+    <Authenticator
+        hideSignUp = {true}
+    >
+      {({ signOut, user }) => (
+        <div style={styles.container}>
+          <h1>Hello {user.username}</h1>
+          <button style={styles.button} onClick={signOut}>Sign out</button>
+          <br />
           <h2>Amplify Todos</h2>
           <input
             onChange={event => setInput('name', event.target.value)}
@@ -80,13 +83,10 @@ const styles = {
             ))
           }
         </div>
-  ); 
+      )}
+    </Authenticator>
+  );
 
-};
+}
 
-export default withAuthenticator(App,
-    {
-        includeGreetings:true,
-        hideSignUp: true
-    }
-)
+export default App
