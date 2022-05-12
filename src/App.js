@@ -9,7 +9,7 @@ Amplify.configure(awsExports);
 
 const initialState = { name: '', description: '' }
 
-const App = () => {
+const App = ({ signOut, user }) => {
 
   const [formState, setFormState] = useState(initialState)
   const [todos, setTodos] = useState([])
@@ -42,14 +42,6 @@ const App = () => {
     }
   }
 
-  async function signOut() {
-        try {
-            await Auth.signOut({ global: true });
-        } catch (error) {
-            console.log('error signing out: ', error);
-        }
-    }
-
 const styles = {
     container: { width: 400, margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20 },
     todo: {  marginBottom: 15 },
@@ -59,9 +51,12 @@ const styles = {
     button: { backgroundColor: 'black', color: 'white', outline: 'none', fontSize: 18, padding: '12px 0px' }
   }
 
+  console.log(user)
+
   return (
     <div style={styles.container}>
-        <Button onClick={signOut()} value="Sign Out">Sign Out </Button>
+        <h1>Hi {user.username}!</h1>
+        <Button onClick={() => signOut()} value="Sign Out">Sign Out </Button>
           <h2>Amplify Todos</h2>
           <input
             onChange={event => setInput('name', event.target.value)}
