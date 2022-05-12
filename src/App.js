@@ -1,7 +1,7 @@
-import { Authenticator, withAuthenticator } from '@aws-amplify/ui-react';
+import { Authenticator, Button, withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import React, { useEffect, useState, useRef } from 'react'
-import Amplify, { API, graphqlOperation } from 'aws-amplify'
+import Amplify, { API, graphqlOperation, Auth } from 'aws-amplify'
 import { createTodo } from './graphql/mutations'
 import { listTodos } from './graphql/queries'
 import awsExports from "./aws-exports";
@@ -42,26 +42,13 @@ const App = () => {
     }
   }
 
-//   function createTodoForm(){
-      
-//     return(<>
-//         <div ref ={testdata}>fg</div>
-//         <h2>Amplify Todos</h2>
-//         <input
-//           onChange={event => setInput('name', event.target.value)}
-//           style={styles.input}
-//           value={formState.name}
-//           placeholder="Name"
-//         />
-//         <input
-//           onChange={event => setInput('description', event.target.value)}
-//           style={styles.input}
-//           value={formState.description}
-//           placeholder="Description"
-//         />
-//         <button style={styles.button} onClick={addTodo}>Create Todo</button>
-//     </>)
-//   }
+  async function signOut() {
+        try {
+            await Auth.signOut({ global: true });
+        } catch (error) {
+            console.log('error signing out: ', error);
+        }
+    }
 
 const styles = {
     container: { width: 400, margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20 },
@@ -74,6 +61,7 @@ const styles = {
 
   return (
     <div style={styles.container}>
+        <Button onClick={signOut()} value="Sign Out">Sign Out </Button>
           <h2>Amplify Todos</h2>
           <input
             onChange={event => setInput('name', event.target.value)}
@@ -101,4 +89,9 @@ const styles = {
 
 };
 
-export default withAuthenticator(App)
+export default withAuthenticator(App,
+    {
+        includeGreetings:true,
+        hideSignUp: true
+    }
+)
