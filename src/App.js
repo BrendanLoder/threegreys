@@ -100,7 +100,7 @@ const App = ({ signOut, user }) => {
             ))
         }
         <br/><br/>
-        v1.0
+        v1.1
         </div>
     ); 
 
