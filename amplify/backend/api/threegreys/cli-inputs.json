@@ -3,14 +3,21 @@
   "serviceConfiguration": {
     "apiName": "threegreys",
     "serviceName": "AppSync",
-    "gqlSchemaPath": "/Users/brendanloder/projects/threegreys/amplify/backend/api/threegreys/schema.graphql",
+    "gqlSchemaPath": "/tmp/amplify-8077cbdc-3c21-4d79-8251-c4a6ad6d14d0/amplify/backend/api/threegreys/schema.graphql",
     "defaultAuthType": {
       "mode": "API_KEY",
-      "expirationTime": 7,
-      "apiKeyExpirationDate": "2022-05-17T15:07:37.749Z",
-      "keyDescription": "todos"
+      "keyDescription": "api key description",
+      "expirationTime": 30
     },
-    "conflictResolution": {},
-    "additionalAuthTypes": []
+    "conflictResolution": {
+      "defaultResolutionStrategy": {
+        "type": "AUTOMERGE"
+      }
+    },
+    "additionalAuthTypes": [
+      {
+        "mode": "AWS_IAM"
+      }
+    ]
   }
 }
