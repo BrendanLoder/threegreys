@@ -6,7 +6,6 @@ import { createTodo } from './graphql/mutations'
 import { listTodos } from './graphql/queries'
 import awsExports from "./aws-exports";
 import { DataStore } from '@aws-amplify/datastore';
-import { Blog } from './models';
 import { Todo } from './models';
 Amplify.configure(awsExports);
 
@@ -26,6 +25,14 @@ const App = ({ signOut, user }) => {
     setFormState({ ...formState, [key]: value })
   }
 
+//   function tester(){
+//     return listTodos
+//   } 
+
+//   const foo = tester()
+//   console.log('it is ', foo)
+
+
 
 // ------------------------ START NEW
 
@@ -40,7 +47,11 @@ const App = ({ signOut, user }) => {
 
     // DELETE TODOS
     async function deleteAll (){
-        await DataStore.delete(Todo, Predicates.ALL);
+        try{
+            await DataStore.delete(Todo, Predicates.ALL);
+        } catch(err){
+            console.log('there was an error in deleting', err)
+        }
     }
     // deleteAll()
 
@@ -100,7 +111,7 @@ const App = ({ signOut, user }) => {
             ))
         }
         <br/><br/>
-        v1.1
+        v1.2
         </div>
     ); 
 
