@@ -1,21 +1,28 @@
 import { Authenticator, Button, withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-import React, { useEffect, useState, useRef } from 'react'
+import React, { lazy, Suspense, useEffect, useState, useRef } from 'react'
+import {Switch, Route, Routes, BrowserRouter as Router} from "react-router-dom"
 import Amplify, { API, graphqlOperation, Auth, Predicates } from 'aws-amplify'
 import { createTodo } from './graphql/mutations'
 import { listTodos } from './graphql/queries'
 import awsExports from "./aws-exports";
 import { DataStore } from '@aws-amplify/datastore';
 import { Todo } from './models';
+import RoutePaths from './constants/routes'
+const Dashboard = lazy(() => import ('./pages/dashboard'));
+const Login = lazy(() => import ('./pages/login'));
+const NotFound = lazy(() => import ('./pages/not-found'));
+const Profile = lazy(() => import ('./pages/profile'));
+
 Amplify.configure(awsExports);
 
 const initialState = { name: '', description: '' }
 
 const App = ({ signOut, user }) => {
+    // const App = () => {
 
   const [formState, setFormState] = useState(initialState)
   const [todos, setTodos] = useState([])
-//   const [newTodos, setNewTodos] = useState([])
 
   useEffect(() => {
     getTodos()
@@ -25,16 +32,9 @@ const App = ({ signOut, user }) => {
     setFormState({ ...formState, [key]: value })
   }
 
-//   function tester(){
-//     return listTodos
-//   } 
-
-//   const foo = tester()
-//   console.log('it is ', foo)
 
 
-
-// ------------------------ START NEW
+// ------------------------ DELETED WHILE TESTING ROUTER
 
     const styles = {
         container: { width: 400, margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20 },
@@ -77,12 +77,11 @@ const App = ({ signOut, user }) => {
 
     } 
 
-/// ---- END NEW
-
+/// ---- END DELETED WHILE TESTING ROUTER
   
     return (
         <div style={styles.container}>
-        <h1>Hi {user.username}!</h1>
+        {/* <h1>Hi {user.username}!</h1> */}
         <Button onClick={() => signOut()} value="Sign Out">Sign Out </Button>
 
         <h2>Amplify Todos</h2>
@@ -110,13 +109,27 @@ const App = ({ signOut, user }) => {
             </div>
             ))
         }
+        <Router>
+            <Suspense fallback={<p>Loading...</p>}>
+            <Routes>
+                <Route path={RoutePaths.LOGIN} element={<Login />} />
+                <Route path={RoutePaths.PROFILE} element={<Profile user={user} />} />
+                <Route exact path={RoutePaths.DASHBOARD} element={<Dashboard />} />
+                <Route path="*" element={<NotFound/>} />
+            </Routes>
+
+            </Suspense>
+        </Router>
         <br/><br/>
-        v1.2.2
+        
+        <small>v1.3</small>
+
         </div>
     ); 
 
 };
 
+// export default App
 export default withAuthenticator(App,
     {
         includeGreetings:true,
