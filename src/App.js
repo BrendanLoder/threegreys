@@ -84,7 +84,7 @@ const App = ({ signOut, user }) => {
         {/* <h1>Hi {user.username}!</h1> */}
         <Button onClick={() => signOut()} value="Sign Out">Sign Out </Button>
 
-        <h2>Amplify Todos</h2>
+        <h2>Three Grays</h2>
         <input
         onChange={event => setInput('name', event.target.value)}
         style={styles.input}
