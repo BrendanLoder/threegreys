@@ -13,8 +13,6 @@ const Login = lazy(() => import ('./pages/login'));
 const NotFound = lazy(() => import ('./pages/not-found'));
 const Profile = lazy(() => import ('./pages/profile'));
 
-Amplify.configure(awsExports);
-
 const initialState = { name: '', description: '' }
 
 const App = ({ signOut, user }) => {
@@ -74,7 +72,7 @@ const App = ({ signOut, user }) => {
 
             <br/><br/>
             
-            <small>v1.4</small>
+            <small>v2.0</small>
 
         </div>
     ); 
