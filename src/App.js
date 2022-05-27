@@ -45,12 +45,12 @@ const App = ({ signOut, user }) => {
     return (
         <div style={styles.container}>
             <h1>Hi {user.username}!</h1>
-            <Button onClick={() => signOut()} value="Sign Out">Sign Out </Button>
+            {/* <Button onClick={() => signOut()} value="Sign Out">Sign Out </Button> */}
 
             <h2>Three Grays</h2>
             
 
-            CATS:<br />
+            {/* CATS:<br />
             {
                 cats.map((cat, index) => (
                     <div key={cat.id ? cat.id : index}>
@@ -58,7 +58,7 @@ const App = ({ signOut, user }) => {
                         <p>{cat.nickname}</p>
                     </div>
                 ))
-            }
+            } */}
             <Router>
                 <Suspense fallback={<p>Loading...</p>}>
                     <Routes>
