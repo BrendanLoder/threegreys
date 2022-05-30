@@ -68,22 +68,16 @@ return (
             <div className="swiper-wrapper">
             {/* <!-- Slides --> */}
             <div className="swiper-slide">
-                <img src="/images/alice_1.jpg"/>
+                <img src="/images/pexels-constantine-vopilovsky-10665216.jpg" width="749" height="999"/>
             </div>
             <div className="swiper-slide">
-                <img src="/images/all_grays_1.jpg"/>
+                <img src="/images/pexels-dastan-khdir-4035485.jpg" width="749" height="999"/>
             </div>
             <div className="swiper-slide">
-                <img src="/images/sam_1.jpg"/>
+                <img src="/images/pexels-mathias-reding-11911952.jpg" width="749" height="999"/>
             </div>
             <div className="swiper-slide">
-                <img src="/images/sam_2.jpg"/>
-            </div>
-            <div className="swiper-slide">
-                <img src="/images/sly_1.jpg"/>
-            </div>
-            <div className="swiper-slide">
-                <img src="/images/sly_2.jpg"/>
+                <img src="/images/pexels-zülâl-sezici-12098194.jpg" width="749" height="999"/>
             </div>
             </div>
             {/* <!-- If we need pagination --> */}
