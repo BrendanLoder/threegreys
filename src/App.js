@@ -8,6 +8,8 @@ import Amplify, { Predicates } from 'aws-amplify'
 
 import awsExports from "./aws-exports";
 import RoutePaths from './constants/routes'
+import $ from "jquery"
+
 const Dashboard = lazy(() => import ('./pages/dashboard'));
 const Login = lazy(() => import ('./pages/login'));
 const NotFound = lazy(() => import ('./pages/not-found'));
