@@ -4,6 +4,7 @@ export const LOGIN = '/login';
 const RoutePaths = {
     DASHBOARD: '/',
     LOGIN: '/login',
-    PROFILE: '/p'
+    PROFILE: '/p',
+    CAROUSELS: '/carousels'
 }
 export default RoutePaths

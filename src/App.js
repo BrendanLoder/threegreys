@@ -11,6 +11,7 @@ import RoutePaths from './constants/routes'
 const Dashboard = lazy(() => import ('./pages/dashboard'));
 const Login = lazy(() => import ('./pages/login'));
 const NotFound = lazy(() => import ('./pages/not-found'));
+const Carousels = lazy(() => import ('./pages/carousels'));
 const Profile = lazy(() => import ('./pages/profile'));
 
 const initialState = { name: '', description: '' }
@@ -44,10 +45,10 @@ const App = ({ signOut, user }) => {
   
     return (
         <div style={styles.container}>
-            <h1>Hi {user.username}!</h1>
-            {/* <Button onClick={() => signOut()} value="Sign Out">Sign Out </Button> */}
 
-            <h2>Three Grays</h2>
+            <h1>Three Grays</h1>
+            <h2>Hi {user.username}!</h2>
+            {/* <Button onClick={() => signOut()} value="Sign Out">Sign Out </Button> */}
             
 
             {/* CATS:<br />
@@ -65,6 +66,7 @@ const App = ({ signOut, user }) => {
                         <Route path={RoutePaths.LOGIN} element={<Login />} />
                         <Route path={RoutePaths.PROFILE} element={<Profile user={user} />} />
                         <Route exact path={RoutePaths.DASHBOARD} element={<Dashboard />} />
+                        <Route exact path={RoutePaths.CAROUSELS} element={<Carousels />} />
                         <Route path="*" element={<NotFound/>} />
                     </Routes>
                 </Suspense>
@@ -72,7 +74,7 @@ const App = ({ signOut, user }) => {
 
             <br/><br/>
             
-            <small>v2.0</small>
+            <small>v3.0</small>
 
         </div>
     ); 
