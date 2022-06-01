@@ -6,6 +6,10 @@ import React, { lazy, Suspense, useEffect, useState, useContext } from 'react'
 import {Route, Routes, BrowserRouter as Router} from "react-router-dom"
 import Amplify, { Predicates } from 'aws-amplify'
 
+import Slider from "react-slick";
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+
 import awsExports from "./aws-exports";
 import RoutePaths from './constants/routes'
 import $ from "jquery"
@@ -15,6 +19,7 @@ const Login = lazy(() => import ('./pages/login'));
 const NotFound = lazy(() => import ('./pages/not-found'));
 const Carousels = lazy(() => import ('./pages/carousels'));
 const Profile = lazy(() => import ('./pages/profile'));
+const FIREBASE_TEST = lazy(() => import ('./pages/firebase-test'));
 
 const initialState = { name: '', description: '' }
 
@@ -33,6 +38,12 @@ const App = ({ signOut, user }) => {
 
     useEffect(() => {
         getCats()
+
+        if (typeof Slider == "undefined") {
+            console.log("Slider is not installed");
+          } else {
+            console.log("Slider is installed correctly!");
+          }
     }, [])
 
 
@@ -69,6 +80,7 @@ const App = ({ signOut, user }) => {
                         <Route path={RoutePaths.PROFILE} element={<Profile user={user} />} />
                         <Route exact path={RoutePaths.DASHBOARD} element={<Dashboard />} />
                         <Route exact path={RoutePaths.CAROUSELS} element={<Carousels />} />
+                        <Route exact path={RoutePaths.FIREBASE_TEST} element={<FIREBASE_TEST />} />
                         <Route path="*" element={<NotFound/>} />
                     </Routes>
                 </Suspense>
@@ -76,7 +88,7 @@ const App = ({ signOut, user }) => {
 
             <br/><br/>
             
-            <small>v3.0</small>
+            <small>v4.0</small>
 
         </div>
     ); 

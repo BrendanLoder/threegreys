@@ -26,7 +26,7 @@ function Carousels() {
 
     return (
         <div>
-            This is the carousels.js<br/>
+            <h3>This is the carousels.js<br/></h3>
             <button onClick={() =>toggleType()}>Toggle Type</button><br/>
             {
                 {
