@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from "react"
+import {useEffect, useState, useContext} from "react"
 import { collection, getDocs } from 'firebase/firestore/lite';
 import FirebaseContext from '../context/firebase'
 

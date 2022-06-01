@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import {useEffect, useState} from "react"
 import CarouselType1 from "../components/carousel-type-1"
 import CarouselType2 from "../components/carousel-type-2"
 
