@@ -1,6 +1,6 @@
 import Slider from "react-slick"; 
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
+// import 'slick-carousel/slick/slick.css'
+// import 'slick-carousel/slick/slick-theme.css'
 
 function CarouselType1 () {
 
@@ -9,7 +9,7 @@ function CarouselType1 () {
         return (
           <div
             className={className}
-            style={{ ...style, display: "block", background: "green" }}
+            style={{ ...style, display: "block" }}
             onClick={onClick}
           />
         );
@@ -19,7 +19,7 @@ function CarouselType1 () {
         return (
           <div
             className={className}
-            style={{ ...style, display: "block", background: "green" }}
+            style={{ ...style, display: "block" }}
             onClick={onClick}
           />
         );
@@ -32,29 +32,29 @@ function CarouselType1 () {
         slidesToShow: 1,
         slidesToScroll: 1,
         nextArrow: <SampleNextArrow />,
-      prevArrow: <SamplePrevArrow />
+        prevArrow: <SamplePrevArrow />
     };
 
     return (
         <div>
-            <h2> Single Item</h2>
+            <h2>Type 1</h2>
             <Slider {...settings}>
-                <div>
+                <div class="image-holder">
                     <img src="/images/alice_1.jpg" width="100%" height="100%" margin="auto"/>
                 </div>
-                <div>
+                <div class="image-holder">
                     <img src="/images/all_grays_1.jpg" width="100%" height="100%" margin="auto"/>
                 </div>
-                <div>
+                <div class="image-holder">
                     <img src="/images/sam_1.jpg" width="100%" height="100%" margin="auto"/>
                 </div>
-                <div>
+                <div class="image-holder">
                     <img src="/images/sam_2.jpg" width="100%" height="100%" margin="auto"/>
                 </div>
-                <div>
+                <div class="image-holder">
                     <img src="/images/sly_1.jpg" width="100%" height="100%" margin="auto"/>
                 </div>
-                <div>
+                <div class="image-holder">
                     <img src="/images/sly_2.jpg" width="100%" height="100%" margin="auto"/>
                 </div>
             </Slider>

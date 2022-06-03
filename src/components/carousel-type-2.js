@@ -1,7 +1,7 @@
 function CarouselType2 () {
     return (
         <div>
-            Carousel Type 2 Here
+            <h2>Type 2</h2>
         </div>
     )
 }
