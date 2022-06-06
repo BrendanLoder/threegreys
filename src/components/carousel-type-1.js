@@ -40,9 +40,16 @@ function CarouselType1 () {
             <h2>Type 1</h2>
             <Slider {...settings}>
                 <div class="image-holder">
-                    <img src="/images/alice_1.jpg" width="100%" height="100%" margin="auto"/>
+                    <img src="/images/t2.jpg" width="100%" height="100%" margin="auto"/>
                 </div>
                 <div class="image-holder">
+                    <img src="/images/t3.jpg" width="100%" height="100%" margin="auto"/>
+                </div>
+                <div class="image-holder">
+                    <img src="/images/t6.jpg" width="100%" height="100%" margin="auto"/>
+                </div>
+                
+                {/* <div class="image-holder">
                     <img src="/images/all_grays_1.jpg" width="100%" height="100%" margin="auto"/>
                 </div>
                 <div class="image-holder">
@@ -56,7 +63,7 @@ function CarouselType1 () {
                 </div>
                 <div class="image-holder">
                     <img src="/images/sly_2.jpg" width="100%" height="100%" margin="auto"/>
-                </div>
+                </div> */}
             </Slider>
         </div>
     )

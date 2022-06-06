@@ -30,9 +30,9 @@ function Carousels() {
             <button className="appButton" onClick={() =>toggleType()}>Toggle Type</button><br/>
             {
                 {
-                    'carouselType1': <CarouselType1 />,
-                    'carouselType2': <CarouselType2 />,
-                    default: <CarouselType1 />
+                    'carouselType1': <CarouselType2 />,
+                    'carouselType2': <CarouselType1 />,
+                    default: <CarouselType2 />
                 }[carouselType]
             }
         </div>

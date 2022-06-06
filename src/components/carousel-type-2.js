@@ -6,31 +6,19 @@ var Carousel = require('react-responsive-carousel').Carousel;
 function CarouselType2 () {
     return (
         <div>
-            <h2>Type 2-x</h2>
+            <h2>Type 2</h2>
             <Carousel showThumbs={false} infiniteLoop={true}>
                 <div style={{ height: "100%", width:"100%", color: "#fff" }}>
-                <img alt="" src="https://react-responsive-carousel.js.org/assets/1.jpeg" />
-                <p className="legend">Peanut</p>
+                <img alt="" src="/images/t2.jpg" />
+                <p className="legend">Baz #1</p>
                 </div>
                 <div style={{ height: "100%", color: "#fff" }}>
-                <img alt="" src="https://react-responsive-carousel.js.org/assets/2.jpeg" />
-                <p className="legend">Sammy</p>
+                <img alt="" src="/images/t3.jpg" />
+                <p className="legend">Bax #2</p>
                 </div>
                 <div style={{ height: "100%", color: "#fff" }}>
-                <img alt="" src="https://react-responsive-carousel.js.org/assets/3.jpeg" />
-                <p className="legend">The Jew</p>
-                </div>
-                <div style={{ height: "200100%px", color: "#fff" }}>
-                <img alt="" src="https://react-responsive-carousel.js.org/assets/4.jpeg" />
-                <p className="legend">Sly Guy</p>
-                </div>
-                <div style={{ height: "100%", color: "#fff" }}>
-                <img alt="" src="https://react-responsive-carousel.js.org/assets/5.jpeg" />
-                <p className="legend">Beefy</p>
-                </div>
-                <div style={{ height: "100%", color: "#fff" }}>
-                <img alt="" src="https://react-responsive-carousel.js.org/assets/6.jpeg" />
-                <p className="legend">Beefy</p>
+                <img alt="" src="/images/t6.jpg" />
+                <p className="legend">William</p>
                 </div>
                 
             </Carousel>
