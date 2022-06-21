@@ -13,6 +13,7 @@ function useDragAndDrop() {
 
             var newFileDisplay = fileDisplay.slice();    
             newFileDisplay.push("poop");   
+            
             this.setFileDisplay(newFileDisplay)
 
         }

@@ -44,7 +44,7 @@ const App = ({ signOut, user }) => {
 
             
             
-            <div><br/><small>v5.1</small><br/><br/></div>
+            <div><br/><small>v5.2</small><br/><br/></div>
 
         </div>
     ); 
