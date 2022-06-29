@@ -7,6 +7,7 @@ const RoutePaths = {
     PROFILE: '/p',
     CAROUSELS: '/carousels',
     DRAGANDDROP: '/draganddrop',
-    FIREBASE_TEST: '/firebase'
+    FIREBASE_TEST: '/firebase',
+    TAILWIND: '/tw'
 }
 export default RoutePaths

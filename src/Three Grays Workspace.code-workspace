@@ -9,5 +9,8 @@
         {
             "path": "../../ig_clone"
         }
-    ]
+    ],
+    "settings": {
+        "git.ignoreLimitWarning": true
+    }
 }

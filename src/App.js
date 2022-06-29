@@ -11,6 +11,7 @@ const Carousels = lazy(() => import ('./pages/carousels'));
 const Profile = lazy(() => import ('./pages/profile'));
 const DragAndDrop = lazy(() => import ('./pages/draganddrop'));
 const FIREBASE_TEST = lazy(() => import ('./pages/firebase-test'));
+const Tailwind = lazy(() => import ('./pages/tailwind'));
 
 const App = ({ signOut, user }) => {
 
@@ -37,6 +38,7 @@ const App = ({ signOut, user }) => {
                         <Route exact path={RoutePaths.CAROUSELS} element={<Carousels />} />
                         <Route exact path={RoutePaths.DRAGANDDROP} element={<DragAndDrop />} />
                         <Route exact path={RoutePaths.FIREBASE_TEST} element={<FIREBASE_TEST />} />
+                        <Route exact path={RoutePaths.TAILWIND} element={<Tailwind />} />
                         <Route path="*" element={<NotFound/>} />
                     </Routes>
                 </Suspense>
