@@ -12,6 +12,7 @@ const Profile = lazy(() => import ('./pages/profile'));
 const DragAndDrop = lazy(() => import ('./pages/draganddrop'));
 const FIREBASE_TEST = lazy(() => import ('./pages/firebase-test'));
 const Tailwind = lazy(() => import ('./pages/tailwind'));
+const William = lazy(() => import ('./pages/william'));
 
 const App = ({ signOut, user }) => {
 
@@ -27,8 +28,8 @@ const App = ({ signOut, user }) => {
     return (
         <div style={styles.appContainer}>
 
-            <h1>Three Grays</h1>
-            <h2>Hi {user.username}!</h2>
+            {/* <div class="text-xl text-center">Three Grays</div> */}
+            {/* <h2>Hi {user.username}!</h2> */}
             <Router>
                 <Suspense fallback={<p>Loading...</p>}>
                     <Routes>
@@ -39,6 +40,7 @@ const App = ({ signOut, user }) => {
                         <Route exact path={RoutePaths.DRAGANDDROP} element={<DragAndDrop />} />
                         <Route exact path={RoutePaths.FIREBASE_TEST} element={<FIREBASE_TEST />} />
                         <Route exact path={RoutePaths.TAILWIND} element={<Tailwind />} />
+                        <Route exact path={RoutePaths.WILLIAM} element={<William />} />
                         <Route path="*" element={<NotFound/>} />
                     </Routes>
                 </Suspense>
