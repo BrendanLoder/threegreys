@@ -259,6 +259,11 @@ export default function Tailwind() {
             <div class="w-32 h-32 bg-gray-200 border">row at sm:</div>
         </div>
 
+        <br></br>
+        <div class="border-8 md:border-double border-blue-800 md:border-green-800 lg:border-yellow-800 lg:rounded-lg md:rounded-full text-center text-black-800 text-xl">
+            <b>william</b>
+        </div>
+
 
 
 
