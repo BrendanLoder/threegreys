@@ -9,6 +9,7 @@ const RoutePaths = {
     DRAGANDDROP: '/draganddrop',
     FIREBASE_TEST: '/firebase',
     TAILWIND: '/tw',
+    TAILWIND_EXAMPLE: 'tw-ex',
     WILLIAM: '/william'
 }
 export default RoutePaths

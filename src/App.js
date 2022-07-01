@@ -12,6 +12,7 @@ const Profile = lazy(() => import ('./pages/profile'));
 const DragAndDrop = lazy(() => import ('./pages/draganddrop'));
 const FIREBASE_TEST = lazy(() => import ('./pages/firebase-test'));
 const Tailwind = lazy(() => import ('./pages/tailwind'));
+const Tailwind_Example = lazy(() => import ('./pages/tailwind_example'));
 const William = lazy(() => import ('./pages/william'));
 
 const App = ({ signOut, user }) => {
@@ -40,6 +41,7 @@ const App = ({ signOut, user }) => {
                         <Route exact path={RoutePaths.DRAGANDDROP} element={<DragAndDrop />} />
                         <Route exact path={RoutePaths.FIREBASE_TEST} element={<FIREBASE_TEST />} />
                         <Route exact path={RoutePaths.TAILWIND} element={<Tailwind />} />
+                        <Route exact path={RoutePaths.TAILWIND_EXAMPLE} element={<Tailwind_Example />} />
                         <Route exact path={RoutePaths.WILLIAM} element={<William />} />
                         <Route path="*" element={<NotFound/>} />
                     </Routes>
