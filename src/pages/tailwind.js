@@ -367,7 +367,13 @@ export default function Tailwind() {
             <button class="mt-2 px-3 py-2 bg-blue-900 text-blue-100 rounded-lg">Save</button>
         </div>
 
-        <b><br/>#31 - Challenge - employee card<br/><br/></b>
+        <b><br/>#31 - svg (using fill-current to change svg color to red)<br/><br/></b>
+
+        <div class="text-red-500">
+        <svg class="fill-current w-6 h-6" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/></svg>
+        </div>
+
+        <b><br/>#32 - Challenge - employee card<br/><br/></b>
 
         <div class="flex justify-center items-center w-100">
         <div class="w-75 flex flex-col bg-white shadow-lg rounded-lg overflow-hidden">
@@ -396,6 +402,7 @@ export default function Tailwind() {
                     </div>
                 </div>
         </div>
+        
     </div>
 
 
