@@ -14,6 +14,10 @@ const FIREBASE_TEST = lazy(() => import ('./pages/firebase-test'));
 const Tailwind = lazy(() => import ('./pages/tailwind'));
 const Tailwind_Example = lazy(() => import ('./pages/tailwind_example'));
 const William = lazy(() => import ('./pages/william'));
+const Social_Dashboard = lazy(() => import ('./pages/social/dashboard'));
+const Social_Signup = lazy(() => import ('./pages/social/signup'));
+const Social_Login = lazy(() => import ('./pages/social/login'));
+const Social_Profile = lazy(() => import ('./pages/social/profile'));
 
 const App = ({ signOut, user }) => {
 
@@ -40,9 +44,13 @@ const App = ({ signOut, user }) => {
                         <Route exact path={RoutePaths.CAROUSELS} element={<Carousels />} />
                         <Route exact path={RoutePaths.DRAGANDDROP} element={<DragAndDrop />} />
                         <Route exact path={RoutePaths.FIREBASE_TEST} element={<FIREBASE_TEST />} />
+                        <Route exact path={RoutePaths.WILLIAM} element={<William />} />
                         <Route exact path={RoutePaths.TAILWIND} element={<Tailwind />} />
                         <Route exact path={RoutePaths.TAILWIND_EXAMPLE} element={<Tailwind_Example />} />
-                        <Route exact path={RoutePaths.WILLIAM} element={<William />} />
+                        <Route exact path={RoutePaths.SOCIAL_DASHBOARD} element={<Social_Dashboard />} />
+                        <Route exact path={RoutePaths.SOCIAL_LOGIN} element={<Social_Login />} />
+                        <Route exact path={RoutePaths.SOCIAL_SIGN_UP} element={<Social_Signup />} />
+                        <Route exact path={RoutePaths.SOCIAL_PROFILE} element={<Social_Profile />} />
                         <Route path="*" element={<NotFound/>} />
                     </Routes>
                 </Suspense>
@@ -52,7 +60,7 @@ const App = ({ signOut, user }) => {
             
             <div class="absolute bottom-0 left-0 w-15 h-5 p-5">
                 <p class="text-xs text-teal-400">
-                    v6.2
+                    v7.0
                 </p>
             </div>
 
