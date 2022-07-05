@@ -52,7 +52,7 @@ const App = ({ signOut, user }) => {
             
             <div class="absolute bottom-0 left-0 w-15 h-5 p-5">
                 <p class="text-xs text-teal-400">
-                    v6.1
+                    v6.2
                 </p>
             </div>
 
