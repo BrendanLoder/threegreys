@@ -67,8 +67,10 @@ const App = ({ signOut, user }) => {
     return (
         <div style={styles.appContainer}>
 
-            {/* <div class="text-xl text-center">Three Grays</div> */}
-            {/* <h2>Hi {user.username}!</h2> */}
+            <div class="text-xl text-center">Three Grays</div>
+            <h2>Your User ID: {authUserId}</h2> 
+            <h2>Your Username: {authUsername}</h2>
+            <h2>Your Email: {authUserEmail}</h2> <br /><br />
             <UserContext.Provider value={ authUserData }>
                 <Router>
                     <Suspense fallback={<p>Loading...</p>}>
@@ -97,7 +99,7 @@ const App = ({ signOut, user }) => {
             
             <div class="absolute bottom-0 left-0 w-15 h-5 p-5">
                 <p class="text-xs text-teal-400">
-                    v7.1
+                    v7.2
                 </p>
             </div>
 
