@@ -21,7 +21,13 @@ const Social_Signup = lazy(() => import ('./pages/social/signup'));
 const Social_Login = lazy(() => import ('./pages/social/login'));
 const Social_Profile = lazy(() => import ('./pages/social/profile'));
 
-const App = ({ signOut, user }) => {
+const App = ({ signOut, user }) => {    
+
+    const [authUserData, setAuthUserData] = useState(null)
+    const [authUsername, setAuthUsername] = useState(null)
+    const [authUserId, setAuthUserId] = useState(null)
+    const [authUserEmail, setAuthUserEmail] = useState(null)
+    const [siteUser, setSiteUser] = useState({})
 
     useEffect(() => {
         const getAuthUser = async () => {
@@ -30,6 +36,12 @@ const App = ({ signOut, user }) => {
             setAuthUserId(data.id)
             setAuthUserEmail(data.attributes.email)
             setAuthUsername(data.username)
+
+            setSiteUser({
+                "authUserId": authUserId,
+                "email": data.attributes.email,
+                "username": data.username
+            })
         }
 
         try{
@@ -50,28 +62,24 @@ const App = ({ signOut, user }) => {
         appButton: { backgroundColor: 'black', color: 'white', outline: 'none', fontSize: 18, padding: '12px 0px' }
     }
 
-    
-
-    const [authUserData, setAuthUserData] = useState(null)
-    const [authUsername, setAuthUsername] = useState(null)
-    const [authUserId, setAuthUserId] = useState(null)
-    const [authUserEmail, setAuthUserEmail] = useState(null)
-
-    console.log("authUserData:", authUserData)
-    console.log("authUserId:", authUserId)
-    console.log("authUserEmail:", authUserEmail)
-    console.log("authUsername:", authUsername)
-
-    console.log("WHILE USER IN PAGE IS:", user)
-  
     return (
-        <div style={styles.appContainer}>
-
-            <div class="text-xl text-center">Three Grays</div>
-            <h2>Your User ID: {authUserId}</h2> 
-            <h2>Your Username: {authUsername}</h2>
-            <h2>Your Email: {authUserEmail}</h2> <br /><br />
-            <UserContext.Provider value={ authUserData }>
+        <div className="w-screen justify-center text-center p-0 m-auto">
+{/* <div class="max-w-4xl w-full"></div> */}
+            <div className="bg-gray-500 flex justify-center text-5xl w-screen font-bold text-white shadow-lg">
+                <div className="w-30 h-30 pt-3 pr-2">
+                    Three
+                </div>
+                <div className="w-30 h-30 py-1">
+                    <img src="/images/sly_face.jpg" class="w-20 h-20 rounded-full mx-auto" />
+                </div>
+                <div className="w-30 h-30 pt-3 pl-2">
+                    Grays
+                </div>
+            </div>
+            
+            <h2>Hi {siteUser.username}!</h2>
+            {/* <UserContext.Provider value={ authUserData }> */}
+            <UserContext.Provider value={ siteUser }>
                 <Router>
                     <Suspense fallback={<p>Loading...</p>}>
                         <Routes>
@@ -97,9 +105,9 @@ const App = ({ signOut, user }) => {
 
             
             
-            <div class="absolute bottom-0 left-0 w-15 h-5 p-5">
-                <p class="text-xs text-teal-400">
-                    v7.2
+            <div className="absolute bottom-0 left-0 w-15 h-5 p-5">
+                <p className="text-xs text-teal-400">
+                    v7.3
                 </p>
             </div>
 
