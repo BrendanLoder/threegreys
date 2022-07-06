@@ -61,13 +61,13 @@ const App = ({ signOut, user }) => {
         <div className="w-screen justify-center text-center p-0 m-auto h-screen">
 {/* <div class="max-w-4xl w-full"></div> */}
             <div className="bg-gray-500 flex justify-center text-5xl w-screen font-bold text-white border-b-2 border-gray-600 shadow-lg">
-                <div className="w-30 h-30 pt-4 pr-2">
+                <div className="w-30 h-30 pt-6 pr-2">
                     Three
                 </div>
-                <div className="w-20 h-20 shadow-lg rounded-full">
-                    <img src="/images/sly_face.jpg" class="w-20 h-20 rounded-full mx-auto shadow-lg border-2 border-gray-700" />
+                <div className="w-20 h-21 rounded-full">
+                    <img src="/images/sly_face.jpg" class="w-20 h-20 rounded-full mx-auto border-2 border-gray-700 my-2" />
                 </div>
-                <div className="w-30 h-30 pt-4 pl-2">
+                <div className="w-30 h-30 pt-6 pl-2">
                     Grays
                 </div>
             </div>
@@ -107,7 +107,7 @@ const App = ({ signOut, user }) => {
             
             <div className="absolute bottom-0 left-0 w-15 h-5 p-5">
                 <p className="text-xs text-teal-400">
-                    v7.6
+                    v7.7
                 </p>
             </div>
             </div>
