@@ -54,25 +54,20 @@ const App = ({ signOut, user }) => {
     }, [])
 
     const styles = {
-        appContainer: { width: 400, margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20 },
-        todo: {  marginBottom: 15 },
-        input: { border: 'none', backgroundColor: '#ddd', marginBottom: 10, padding: 8, fontSize: 18 },
-        todoName: { fontSize: 20, fontWeight: 'bold' },
-        todoDescription: { marginBottom: 0 },
-        appButton: { backgroundColor: 'black', color: 'white', outline: 'none', fontSize: 18, padding: '12px 0px' }
+        
     }
 
     return (
         <div className="w-screen justify-center text-center p-0 m-auto">
 {/* <div class="max-w-4xl w-full"></div> */}
             <div className="bg-gray-500 flex justify-center text-5xl w-screen font-bold text-white shadow-lg">
-                <div className="w-30 h-30 pt-3 pr-2">
+                <div className="w-30 h-30 pt-4 pr-2">
                     Three
                 </div>
                 <div className="w-30 h-30 py-1">
                     <img src="/images/sly_face.jpg" class="w-20 h-20 rounded-full mx-auto" />
                 </div>
-                <div className="w-30 h-30 pt-3 pl-2">
+                <div className="w-30 h-30 pt-4 pl-2">
                     Grays
                 </div>
             </div>
@@ -107,7 +102,7 @@ const App = ({ signOut, user }) => {
             
             <div className="absolute bottom-0 left-0 w-15 h-5 p-5">
                 <p className="text-xs text-teal-400">
-                    v7.3
+                    v7.4
                 </p>
             </div>
 
