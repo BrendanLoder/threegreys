@@ -58,20 +58,22 @@ const App = ({ signOut, user }) => {
     }
 
     return (
-        <div className="w-screen justify-center text-center p-0 m-auto">
+        <div className="w-screen justify-center text-center p-0 m-auto h-screen">
 {/* <div class="max-w-4xl w-full"></div> */}
-            <div className="bg-gray-500 flex justify-center text-5xl w-screen font-bold text-white shadow-lg">
+            <div className="bg-gray-500 flex justify-center text-5xl w-screen font-bold text-white border-b-2 border-gray-600 shadow-lg">
                 <div className="w-30 h-30 pt-4 pr-2">
                     Three
                 </div>
-                <div className="w-30 h-30 py-1">
-                    <img src="/images/sly_face.jpg" class="w-20 h-20 rounded-full mx-auto" />
+                <div className="w-20 h-20 shadow-lg rounded-full">
+                    <img src="/images/sly_face.jpg" class="w-20 h-20 rounded-full mx-auto shadow-lg border-2 border-gray-700" />
                 </div>
                 <div className="w-30 h-30 pt-4 pl-2">
                     Grays
                 </div>
             </div>
+
             
+            <div>
             <h2>Hi {siteUser.username}!</h2>
             {/* <UserContext.Provider value={ authUserData }> */}
             <UserContext.Provider value={ siteUser }>
@@ -97,13 +99,17 @@ const App = ({ signOut, user }) => {
                 </Router>
 
             </UserContext.Provider>
+                </div>
+            <div class="fixed inset-x-0 bottom-0 bg-gray-500 py-5 mt-12 w-full flex flex-col items-center border-t-2 border-gray-600 text-white shadow-lg">
+                Copyright © 2022
 
             
             
             <div className="absolute bottom-0 left-0 w-15 h-5 p-5">
                 <p className="text-xs text-teal-400">
-                    v7.4
+                    v7.6
                 </p>
+            </div>
             </div>
 
         </div>
