@@ -7,6 +7,7 @@ const RoutePaths = {
     FIREBASE_TEST: '/firebase',
     TAILWIND: '/tw',
     TAILWIND_EXAMPLE: '/tw-ex',
+    PLAYGROUND: '/playground',
     WILLIAM: '/william',
     SOCIAL_DASHBOARD: '/social',
     SOCIAL_LOGIN: '/social/login',
