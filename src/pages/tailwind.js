@@ -360,7 +360,7 @@ export default function Tailwind() {
 
         f) Sum of all<br/><br/>
 
-        <div class="flex flex-col justify-center items-center bg-gray-200 border border-1 rounded-lg p-10 shadow-lg">
+        <div class="flex flex-col justify-center items-center bg-gray-200 border border-1 p-10">
             <label for="full_name" class="text-gray-700 text-sm font-bold select-none">Full Name</label>
             <input id="full_name" placeholder="Enter your full name"
                 class="mt-2 shadow border rounded-lg w-4/6 px-3 py-2 text-gray-700 focus:bg-blue-100 placeholder-indigo-300" /> 

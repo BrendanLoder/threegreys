@@ -5,24 +5,27 @@ var Carousel = require('react-responsive-carousel').Carousel;
 
 function CarouselType2 () {
     return (
-        <div>
-            <h2>Type 2</h2>
-            <Carousel showThumbs={false} infiniteLoop={true}>
-                <div style={{ height: "100%", width:"100%", color: "#fff" }}>
-                    <img alt="" src="/images/t2.jpg" />
-                    <p className="legend">Baz #1</p>
-                </div>
-                <div style={{ height: "100%", color: "#fff" }}>
-                    <img alt="" src="/images/t3.jpg" />
-                    <p className="legend">Bax #2</p>
-                </div>
-                <div style={{ height: "100%", color: "#fff" }}>
-                    <img alt="" src="/images/t6.jpg" />
-                    <p className="legend">William</p>
-                </div>
-                
-            </Carousel>
+
+        <div class="flex flex-col bg-red-400 shadow-lg h-full pt-5 px-5 pb-1">
+            <div className="w-screen justify-center text-center p-0 m-auto max-w-xl">
+                <Carousel showThumbs={false} infiniteLoop={true}>
+                    <div style={{ width:"100%", color: "#fff" }}>
+                        <img alt="" src="/images/t2.jpg" />
+                        <p className="legend">Baz #1</p>
+                    </div>
+                    <div style={{ color: "#fff" }}>
+                        <img alt="" src="/images/t3.jpg" />
+                        <p className="legend">Bax #2</p>
+                    </div>
+                    <div style={{ color: "#fff" }}>
+                        <img alt="" src="/images/t6.jpg" />
+                        <p className="legend">William</p>
+                    </div>
+                    
+                </Carousel>
+            </div>
         </div>
+        
     )
 }
 

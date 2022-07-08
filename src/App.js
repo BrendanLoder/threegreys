@@ -56,16 +56,12 @@ const App = ({ signOut, user }) => {
         
     }, [])
 
-    const styles = {
-        
-    }
-
     return (
-        <div className="w-screen justify-center text-center p-0 m-auto h-screen bg-gray-200 max-w-7xl">
+        <div className="w-screen justify-center text-center p-0 m-auto max-w-7xl">
             <SiteHeader />
 
             
-            <div>
+            <div className="px-1">
                 {/* <h2>Hi {siteUser.username}!</h2> */}
                 <UserContext.Provider value={ siteUser }>
                     <Router>

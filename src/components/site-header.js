@@ -1,6 +1,6 @@
 export default function SiteHeader() {
     return (
-        <div className="bg-gray-500 flex justify-center text-5xl w-full font-bold text-white border-b-2 border-gray-600 relative">
+        <div className="bg-gray-500 flex justify-center text-5xl w-full font-bold text-white border-b-2 border-gray-600 relative mb-1">
             
             <div class="p-3 font-serif text-2xl border border-1 m-2 font-semibold">
             Three Grays
