@@ -4,7 +4,7 @@ import CarouselType2 from "../components/carousel-type-2"
 
 function Carousels() {
     return (
-        <div className="bg-yellow-300">
+        <div className="">
             <CarouselType2 />
         </div>
     )
