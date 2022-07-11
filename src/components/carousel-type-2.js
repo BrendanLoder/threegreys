@@ -7,7 +7,7 @@ function CarouselType2 () {
     return (
 
         <div class="pt-5 px-5 pb-1 content-center justify-center text-center">
-            <div className="w-screen justify-center text-center p-0 m-auto max-w-xl">
+            <div className="justify-center text-center p-0 m-auto">
                 <Carousel showThumbs={true} infiniteLoop={true}>
                     <div style={{ color: "#fff" }}>
                         <img alt="" src="/images/alice_1.jpg" class="m-auto"/>

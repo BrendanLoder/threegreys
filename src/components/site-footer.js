@@ -1,7 +1,7 @@
 export default function SiteFooter() {
     return (
 
-        <div class="bg-gray-500 py-5 px-10 mt-2 w-full flex flex-col items-center border-t-2 border-gray-600 text-white relative z-0">
+        <div class="bg-gray-500 py-5 px-10 mt-2 w-full items-center text-center border-t-2 border-b-2 border-gray-600 text-white relative z-0 mb-1">
 
             Copyright © 2022<br/>
 

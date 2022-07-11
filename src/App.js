@@ -57,7 +57,7 @@ const App = ({ signOut, user }) => {
     }, [])
 
     return (
-        <div className="w-screen  max-w-7xl bg-gray-200">
+        <div className="max-w-7xl bg-gray-200">
             <SiteHeader />
 
             

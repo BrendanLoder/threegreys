@@ -264,7 +264,7 @@ export default function Tailwind() {
             <div class="w-32 h-32 bg-gray-200 border">row at sm:</div>
         </div>
         
-        <b><br/>#31 - hover modifier (start with "hover:")<br/><br/></b>
+        <b><br/>#31 -  modifier (start with "hover:")<br/><br/></b>
 
         <i>These classes work:</i><br/><br/>
         <div class="text-sm">
