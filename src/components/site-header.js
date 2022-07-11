@@ -15,9 +15,9 @@ export default function SiteHeader() {
                             
                         </button>
                         <ul class="dropdown-menu absolute hidden text-gray-700 pt-1 right-0 w-40 text-sm">
-                            <li class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block" href="#">One</a></li>
-                            <li class=""><a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block" href="#">Two</a></li>
-                            <li class=""><a class="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block" href="#">Three  z x c v b n m a s d f g h j k l</a></li>
+                            <li class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block" href="/tw">Tailwind</a></li>
+                            <li class=""><a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block" href="/tw-ex">Tailwind Example</a></li>
+                            <li class=""><a class="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block" href="/carousels">Carousels</a></li>
                         </ul>
                     </div>
 
