@@ -10,6 +10,10 @@ function CarouselType2 () {
             <div className="w-screen justify-center text-center p-0 m-auto max-w-xl">
                 <Carousel showThumbs={true} infiniteLoop={true}>
                     <div style={{ color: "#fff" }}>
+                        <img alt="" src="/images/alice_1.jpg" class="m-auto"/>
+                        <p className="legend">Alice</p>
+                    </div>
+                    <div style={{ color: "#fff" }}>
                         <img alt="" src="/images/t2.jpg" />
                         <p className="legend">Baz #1</p>
                     </div>
