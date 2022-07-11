@@ -6,7 +6,7 @@ export default function Dashboard() {
     const user = useContext(UserContext)
     return (
         <>
-            Dashboard for {user.username}
+           Social Dashboard for {user.username}
         </>
     )
 }
