@@ -57,11 +57,11 @@ const App = ({ signOut, user }) => {
     }, [])
 
     return (
-        <div className="w-screen justify-center text-center p-0 m-auto max-w-7xl">
+        <div className="w-screen  max-w-7xl  bg-green-300">
             <SiteHeader />
 
             
-            <div className="px-1">
+            <div className="bg-pink-300">
                 {/* <h2>Hi {siteUser.username}!</h2> */}
                 <UserContext.Provider value={ siteUser }>
                     <Router>

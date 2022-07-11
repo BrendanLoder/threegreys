@@ -6,8 +6,8 @@ var Carousel = require('react-responsive-carousel').Carousel;
 function CarouselType2 () {
     return (
 
-        <div class="flex flex-col h-full pt-5 px-5 pb-1">
-            <div className="w-screen justify-center text-center p-0 m-auto max-w-xl">
+        <div class="flex flex-col h-full pt-5 px-5 pb-1 content-center justify-center text-center bg-blue-300">
+            <div className="w-screen justify-center text-center p-0 m-auto max-w-xl bg-green-300">
                 <Carousel showThumbs={false} infiniteLoop={true}>
                     <div style={{ width:"100%", color: "#fff" }}>
                         <img alt="" src="/images/t2.jpg" />
