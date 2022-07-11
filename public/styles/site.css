@@ -15,4 +15,5 @@
 
 .dropdown:hover .dropdown-menu {
     display: block;
+    width: 80;
   }

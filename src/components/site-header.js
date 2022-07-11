@@ -1,6 +1,6 @@
 export default function SiteHeader() {
     return (
-        <div className="bg-gray-500 flex justify-center text-5xl w-full font-bold text-white border-b-2 border-gray-600 relative">
+        <div className="bg-gray-500 flex justify-center text-5xl w-full text-white border-b-2 border-gray-600 relative">
                 <div class="p-3 font-serif text-2xl border border-1 m-2 font-semibold">
                     Three Grays
                 </div>
@@ -9,17 +9,17 @@ export default function SiteHeader() {
 
 
                 
-<div class="dropdown inline-block relative">
-  <button class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
-  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/></svg>
-    
-  </button>
-  <ul class="dropdown-menu absolute hidden text-gray-700 pt-1 pr-4">
-    <li class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">One</a></li>
-    <li class=""><a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">Two</a></li>
-    <li class=""><a class="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">Three is the magic number</a></li>
-  </ul>
-</div>
+                    <div class="dropdown inline-block relative w-50">
+                        <button class="bg-gray-300 text-gray-700 py-2 px-4 rounded inline-flex items-center">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/></svg>
+                            
+                        </button>
+                        <ul class="dropdown-menu absolute hidden text-gray-700 pt-1 right-0 w-40 text-sm">
+                            <li class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block" href="#">One</a></li>
+                            <li class=""><a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block" href="#">Two</a></li>
+                            <li class=""><a class="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block" href="#">Three  z x c v b n m a s d f g h j k l</a></li>
+                        </ul>
+                    </div>
 
 
                     
