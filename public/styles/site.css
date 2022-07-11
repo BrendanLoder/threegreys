@@ -12,3 +12,7 @@
 .bgred {
     background-color: red;
 } */
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+  }
