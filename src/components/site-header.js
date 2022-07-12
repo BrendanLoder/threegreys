@@ -1,6 +1,6 @@
 export default function SiteHeader() {
     return (
-        <div className="bg-gray-500 flex justify-center text-5xl w-full text-white border-b-2 border-gray-600 relative">
+        <div className="bg-gray-500 flex justify-center text-5xl text-white border-b-2 border-gray-600 relative">
                 <div class="p-3 font-serif text-2xl border border-1 m-2 font-semibold">
                     Three Grays
                 </div>
@@ -16,6 +16,12 @@ export default function SiteHeader() {
                             <li class=""><a class="rounded-t bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/tw">Tailwind</a></li>
                             <li class=""><a class="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/tw-ex">Tailwind Example</a></li>
                             <li class=""><a class="rounded-b bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/carousels">Carousels</a></li>
+                            <li class=""><a class="rounded-t bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/login">Login (non-social)</a></li>
+                            <li class=""><a class="rounded-t bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/p">Profile (non-social)</a></li>
+                            <li class=""><a class="rounded-t bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/draganddrop">Drag and Drop</a></li>
+                            <li class=""><a class="rounded-t bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/firebase">Base test</a></li>
+                            <li class=""><a class="rounded-t bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/william">William</a></li>
+                            <li class=""><a class="rounded-t bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/playground">Playground</a></li>
                         </ul>
                     </div>
 

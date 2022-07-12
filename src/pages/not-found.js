@@ -1,7 +1,7 @@
 function NotFound() {
     return (
-        <div>
-            This is the not found.js
+        <div className="p-5">
+            PAGE NOT FOUND
         </div>
     )
 }

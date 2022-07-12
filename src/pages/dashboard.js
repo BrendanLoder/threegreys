@@ -1,7 +1,7 @@
 function Dashboard() {
     return (
-        <div>
-            This is the dashboard.js
+        <div className="p-5">
+            Dashboard
         </div>
     )
 }

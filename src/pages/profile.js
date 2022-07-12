@@ -1,7 +1,7 @@
 function Profile({user}) {
     return (
-        <div>
-            This is profile.js<br/><br/>
+        <div className="p-5">
+            Profile<br/><br/>
             User is: {user.username}<br/><br/>
         </div>
     )

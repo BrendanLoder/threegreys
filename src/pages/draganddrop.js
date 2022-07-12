@@ -5,7 +5,7 @@ function DragAndDrop() {
     const test = useDragAndDrop()
 
     return (
-        <div>
+        <div className="p-5\">
             {test}  
         </div>
     )

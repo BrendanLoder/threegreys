@@ -5,7 +5,8 @@ var Carousel = require('react-responsive-carousel').Carousel;
 
 function CarouselType2 () {
     return (
-
+        
+        // NOT USED ANYMORE!!!!
         <div class="pt-5 px-5 pb-1 content-center justify-center text-center">
             <div className="justify-center text-center p-0 m-auto">
                 <Carousel showThumbs={true} infiniteLoop={true}>

@@ -57,15 +57,15 @@ const App = ({ signOut, user }) => {
     }, [])
 
     return (
-        <div className="max-w-7xl bg-gray-200">
+        <div className="max-w-7xl m-auto bg-gray-200">
             <SiteHeader />
 
             
-            <div className="">
+            <div>
                 {/* <h2>Hi {siteUser.username}!</h2> */}
                 <UserContext.Provider value={ siteUser }>
                     <Router>
-                        <Suspense fallback={<p>Loading...</p>}>
+                        <Suspense fallback={<p className="text-center">Loading...</p>}>
                             <Routes>
                                 <Route path={RoutePaths.LOGIN} element={<Login />} />
                                 <Route path={RoutePaths.PROFILE} element={<Profile user={user} />} />

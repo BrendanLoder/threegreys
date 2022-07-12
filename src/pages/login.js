@@ -1,6 +1,6 @@
 export default function Login() {
     return (
-        <div>
+        <div className="p-5">
             This is the login.js
         </div>
     )
