@@ -1,7 +1,7 @@
 function Dashboard() {
     return (
         <div className="p-5">
-            Dashboard
+            <p>Dashboard </p>
         </div>
     )
 }

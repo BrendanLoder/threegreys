@@ -2,11 +2,16 @@ import useDragAndDrop from "../hooks/useDragAndDrop"
 
 function DragAndDrop() {
 
-    const test = useDragAndDrop()
+    const drop = useDragAndDrop()
 
     return (
-        <div className="p-5\">
-            {test}  
+        <div className="p-5">
+
+            <div>
+                {drop}
+            </div>
+              
+
         </div>
     )
 }

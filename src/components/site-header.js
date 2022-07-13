@@ -1,9 +1,11 @@
 export default function SiteHeader() {
     return (
         <div className="bg-gray-500 flex justify-center text-5xl text-white border-b-2 border-gray-600 relative">
-                <div class="p-3 font-serif text-2xl border border-1 m-2 font-semibold">
-                    Three Grays
-                </div>
+                <a href="/">
+                    <div class="p-3 font-serif text-2xl border border-1 m-2 font-semibold">
+                        Three Grays
+                    </div>
+                </a>
 
                 <div className="absolute top-5 right-5 z-40 font-serif text-sm">
                 
@@ -12,16 +14,16 @@ export default function SiteHeader() {
                             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/></svg>
                             
                         </button>
-                        <ul class="dropdown-menu absolute hidden text-gray-700 pt-1 right-0 w-40 text-sm">
-                            <li class=""><a class="rounded-t bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/tw">Tailwind</a></li>
+                        <ul class="dropdown-menu absolute hidden text-gray-700 right-0 w-40 text-sm pt-1">
+                            <li class=""><a class="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/tw">Tailwind</a></li>
                             <li class=""><a class="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/tw-ex">Tailwind Example</a></li>
-                            <li class=""><a class="rounded-b bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/carousels">Carousels</a></li>
-                            <li class=""><a class="rounded-t bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/login">Login (non-social)</a></li>
-                            <li class=""><a class="rounded-t bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/p">Profile (non-social)</a></li>
-                            <li class=""><a class="rounded-t bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/draganddrop">Drag and Drop</a></li>
-                            <li class=""><a class="rounded-t bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/firebase">Base test</a></li>
-                            <li class=""><a class="rounded-t bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/william">William</a></li>
-                            <li class=""><a class="rounded-t bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/playground">Playground</a></li>
+                            <li class=""><a class="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/carousels">Carousels</a></li>
+                            <li class=""><a class="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/login">Login (non-social)</a></li>
+                            <li class=""><a class="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/p">Profile (non-social)</a></li>
+                            <li class=""><a class="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/draganddrop">Drag and Drop</a></li>
+                            <li class=""><a class="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/firebase">Base test</a></li>
+                            <li class=""><a class="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/william">William</a></li>
+                            <li class=""><a class="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/playground">Playground</a></li>
                         </ul>
                     </div>
 

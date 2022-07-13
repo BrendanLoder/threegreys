@@ -1,12 +1,13 @@
 import {withAuthenticator } from '@aws-amplify/ui-react';
 import {Auth} from 'aws-amplify'
 import '@aws-amplify/ui-react/styles.css';
-import { lazy, Suspense, useState, useEffect } from 'react'
+import { lazy, Suspense, useState, useEffect, CSSProperties } from 'react'
 import {Route, Routes, BrowserRouter as Router} from "react-router-dom"
 import RoutePaths from './constants/routes'
 import UserContext from './context/user'
 import SiteHeader from './components/site-header'
 import SiteFooter from './components/site-footer'
+import RingLoader from "react-spinners/RingLoader";
 
 const Dashboard = lazy(() => import ('./pages/dashboard'));
 const Login = lazy(() => import ('./pages/login'));
@@ -57,15 +58,16 @@ const App = ({ signOut, user }) => {
     }, [])
 
     return (
-        <div className="max-w-7xl m-auto bg-gray-200">
+        <div className="w-screen p-0 m-auto bg-gray-200 max-w-7xl">
             <SiteHeader />
 
             
             <div>
                 {/* <h2>Hi {siteUser.username}!</h2> */}
+                
                 <UserContext.Provider value={ siteUser }>
                     <Router>
-                        <Suspense fallback={<p className="text-center">Loading...</p>}>
+                        <Suspense fallback={<div className="w-full text-center p-2"><RingLoader color="gray" loading={true} cssOverride={{margin: "0 auto"}} size={40} /></div>}>
                             <Routes>
                                 <Route path={RoutePaths.LOGIN} element={<Login />} />
                                 <Route path={RoutePaths.PROFILE} element={<Profile user={user} />} />
