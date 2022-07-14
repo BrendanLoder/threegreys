@@ -1,13 +1,13 @@
 export default function SiteFooter() {
     return (
 
-        <div class="bg-gray-500 py-5 px-10 w-full items-center text-center border-t-2 border-b-2 border-gray-600 text-white relative z-0 mb-1">
+        <div class="bg-gray-500 py-5 px-10 w-full items-center text-center border-t-2 border-b-2 border-gray-600 text-white relative z-0">
 
-            Copyright © 2022<br/>
+            2022 Three Grays Inc.<br/>
 
             <div className="absolute bottom-0 left-0 w-15 h-5 p-5">
                 <p className="text-xs text-teal-400">
-                    v7.10.1
+                    v7.10.2
                 </p>
             </div>
             
