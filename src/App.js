@@ -20,10 +20,10 @@ const Tailwind = lazy(() => import ('./pages/tailwind'));
 const Tailwind_Example = lazy(() => import ('./pages/tailwind_example'));
 const Playground = lazy(() => import ('./pages/playground'));
 const William = lazy(() => import ('./pages/william'));
-const Social_Dashboard = lazy(() => import ('./pages/social/dashboard'));
-const Social_Signup = lazy(() => import ('./pages/social/signup'));
-const Social_Login = lazy(() => import ('./pages/social/login'));
-const Social_Profile = lazy(() => import ('./pages/social/profile'));
+const Social_Dashboard = lazy(() => import ('./social/pages/dashboard'));
+const Social_Signup = lazy(() => import ('./social/pages/signup'));
+const Social_Login = lazy(() => import ('./social/pages/login'));
+const Social_Profile = lazy(() => import ('./social/pages/profile'));
 
 const App = ({ signOut, user }) => {    
 
