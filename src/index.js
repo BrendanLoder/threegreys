@@ -1,5 +1,5 @@
 import React from 'react';
-import {firebase, db} from './lib/firebase';
+import { db } from './lib/firebase';
 import FirebaseContext from './context/firebase';
 import ReactDOM from 'react-dom/client';
 import './index.css';
@@ -12,7 +12,7 @@ Amplify.configure(config);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <FirebaseContext.Provider value={{firebase, db}}>
+        <FirebaseContext.Provider value={{ db }}>
             <App />
         </FirebaseContext.Provider>
     </React.StrictMode>

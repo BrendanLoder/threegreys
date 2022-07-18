@@ -7,7 +7,7 @@ function Carousels() {
             <div className="justify-center text-center p-0 m-auto">
                 <Carousel showThumbs={true} infiniteLoop={true}>
                     <div style={{ color: "#fff" }}>
-                        <img alt="" src="/images/alice_1.jpg" class="m-auto"/>
+                        <img alt="" src="/images/alice_1.jpg" className="m-auto"/>
                         <p className="legend">Alice</p>
                     </div>
                     <div style={{ color: "#fff" }}>

@@ -63,7 +63,7 @@ const App = ({ signOut, user }) => {
 
             
             <div>
-                {/* <h2>Hi {siteUser.username}!</h2> */}
+                {/* <h2>Hi {siteUser.username}!</h2>  */}
                 
                 <UserContext.Provider value={ siteUser }>
                     <Router>

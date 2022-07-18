@@ -1,6 +1,6 @@
 import {useEffect, useState, useContext} from "react"
-import { collection, getDocs } from 'firebase/firestore/lite';
 import FirebaseContext from '../context/firebase'
+import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 
 function Firebase_Test() {
 
@@ -8,10 +8,12 @@ function Firebase_Test() {
     const { db } = useContext(FirebaseContext);
 
     async function getCats() {
-        const catsCol = collection(db, 'cats');
-        const catSnapshot = await getDocs(catsCol);
-        const catList = catSnapshot.docs.map(doc => doc.data());
-        setCats(catList);
+        const catsCollection = collection(db, 'cats');
+        const catsSnapshot = await getDocs(catsCollection);
+        const catsList = catsSnapshot.docs.map(doc => doc.data());
+        console.log('list is', catsList)
+        setCats(catsList)
+        return catsList;
     }
 
     useEffect(() => {

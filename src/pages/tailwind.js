@@ -429,7 +429,7 @@ export default function Tailwind() {
         <div className="text-sm font-bold font-italic">f) Sum of all</div>
 
             <div className="flex flex-col justify-center items-center bg-gray-200 border border-1 p-10">
-                <label for="full_name" className="text-gray-700 text-sm font-bold select-none">Full Name</label>
+                <label htmlFor="full_name" className="text-gray-700 text-sm font-bold select-none">Full Name</label>
                 <input id="full_name" placeholder="Enter your full name"
                     className="mt-2 shadow border rounded-lg w-4/6 px-3 py-2 text-gray-700 focus:bg-blue-100 placeholder-indigo-300" /> 
                 <button className="mt-2 px-3 py-2 bg-blue-900 text-blue-100 rounded-lg">Save</button>
@@ -439,7 +439,7 @@ export default function Tailwind() {
         <p className="text-2xl py-5 font-bold underline">#35 - svg (using fill-current to change svg color to red)</p>
 
             <div className="text-red-500">
-            <svg className="fill-current w-6 h-6" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/></svg>
+            <svg className="fill-current w-6 h-6" viewBox="0 0 24 24"><path fillRule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/></svg>
             </div>
 
             <p className="text-2xl py-5 font-bold underline">#36 - Challenge - employee card</p>
