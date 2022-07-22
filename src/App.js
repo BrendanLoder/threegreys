@@ -9,6 +9,11 @@ import SiteHeader from './components/site-header'
 import SiteFooter from './components/site-footer'
 import RingLoader from "react-spinners/RingLoader";
 
+import FirebaseUserContext from './context/firebaseUser';
+import useFirebaseAuthListener from './hooks/use-firebase-auth-listener';
+import { firebase, db, firebaseAuth, onAuthStateChanged } from './lib/firebase'
+import FirebaseContext from './context/firebase';
+
 const Dashboard = lazy(() => import ('./pages/dashboard'));
 const Login = lazy(() => import ('./pages/login'));
 const NotFound = lazy(() => import ('./pages/not-found'));
@@ -26,6 +31,9 @@ const Social_Login = lazy(() => import ('./social/pages/login'));
 const Social_Profile = lazy(() => import ('./social/pages/profile'));
 
 const App = ({ signOut, user }) => {    
+
+    
+    const { firebaseUser } = useFirebaseAuthListener();
 
     const [authUserData, setAuthUserData] = useState(null)
     const [authUsername, setAuthUsername] = useState(null)
@@ -56,37 +64,41 @@ const App = ({ signOut, user }) => {
         }
         
     }, [])
-
+    
     return (
         <div className="w-screen p-0 m-auto bg-gray-200 max-w-7xl">
             <SiteHeader />
 
             
             <div>
-                {/* <h2>Hi {siteUser.username}!</h2>  */}
-                
+                <h2>Hi {siteUser.username}!</h2> 
                 <UserContext.Provider value={ siteUser }>
-                    <Router>
-                        <Suspense fallback={<div className="w-full text-center p-2"><RingLoader color="gray" loading={true} cssOverride={{margin: "0 auto"}} size={40} /></div>}>
-                            <Routes>
-                                <Route path={RoutePaths.LOGIN} element={<Login />} />
-                                <Route path={RoutePaths.PROFILE} element={<Profile user={user} />} />
-                                <Route exact path={RoutePaths.DASHBOARD} element={<Dashboard />} />
-                                <Route exact path={RoutePaths.CAROUSELS} element={<Carousels />} />
-                                <Route exact path={RoutePaths.DRAGANDDROP} element={<DragAndDrop />} />
-                                <Route exact path={RoutePaths.FIREBASE_TEST} element={<FIREBASE_TEST />} />
-                                <Route exact path={RoutePaths.WILLIAM} element={<William />} />
-                                <Route exact path={RoutePaths.TAILWIND} element={<Tailwind />} />
-                                <Route exact path={RoutePaths.TAILWIND_EXAMPLE} element={<Tailwind_Example />} />
-                                <Route exact path={RoutePaths.PLAYGROUND} element={<Playground />} />
-                                <Route exact path={RoutePaths.SOCIAL_DASHBOARD} element={<Social_Dashboard />} />
-                                <Route exact path={RoutePaths.SOCIAL_LOGIN} element={<Social_Login />} />
-                                <Route exact path={RoutePaths.SOCIAL_SIGN_UP} element={<Social_Signup />} />
-                                <Route exact path={RoutePaths.SOCIAL_PROFILE} element={<Social_Profile />} />
-                                <Route path="*" element={<NotFound/>} />
-                            </Routes>
-                        </Suspense>
-                    </Router>
+
+                    <FirebaseContext.Provider value={{ firebase, db, firebaseAuth, onAuthStateChanged }}>
+
+                        <Router>
+                            <Suspense fallback={<div className="w-full text-center p-2"><RingLoader color="gray" loading={true} cssOverride={{margin: "0 auto"}} size={40} /></div>}>
+                                <Routes>
+                                    <Route path={RoutePaths.LOGIN} element={<Login />} />
+                                    <Route path={RoutePaths.PROFILE} element={<Profile user={user} />} />
+                                    <Route exact path={RoutePaths.DASHBOARD} element={<Dashboard />} />
+                                    <Route exact path={RoutePaths.CAROUSELS} element={<Carousels />} />
+                                    <Route exact path={RoutePaths.DRAGANDDROP} element={<DragAndDrop />} />
+                                    <Route exact path={RoutePaths.FIREBASE_TEST} element={<FIREBASE_TEST />} />
+                                    <Route exact path={RoutePaths.WILLIAM} element={<William />} />
+                                    <Route exact path={RoutePaths.TAILWIND} element={<Tailwind />} />
+                                    <Route exact path={RoutePaths.TAILWIND_EXAMPLE} element={<Tailwind_Example />} />
+                                    <Route exact path={RoutePaths.PLAYGROUND} element={<Playground />} />
+                                    <Route exact path={RoutePaths.SOCIAL_DASHBOARD} element={<Social_Dashboard />} />
+                                    <Route exact path={RoutePaths.SOCIAL_LOGIN} element={<Social_Login />} />
+                                    <Route exact path={RoutePaths.SOCIAL_SIGN_UP} element={<Social_Signup />} />
+                                    <Route exact path={RoutePaths.SOCIAL_PROFILE} element={<Social_Profile />} />
+                                    <Route path="*" element={<NotFound/>} />
+                                </Routes>
+                            </Suspense>
+                        </Router>
+
+                    </FirebaseContext.Provider> 
 
                 </UserContext.Provider>
             </div>

@@ -24,6 +24,11 @@ export default function SiteHeader() {
                             <li className=""><a className="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/firebase">Base test</a></li>
                             <li className=""><a className="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/william">William</a></li>
                             <li className=""><a className="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/playground">Playground</a></li>
+
+
+                            <li className=""><a className="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/social">Social Dashboard</a></li>
+                            <li className=""><a className="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/social/login">Social Login</a></li>
+                            <li className=""><a className="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/social/signup">Social Signup</a></li>
                         </ul>
                     </div>
 

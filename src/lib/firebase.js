@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore/lite';
-
+import { getFirestore } from 'firebase/firestore';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+// console.log('sure working')
 // import { seedDatabase } from './seed'
 
 const firebaseConfig = {
@@ -12,9 +13,10 @@ const firebaseConfig = {
     appId: "1:32475921296:web:3bdf10bb9e5dc4cb119115"
   };
   
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const firebase = initializeApp(firebaseConfig);
+const db = getFirestore(firebase);
+const firebaseAuth = getAuth();
 
 // seedDatabase(firebase)
 
-export {db}
+export {firebase, db, firebaseAuth, onAuthStateChanged}
