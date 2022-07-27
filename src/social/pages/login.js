@@ -41,7 +41,7 @@ export default function Login() {
 
     return (
         <div>
-            <div className="container flex mx-auto max-w-screen-md items-center h-screen">
+            {/* <div className="container flex mx-auto max-w-screen-md items-center h-screen">
                 <div className="flex w-3/5">
                     <img src="/images/iphone-with-profile.jpg" alt="iPhone with Instagram app" />
                 </div>
@@ -88,7 +88,7 @@ export default function Login() {
                         </p>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }

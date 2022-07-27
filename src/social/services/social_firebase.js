@@ -1,4 +1,30 @@
 import {firebase, db} from '../../lib/firebase'
+import { getFirestore, collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore'
+
+export async function testFunction() {
+    console.log('yay in social firebase!!')
+}
+
+export async function getAllUsers() {
+    const userCollection = collection(db, 'social-users');
+    const querySnapshot = await getDocs(userCollection);
+    
+    const userList = querySnapshot.docs.map(doc => doc.data());
+    return userList;
+}
+
+export async function doesUsernameExist(username) {
+    let userExists = false
+
+    const q = query(collection(db, "social-users"), where("username", "==", username));
+    const querySnapshot = await getDocs(q);
+    
+    if (!querySnapshot.empty) {
+        userExists = true
+    }
+    
+    return userExists
+}       
 
 // export async function isUserFollowingProfile(activeUsername, profileUserId) {
 //     const result = await firebase
