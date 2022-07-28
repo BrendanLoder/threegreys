@@ -11,8 +11,6 @@ import RingLoader from "react-spinners/RingLoader";
 
 import FirebaseUserContext from './context/firebaseUser';
 import useFirebaseAuthListener from './hooks/use-firebase-auth-listener';
-import { firebase, db, firebaseAuth, onAuthStateChanged } from './lib/firebase'
-import FirebaseContext from './context/firebase';
 
 const Dashboard = lazy(() => import ('./pages/dashboard'));
 const Login = lazy(() => import ('./pages/login'));
@@ -32,50 +30,49 @@ const Social_Profile = lazy(() => import ('./social/pages/profile'));
 
 const App = ({ signOut, user }) => {    
 
-    const { firebaseUser } = useFirebaseAuthListener();
+    const { firebaseAuthUser } = useFirebaseAuthListener();
 
+    // console.log('in app.js firebaseAuthUser is:', firebaseAuthUser)
     const [authUserData, setAuthUserData] = useState(null)
     const [authUsername, setAuthUsername] = useState(null)
     const [authUserId, setAuthUserId] = useState(null)
     const [authUserEmail, setAuthUserEmail] = useState(null)
     const [siteUser, setSiteUser] = useState({})
 
-    useEffect(() => {
-        const getAuthUser = async () => {
-            const data = await Auth.currentUserInfo()
-            setAuthUserData(data)
-            setAuthUserId(data.id)
-            setAuthUserEmail(data.attributes.email)
-            setAuthUsername(data.username)
+    // useEffect(() => {
+    //     const getAuthUser = async () => {
+    //         const data = await Auth.currentUserInfo()
+    //         setAuthUserData(data)
+    //         setAuthUserId(data.id)
+    //         setAuthUserEmail(data.attributes.email)
+    //         setAuthUsername(data.username)
 
-            setSiteUser({
-                "authUserId": authUserId,
-                "email": data.attributes.email,
-                "username": data.username
-            })
-        }
+    //         setSiteUser({
+    //             "authUserId": authUserId,
+    //             "email": data.attributes.email,
+    //             "username": data.username
+    //         })
+    //     }
 
-        try{
-            getAuthUser()
-        }
-        catch(err) {
-            console.log('getAuthenticatedUser error', err)
-        }
+    //     try{
+    //         getAuthUser()
+    //     }
+    //     catch(err) {
+    //         console.log('getAuthenticatedUser error', err)
+    //     }
         
-    }, [])
+    // }, [])
     
     return (
         <div className="w-screen p-0 m-auto bg-gray-200 max-w-7xl">
+            
             <SiteHeader />
-
             
             <div>
                 {/* <h2>Hi {siteUser.username}!</h2>  */}
                 <UserContext.Provider value={ siteUser }>
 
-                    <FirebaseContext.Provider value={{ firebase, db, firebaseAuth, onAuthStateChanged }}>
-
-                        {/* <FirebaseUserContext.Provider value={firebaseUser}> */}
+                        <FirebaseUserContext.Provider value={firebaseAuthUser}>
 
                             <Router>
                                 <Suspense fallback={<div className="w-full text-center p-2"><RingLoader color="gray" loading={true} cssOverride={{margin: "0 auto"}} size={40} /></div>}>
@@ -99,9 +96,7 @@ const App = ({ signOut, user }) => {
                                 </Suspense>
                             </Router>
 
-                        {/* </FirebaseUserContext.Provider> */}
-
-                    </FirebaseContext.Provider> 
+                        </FirebaseUserContext.Provider>
 
                 </UserContext.Provider>
             </div>
