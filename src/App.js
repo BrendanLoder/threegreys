@@ -75,27 +75,31 @@ const App = ({ signOut, user }) => {
 
                     <FirebaseContext.Provider value={{ firebase, db, firebaseAuth, onAuthStateChanged }}>
 
-                        <Router>
-                            <Suspense fallback={<div className="w-full text-center p-2"><RingLoader color="gray" loading={true} cssOverride={{margin: "0 auto"}} size={40} /></div>}>
-                                <Routes>
-                                    <Route path={RoutePaths.LOGIN} element={<Login />} />
-                                    <Route path={RoutePaths.PROFILE} element={<Profile user={user} />} />
-                                    <Route exact path={RoutePaths.DASHBOARD} element={<Dashboard />} />
-                                    <Route exact path={RoutePaths.CAROUSELS} element={<Carousels />} />
-                                    <Route exact path={RoutePaths.DRAGANDDROP} element={<DragAndDrop />} />
-                                    <Route exact path={RoutePaths.FIREBASE_TEST} element={<FIREBASE_TEST />} />
-                                    <Route exact path={RoutePaths.WILLIAM} element={<William />} />
-                                    <Route exact path={RoutePaths.TAILWIND} element={<Tailwind />} />
-                                    <Route exact path={RoutePaths.TAILWIND_EXAMPLE} element={<Tailwind_Example />} />
-                                    <Route exact path={RoutePaths.PLAYGROUND} element={<Playground />} />
-                                    <Route exact path={RoutePaths.SOCIAL_DASHBOARD} element={<Social_Dashboard />} />
-                                    <Route exact path={RoutePaths.SOCIAL_LOGIN} element={<Social_Login />} />
-                                    <Route exact path={RoutePaths.SOCIAL_SIGN_UP} element={<Social_Signup />} />
-                                    <Route exact path={RoutePaths.SOCIAL_PROFILE} element={<Social_Profile />} />
-                                    <Route path="*" element={<NotFound/>} />
-                                </Routes>
-                            </Suspense>
-                        </Router>
+                        {/* <FirebaseUserContext.Provider value={firebaseUser}> */}
+
+                            <Router>
+                                <Suspense fallback={<div className="w-full text-center p-2"><RingLoader color="gray" loading={true} cssOverride={{margin: "0 auto"}} size={40} /></div>}>
+                                    <Routes>
+                                        <Route path={RoutePaths.LOGIN} element={<Login />} />
+                                        <Route path={RoutePaths.PROFILE} element={<Profile user={user} />} />
+                                        <Route exact path={RoutePaths.DASHBOARD} element={<Dashboard />} />
+                                        <Route exact path={RoutePaths.CAROUSELS} element={<Carousels />} />
+                                        <Route exact path={RoutePaths.DRAGANDDROP} element={<DragAndDrop />} />
+                                        <Route exact path={RoutePaths.FIREBASE_TEST} element={<FIREBASE_TEST />} />
+                                        <Route exact path={RoutePaths.WILLIAM} element={<William />} />
+                                        <Route exact path={RoutePaths.TAILWIND} element={<Tailwind />} />
+                                        <Route exact path={RoutePaths.TAILWIND_EXAMPLE} element={<Tailwind_Example />} />
+                                        <Route exact path={RoutePaths.PLAYGROUND} element={<Playground />} />
+                                        <Route exact path={RoutePaths.SOCIAL_DASHBOARD} element={<Social_Dashboard />} />
+                                        <Route exact path={RoutePaths.SOCIAL_LOGIN} element={<Social_Login />} />
+                                        <Route exact path={RoutePaths.SOCIAL_SIGN_UP} element={<Social_Signup />} />
+                                        <Route exact path={RoutePaths.SOCIAL_PROFILE} element={<Social_Profile />} />
+                                        <Route path="*" element={<NotFound/>} />
+                                    </Routes>
+                                </Suspense>
+                            </Router>
+
+                        {/* </FirebaseUserContext.Provider> */}
 
                     </FirebaseContext.Provider> 
 

@@ -6,51 +6,30 @@ import UserContext from '../context/user'
 
 export default function useFirebaseAuthListener() {
     const [firebaseUser, setFirebaseUser] = useState(null)
-    // onAuthStateChanged() 
-// console.log("onAuthStateChanged in use-firebase-auth-listener", onAuthStateChanged)
-
-
     // const { firebase } = useContext(FirebaseContext);
-    // const {user} = useContext(UserContext)
 
-    // useEffect(() => {
-    //     console.log("db in use-firebase-auth-listener is:", db)
-    //     const listener = onAuthStateChanged((firebaseAuthUser) => {
-    //         if (firebaseAuthUser) {
-    //             console.log("if (firebaseAuthUser) in use-firebase-auth-listener")
-    //             localStorage.setItem('firebaseUser', JSON.stringify(firebaseAuthUser));
-    //             setFirebaseUser(firebaseAuthUser);
-    //         } else {
-    //             console.log("else (firebaseAuthUser) in use-firebase-auth-listener")
-    //             localStorage.removeItem('firebaseUser');
-    //             setFirebaseUser(null);
-    //         }
-    //     })
-    //     return () => listener();
-    // },[])
+    const auth = getAuth();
 
-    // console.log('firebaseUser in use-firebase-auth-listener:', firebaseUser)
-
-    
-    // const { firebase, firebaseAuth, onAuthStateChanged } = useContext(FirebaseContext)
-    // const [firebaseUser, setFirebaseUser] = useState(JSON.parse(localStorage.getItem('firebaseUser')));
-    // const { firebase, firebaseAuth, onAuthStateChanged } = useContext(FirebaseContext);
-    
-    // useEffect(() => {
-    //     const listener = onAuthStateChanged((firebaseAuthUser) => {
-    //         if (firebaseAuthUser) {
-    //             localStorage.setItem('firebaseUser', JSON.stringify(firebaseAuthUser));
-    //             setFirebaseUser(firebaseAuthUser);
-    //         } else {
-    //             localStorage.removeItem('firebaseUser');
-    //             setFirebaseUser(null);
-    //         }
-    //     });
+    useEffect(() => {
         
-    //     return () => listener();
-    // }, [firebase]);
+        const listener = onAuthStateChanged(auth, (user) => {
+
+            if (user) {
+                // User is signed in, see docs for a list of available properties
+                // https://firebase.google.com/docs/reference/js/firebase.User
+                const uid = user.uid;
+                // ...
+              } else {
+                // User is signed out
+                // ...
+              }            
+
+        })
+
+        return () => listener()
+
+    }, []);
     
-    
-    // console.log("firebase auth user is:", firebaseUser)
+
     return { firebaseUser };
 }

@@ -5,6 +5,8 @@ import RoutePaths from '../../constants/routes';
 import { testFunction, doesUsernameExist } from '../services/social_firebase';
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { collection, doc, setDoc } from 'firebase/firestore'
+import Header from '../components/header'
+
 
 
 export default function Signup() {
@@ -118,6 +120,9 @@ export default function Signup() {
 
             <div className="flex flex-col">
 
+
+                <Header />
+                
                 <div className="flex flex-col items-center bg-white p-4 border mb-4 mt-4">
                     
                     <h1 className="flex justify-center w-full text-xl mb-2 font-bold text-white bg-gray-500 p-3 font-serif border border-1 border-gray-800">
