@@ -2,93 +2,121 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import FirebaseContext from '../../context/firebase';
 import RoutePaths from '../../constants/routes';
-import { getAuth, signInWithEmailAndPassword} from "firebase/auth";
+import { testFunction, doesUsernameExist } from '../services/social_firebase';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { collection, doc, setDoc } from 'firebase/firestore'
+import Header from '../components/header'
 
-export default function Login() {
 
-    const auth = getAuth();
+
+export default function Signup() {
 
     const navigate = useNavigate();
-    
-    const { firebase } = useContext(FirebaseContext);
-    
-    
+
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('')
+    const [successMessage, setSuccessMessage] = useState('')
+    const [testOutput, setTestOutput] = useState('')
+    
+    const [error, setError] = useState('');
+    const isInvalid = emailAddress === '' || password === '' ;
 
-    const isInvalid = password === '' || emailAddress === '';
-
-    const handleLogin = async(event) => {
-        event.preventDefault();
-        setError('')
-        try {
-            // const response = await firebase.auth().signInWithEmailAndPassword
-            await signInWithEmailAndPassword(emailAddress, password);
-            // history.push(ROUTES.DASHBOARD);
-            navigate(RoutePaths.SOCIAL_DASHBOARD)
-        }
-        catch(error) {
-            setEmailAddress('')
-            setPassword('')
-            setError(error.message);
-        }
+    function clearFields() {
+        setEmailAddress('')
+        setPassword('')
     }
 
+    const handleLogin = async (event) => {
+        event.preventDefault()
+        console.log('form submitted')
+
+        if(emailAddress === '') {
+            setError('Please enter an email address')
+            return
+        }
+
+        if(password === '') {
+            setError('Please enter a password')
+            return
+        }
+
+        const auth = getAuth()
+        signInWithEmailAndPassword(auth, emailAddress, password)
+        .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            navigate(RoutePaths.SOCIAL_DASHBOARD)
+            // ...
+        })
+        .catch((error) => {
+            setError(error.message)
+        });
+        
+    }
+    
     useEffect(() => {
-        document.title = `Login - Three Grays`;
+        document.title = `Login - TG Social`;
     }, []);
 
-    return (
-        <div> social login
-            {/* <div className="container flex mx-auto max-w-screen-md items-center h-screen">
-                <div className="flex w-3/5">
-                    <img src="/images/iphone-with-profile.jpg" alt="iPhone with Instagram app" />
-                </div>
-                <div className="flex flex-col w-2/5">
-                    <div className="flex flex-col items-center bg-white p-4 border mb-4">
-                        <h1 className="flex justify-center w-full">
-                            <img src="/images/logo.png" alt="Instagram" className="mt-2 w-6/12 mb-4" />
-                        </h1>
-                        {error && <p className="mb-4 text-xs text-red-500">{error}</p>}
 
-                        <form method="POST" onSubmit={handleLogin}>
-                            <input
-                                aria-label="Enter your email address"
-                                className="text-sm w-full mr-3 py-5 px-4 h-2 border rounded mb-2"
-                                type="email"
-                                value= {emailAddress} 
-                                onChange={e => setEmailAddress(e.target.value)}
-                                placeholder="Email address"
-                            />
-                            <input
-                                aria-label="Enter your password"
-                                className="text-sm w-full mr-3 py-5 px-4 h-2 border rounded mb-2"
-                                type="password" 
-                                value= {password} 
-                                onChange={e => setPassword(e.target.value)}
-                                placeholder="Password"
-                            />
-                            <button
-                                type="submit"
-                                disabled={isInvalid}
-                                className={`bg-blue-500 text-white w-full rounded h-8 font-bold ${ isInvalid && 'cursor-not-allowed opacity-50'
-                                }`}
-                            >
-                                Log In
-                            </button>
-                        </form>
-                    </div>
-                    <div className="flex justify-center items-center flex-col w-full bg-white p-4 border">
-                        <p className="text-sm">
-                            Don't have an account?{' '}
-                            <Link to={RoutePaths.SOCIAL_SIGN_UP} className="font-bold">
-                                Sign up
-                            </Link>
-                        </p>
-                    </div>
+    return (
+ 
+
+        <div className="container flex mx-auto max-w-xs items-center ">
+
+            <div className="flex flex-col">
+
+
+                <Header />
+                
+                <div className="flex flex-col items-center bg-white p-4 border mb-4 mt-4">
+                    
+                    <h1 className="flex justify-center w-full text-xl mb-2 font-bold text-white bg-gray-500 p-3 font-serif border border-1 border-gray-800">
+                        TG Social
+                        {/* <img src="/images/social/logo.png" alt="Three Grays" className="mt-2 w-6/12 mb-4" /> */}
+                    </h1>
+
+                    {error && <p className="mb-4 text-xs text-red-500 text-center">{error}</p>}
+                    {successMessage && <p className="mb-4 text-xs text-blue-500 text-center">{successMessage}</p>}
+                    {testOutput && <p className="mb-4 text-xs text-green-500 text-center">{testOutput}</p>}
+                    
+
+                    <form onSubmit={handleLogin} method="POST">
+                        <input
+                            aria-label="Enter your email address"
+                            className="text-sm text-gray-600 w-full mr-3 py-5 px-4 h-2 border bg-gray-background rounded mb-2"
+                            type="text"
+                            placeholder="Email address"
+                            value={emailAddress}
+                            onChange={({ target }) => setEmailAddress(target.value.toLowerCase())}
+                        />
+                        <input
+                            aria-label="Enter your password"
+                            className="text-sm text-gray-600 w-full mr-3 py-5 px-4 h-2 border bg-gray-background rounded mb-2"
+                            type="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={({ target }) => setPassword(target.value)}
+                        />
+
+                        <button
+                            // disabled={isInvalid}
+                            type="submit"
+                            // className={`bg-blue-500 text-white w-full rounded h-8 font-bold ${ isInvalid && 'cursor-not-allowed opacity-50'
+                            // }`}
+                            className={`bg-blue-500 text-white w-full rounded h-8 font-bold `}
+                        >
+                            Login
+                        </button>
+
+                    </form>
+                    
                 </div>
-            </div> */}
+                
+            </div>
+
         </div>
+            
+
     )
 }

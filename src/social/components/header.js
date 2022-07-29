@@ -6,38 +6,55 @@ import { getUserByUserId } from "../services/social_firebase";
 export default function Header() {
     
     const firebaseAuthUser = useContext(FirebaseUserContext)
-    const [firebaseAuthUsername, setFirebaseAuthUsername] = useState('')
-    useEffect(()=>{
-        if (firebaseAuthUser) {
-            console.log('header.js / useEffect: YES user')
-            const firebaseSocialUser = getUserByUserId(firebaseAuthUser.uid)
-            console.log('socialuser:', firebaseSocialUser)
-            setFirebaseAuthUsername("Have signed in uid:" + firebaseAuthUser.uid)
+    const [username, setUsername] = useState('')
+    const [currentUser, setCurrentUser] = useState({})
+    const auth = getAuth();
+
+    const getCurrentUser = async () => {
+        if(firebaseAuthUser){
+            // const dbUser = await getUserByUserId(firebaseAuthUser.uid)
+            
+            // console.log('db user is', dbUser)
+            // setCurrentUser(dbUser)
+            // setUsername(dbUser.username)
+            getUserByUserId(firebaseAuthUser.uid)
+            .then(dbUser => {
+                console.log('db user is', dbUser)
+                setCurrentUser(dbUser)
+                setUsername(dbUser.username)
+            })
+            .catch(err=> console.log('error in getUserByID promise:', err))
         } else {
-            setFirebaseAuthUsername('')
+            setCurrentUser({})
+            setUsername('')
+            console.log('there is no firebaseAuthUser, so not trying to get db user')
         }
-    },[firebaseAuthUser])
-
-    async function getSocialUserData() {
-
+        
+        // setCurrentUser(dbUser[0])
     }
+
+    useEffect(()=>{
+
+        getCurrentUser()
+
+    }, [firebaseAuthUser])
 
     function firebaseSignOut () {
         const auth = getAuth();
-        signOut(auth).then(() => {
+        try{
+            signOut(auth)
             console.log('successfully signed out')
-        }).catch((error) => {
+        }catch(error){
             console.log('error in firebaseSignOut:', error)
-        });
+        }
 
     }
-
 
 
     return (
         <div>
             <div className="font-serif text-lg w-full h-20">
-                <p>{firebaseAuthUsername}</p>
+                <p>{username}</p>
 
                 <button
                     type="button"
@@ -51,6 +68,21 @@ export default function Header() {
                 >
                     Signout
                 </button>
+
+
+
+                {/* <button
+                                    type="button"
+                                    title="SIgn Out"
+                                    onClick={() => firebase.auth().signOut()}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') {
+                                            firebase.auth().signOut();
+                                        }
+                                    }}
+                                > */}
+
+
             </div>
         </div>  
     );

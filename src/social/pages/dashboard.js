@@ -2,6 +2,8 @@ import { useEffect, useState, useContext } from 'react'
 
 import { collection, getDocs } from 'firebase/firestore/lite';
 import FirebaseContext from '../../context/firebase';
+import Header from '../components/header'
+
 
 
 import UserContext from '../../context/user'
@@ -42,6 +44,7 @@ export default function Dashboard() {
 
     return (
         <>
+        <Header />
            Social Dashboard for {user.username}!!
         </>
     )

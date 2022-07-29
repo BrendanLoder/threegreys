@@ -35,6 +35,25 @@ export default function Signup() {
         event.preventDefault()
         console.log('form submitted')
 
+        if(username === '') {
+            setError('Please enter a username')
+            return
+        }
+
+        if(fullName === '') {
+            setError('Please enter a full name')
+            return
+        }
+
+        if(emailAddress === '') {
+            setError('Please enter an email address')
+            return
+        }
+
+        if(password === '') {
+            setError('Please enter a password')
+            return
+        }
         
         const userExists = await doesUsernameExist(username);
         console.log('userExists comes back as:', userExists)
@@ -64,7 +83,7 @@ export default function Signup() {
                 setSuccessMessage(`User Creation Successful for "${username}"`)
 
                 clearFields()
-
+                navigate(RoutePaths.SOCIAL_DASHBOARD)
             } catch (error) {
                 setError(error.message)
             }

@@ -26,7 +26,7 @@ export default function useFirebaseAuthListener() {
 
         return () => listener()
 
-    }, []);
+    }, [firebase]);
     
     return { firebaseAuthUser };
 }
