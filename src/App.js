@@ -32,36 +32,11 @@ const App = ({ signOut, user }) => {
 
     const { firebaseAuthUser } = useFirebaseAuthListener();
 
-    // console.log('in app.js firebaseAuthUser is:', firebaseAuthUser)
     const [authUserData, setAuthUserData] = useState(null)
     const [authUsername, setAuthUsername] = useState(null)
     const [authUserId, setAuthUserId] = useState(null)
     const [authUserEmail, setAuthUserEmail] = useState(null)
     const [siteUser, setSiteUser] = useState({})
-
-    // useEffect(() => {
-    //     const getAuthUser = async () => {
-    //         const data = await Auth.currentUserInfo()
-    //         setAuthUserData(data)
-    //         setAuthUserId(data.id)
-    //         setAuthUserEmail(data.attributes.email)
-    //         setAuthUsername(data.username)
-
-    //         setSiteUser({
-    //             "authUserId": authUserId,
-    //             "email": data.attributes.email,
-    //             "username": data.username
-    //         })
-    //     }
-
-    //     try{
-    //         getAuthUser()
-    //     }
-    //     catch(err) {
-    //         console.log('getAuthenticatedUser error', err)
-    //     }
-        
-    // }, [])
     
     return (
         <div className="w-screen p-0 m-auto bg-gray-200 max-w-7xl">
