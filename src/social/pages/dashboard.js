@@ -1,8 +1,10 @@
 import { useEffect, useState, useContext } from 'react'
-
+import { useNavigate } from 'react-router-dom';
 import { collection, getDocs } from 'firebase/firestore/lite';
 import FirebaseContext from '../../context/firebase';
+import FirebaseUserContext from "../../context/firebaseUser"
 import Header from '../components/header'
+import RoutePaths from '../../constants/routes';
 
 
 
@@ -11,6 +13,12 @@ import UserContext from '../../context/user'
 export default function Dashboard() {
 
     const user = useContext(UserContext)
+    const firebaseAuthUser = useContext(FirebaseUserContext)
+    const navigate = useNavigate();
+
+    if(!firebaseAuthUser){
+        navigate(RoutePaths.SOCIAL_LOGIN)
+    }
 
     // const [socialUser, setSocialUser] = useState(null)
     // const { db } = useContext(FirebaseContext);

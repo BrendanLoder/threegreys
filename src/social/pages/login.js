@@ -112,6 +112,7 @@ export default function Signup() {
                         </button>
 
                     </form>
+                    <p className="text-sm underline mt-2">Or <Link to={RoutePaths.SOCIAL_SIGN_UP}>Create Account</Link></p>
                     
                 </div>
                 
