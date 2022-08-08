@@ -194,14 +194,14 @@ export default function Signup() {
                             type="submit"
                             // className={`bg-blue-500 text-white w-full rounded h-8 font-bold ${ isInvalid && 'cursor-not-allowed opacity-50'
                             // }`}
-                            className={`bg-blue-500 text-white w-full rounded h-8 font-bold `}
+                            className={`bg-blue-500 text-white w-full rounded h-8 font-bold shadow-lg hover:shadow-none`}
                         >
                             Sign Up
                         </button>
 
                     </form>
 
-                    <p className="text-sm underline mt-2">Or <Link to={RoutePaths.SOCIAL_LOGIN}>Login</Link></p>
+                    <p className="text-sm mt-2">Or <span className="font-bold underline"><Link to={RoutePaths.SOCIAL_LOGIN}>Login</Link></span></p>
                     
                 </div>
                 
