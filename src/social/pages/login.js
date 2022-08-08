@@ -88,6 +88,7 @@ export default function Signup() {
                             type="text"
                             placeholder="Email address"
                             value={emailAddress}
+                            autoComplete="username"
                             onChange={({ target }) => setEmailAddress(target.value.toLowerCase())}
                         />
                         <input
@@ -96,6 +97,7 @@ export default function Signup() {
                             type="password"
                             placeholder="Password"
                             value={password}
+                            autoComplete="current-password"
                             onChange={({ target }) => setPassword(target.value)}
                         />
 
