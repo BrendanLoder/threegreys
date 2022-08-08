@@ -56,8 +56,8 @@ export default function Header() {
 
     return (
         <div>
-            <div className="font-serif text-lg w-full h-9 px-5 pt-1 bg-gray-300">
-                <p className='font-bold text-sm justify-center items-center'>{username}
+            <div className="font-serif text-lg w-full h-9 px-5 py-1 bg-gray-300 justify-end items-end flex">
+                <p className='font-bold text-sm'>{username}
                 {
                     isCurrentUser && 
                         <button
