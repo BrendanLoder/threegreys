@@ -12,13 +12,13 @@ export default function useFirebaseAuthListener() {
      useEffect(() => {
         const listener = onAuthStateChanged(auth, (authUser) => {
             if (authUser) {
-                console.log('use-firebase-auth-listener/useFirebaseAuthListener/onAuthStateChanged: YES user:',authUser)
+                // console.log('use-firebase-auth-listener/useFirebaseAuthListener/onAuthStateChanged: YES user:',authUser)
                 // localStorage.setItem('firebaseAuthUser', JSON.stringify(authUser));
                 setFirebaseAuthUser(authUser);
                 const uid = authUser.uid;
                 // ...
             } else {
-                console.log('use-firebase-auth-listener/useFirebaseAuthListener/onAuthStateChanged: NO user')
+                // console.log('use-firebase-auth-listener/useFirebaseAuthListener/onAuthStateChanged: NO user')
                 // localStorage.removeItem('firebaseAuthUser');
                 setFirebaseAuthUser(null);
             }

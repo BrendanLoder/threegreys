@@ -18,14 +18,14 @@ export default function useFirebaseUser() {
 
             if (firebaseAuthUser) {
                 // const firebaseUser = await getUserByUserId(firebaseAuthUser.uid)
-                console.log("X I see a signed in firebaseAuthUser.displayName is:", firebaseAuthUser.displayName)
+                // console.log("X I see a signed in firebaseAuthUser.displayName is:", firebaseAuthUser.displayName)
                 setFirebaseAuthUser(firebaseAuthUser)
                 // User is signed in, see docs for a list of available properties
                 // https://firebase.google.com/docs/reference/js/firebase.User
                 // ...
             } else {
                 // No user is signed in.
-                console.log("I DONT see a signed in firebaseAuthUser")
+                // console.log("I DONT see a signed in firebaseAuthUser")
             }
         }
         getFirebaseUser()

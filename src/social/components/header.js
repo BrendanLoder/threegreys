@@ -20,7 +20,7 @@ export default function Header() {
             // setUsername(dbUser.username)
             getUserByUserId(firebaseAuthUser.uid)
             .then(dbUser => {
-                console.log('db user is', dbUser)
+                // console.log('db user is', dbUser)
                 setCurrentUser(dbUser)
                 setUsername(dbUser.username)
             })
@@ -30,7 +30,6 @@ export default function Header() {
             setCurrentUser({})
             setUsername('')
             setIsCurrentUser(false)
-            console.log('there is no firebaseAuthUser, so not trying to get db user')
         }
         
         // setCurrentUser(dbUser[0])
