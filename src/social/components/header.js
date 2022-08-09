@@ -12,15 +12,9 @@ export default function Header() {
     const auth = getAuth();
 
     const getCurrentUser = async () => {
-        if(firebaseAuthUser){
-            // const dbUser = await getUserByUserId(firebaseAuthUser.uid)
-            
-            // console.log('db user is', dbUser)
-            // setCurrentUser(dbUser)
-            // setUsername(dbUser.username)
+        if(firebaseAuthUser && firebaseAuthUser.uid){
             getUserByUserId(firebaseAuthUser.uid)
             .then(dbUser => {
-                // console.log('db user is', dbUser)
                 setCurrentUser(dbUser)
                 setUsername(dbUser.username)
             })
@@ -31,8 +25,6 @@ export default function Header() {
             setUsername('')
             setIsCurrentUser(false)
         }
-        
-        // setCurrentUser(dbUser[0])
     }
 
     useEffect(()=>{
@@ -77,3 +69,47 @@ export default function Header() {
         </div>  
     );
 }
+
+
+
+
+
+
+
+// import FirebaseUserContext from "../../context/firebaseUser"
+// import { useEffect, useState, useContext } from "react";
+// import { getAuth, signOut } from "firebase/auth";
+// import { getUserByUserId } from "../services/social_firebase";
+// import Header from '../components/header'
+
+// export default function Dashboard() {
+    
+//     const firebaseAuthUser = useContext(FirebaseUserContext)
+//     const [currentUser, setCurrentUser] = useState({})
+
+//     const getCurrentUser = async () => {
+//         if(firebaseAuthUser){
+//             getUserByUserId(firebaseAuthUser.uid)
+//             .then(dbUser => {
+//                 setCurrentUser(dbUser)
+//             })
+//             .catch(err=> console.log('error in Dashboard getUserByID promise:', err))
+//         } else {
+//             setCurrentUser({})
+//         }
+//     }
+
+//     useEffect(()=>{
+
+//         getCurrentUser()
+
+//     }, [firebaseAuthUser])
+
+
+//     return (
+//         <div>
+//             <Header />
+//             username = {currentUser.username}
+//         </div>  
+//     );
+// }

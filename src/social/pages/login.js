@@ -6,12 +6,14 @@ import { testFunction, doesUsernameExist } from '../services/social_firebase';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { collection, doc, setDoc } from 'firebase/firestore'
 import Header from '../components/header'
+import FirebaseUserContext from "../../context/firebaseUser"
 
 
 
 export default function Signup() {
 
     const navigate = useNavigate();
+    const firebaseAuthUser = useContext(FirebaseUserContext)
 
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
@@ -25,7 +27,9 @@ export default function Signup() {
         setEmailAddress('')
         setPassword('')
     }
-
+    // if(!firebaseAuthUser || !firebaseAuthUser.uid) {
+    //     navigate(RoutePaths.SOCIAL_LOGIN)
+    // }
     const handleLogin = async (event) => {
         event.preventDefault()
         console.log('form submitted')
@@ -57,6 +61,14 @@ export default function Signup() {
     useEffect(() => {
         document.title = `Login - TG Social`;
     }, []);
+
+    useEffect(() => {
+        console.log('firebaseAuthUser:', firebaseAuthUser)
+        // console.log('firebaseAuthUser.uid:', firebaseAuthUser.uid)
+        if(firebaseAuthUser && firebaseAuthUser.uid) {
+            navigate(RoutePaths.SOCIAL_DASHBOARD)
+        }
+    }, [firebaseAuthUser]);
 
 
     return (

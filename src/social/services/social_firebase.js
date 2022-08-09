@@ -1,6 +1,7 @@
 import {firebase, db} from '../../lib/firebase'
 import { getFirestore, collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import FirebaseUserContext from '../../context/firebaseUser';
 
 export async function getAllUsers() {
     const userCollection = collection(db, 'social-users');
@@ -35,6 +36,36 @@ export async function getUserByUserId(userId) {
     return user
 
 }
+
+export async function getWantsByUserUid(uid) {
+    const wants = []
+    if(uid) {
+        const q = query(collection(db, "social-user-wants"), where("social-user-uid", "==", uid));
+        const querySnapshot = await getDocs(q)
+        const userWantsList = querySnapshot.docs.map(doc => doc.data());
+        console.log(`userWantsList for ${uid}`, userWantsList)
+        return userWantsList
+    } else {
+        console.log('nope')
+    }
+}
+
+// DOESNT WORK
+// export async function getCurrentUser(firebaseAuthUser) {
+//     let currentUser = {}
+//     if(firebaseAuthUser){
+//         getUserByUserId(firebaseAuthUser.uid)
+//         .then(dbUser => {
+//             firebaseAuthUser = dbUser
+//         })
+//         .catch(err=> console.log('error in social_firebase.js getUserByID promise:', err))
+//     } else {
+//         currentUser = {}
+//     }
+//     return currentUser
+// }
+
+
 
 // export async function isUserFollowingProfile(activeUsername, profileUserId) {
 //     const result = await firebase
