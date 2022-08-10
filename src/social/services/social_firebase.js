@@ -37,13 +37,13 @@ export async function getUserByUserId(userId) {
 
 }
 
-export async function getWantsByUserUid(uid) {
+export async function getWantsByUserId(userId) {
     const wants = []
-    if(uid) {
-        const q = query(collection(db, "social-user-wants"), where("social-user-uid", "==", uid));
+    if(userId) {
+        const q = query(collection(db, "social-user-wants"), where("socialUserId", "==", userId));
         const querySnapshot = await getDocs(q)
         const userWantsList = querySnapshot.docs.map(doc => doc.data());
-        console.log(`userWantsList for ${uid}`, userWantsList)
+        console.log(`in social_firebase getWantsByUserId userWantsList for ${userId}`, userWantsList)
         return userWantsList
     } else {
         console.log('nope')
