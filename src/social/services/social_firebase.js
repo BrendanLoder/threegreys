@@ -43,11 +43,36 @@ export async function getWantsByUserId(userId) {
         const q = query(collection(db, "social-user-wants"), where("socialUserId", "==", userId));
         const querySnapshot = await getDocs(q)
         const userWantsList = querySnapshot.docs.map(doc => doc.data());
-        console.log(`in social_firebase getWantsByUserId userWantsList for ${userId}`, userWantsList)
         return userWantsList
-    } else {
-        console.log('nope')
     }
+}
+
+
+
+export async function getWantById(wantId) {
+    const q = query(collection(db, "social-user-wants"), where("wantId", "==", wantId));
+    const querySnapshot = await getDocs(q)
+    let want
+    querySnapshot.forEach((myDoc) => {
+        want = myDoc.data()
+    });
+
+    return want
+}
+
+export async function getWantItemsByUserId(userId) {
+    let wantIds = []
+    let wantItemList = []
+    const user = await getUserByUserId(userId)
+    wantIds = user.wantIds 
+    if(wantIds) {
+        for (const wantId of wantIds) {
+            const want = await getWantById(wantId)
+            wantItemList.push(want)
+        }
+    }
+
+    return wantItemList
 }
 
 // DOESNT WORK
