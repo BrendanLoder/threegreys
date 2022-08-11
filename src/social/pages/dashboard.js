@@ -16,11 +16,10 @@ export default function Dashboard() {
 
     const navigate = useNavigate();
     const wantItems = wants && wants.length > 0 ? wants.map((want, index) => 
-        <Want title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} index={index}/> 
+        <Want key={index} title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} index={index}/> 
     ) : null
-    console.log('dashboard.js doNotWants:')
     const doNotWantItems = doNotWants && doNotWants.length > 0 ? doNotWants.map((doNotWant, index) => 
-        <Want title={doNotWant.title} description={doNotWant.description} imageUrl={doNotWant.imageUrl} link={doNotWant.link} index={index}/> 
+        <Want key={index} type="doNotWantItem" title={doNotWant.title} description={doNotWant.description} imageUrl={doNotWant.imageUrl} link={doNotWant.link} index={index}/> 
     ) : null
 
     useEffect(() => {
@@ -40,7 +39,6 @@ export default function Dashboard() {
                     const wants = await getWantItemsByUserId(dbUser.userId)
                     setWants(wants)
                     const doNotWants = await getDoNotWantItemsByUserId(dbUser.userId)
-                    console.log('doNotWants', doNotWants)
                     setDoNotWants(doNotWants)
                 } catch (err){
                     console.log('Error in dashboard.js getUserById and getWantsByUserId and getDoNotWantItemsByUserId', err)
@@ -64,15 +62,15 @@ export default function Dashboard() {
             <div className="font-sans container">
                 <div className="w-full md:w-3/5 mx-auto p-8">
                     <div className="shadow-md">
-                        <div className="tab w-full overflow-scroll border-t max-h-80 no-scrollbar">
+                        <div className="tab w-full overflow-scroll border-t hover:bg-blue-200 max-h-80 no-scrollbar">
                             <input className="absolute opacity-0 " id="tab-multi-one" type="checkbox" name="tabs" />
                             <label className="block p-5 leading-normal cursor-pointer font-bold" htmlFor="tab-multi-one">Si</label>
                             {wantItems}
                             {wantItems}
                             {wantItems}
                         </div>
-                        <div className='h-1 w-full bg-gray-300'></div>
-                        <div className="tab w-full overflow-hidden border-t hover:bg-blue-200">
+                        <div className='h-2 w-full bg-gray-300'></div>
+                        <div className="tab w-full overflow-hidden border-t hover:bg-blue-200 max-h-80 no-scrollbar">
                             <input className="absolute opacity-0 " id="tab-multi-two" type="checkbox" name="tabs" />
                             <label className="block p-5 leading-normal cursor-pointer font-bold" htmlFor="tab-multi-two">Nein</label>
                             {doNotWantItems}

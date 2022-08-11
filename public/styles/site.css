@@ -43,12 +43,20 @@ body {
     /* Label formatting when open */
     .tab input:checked + label{
     /*@apply text-xl p-5 border-l-2 border-indigo-500 bg-gray-100 text-indigo*/
-    font-size: 1.25rem; /*.text-xl*/
-    padding: 1.25rem; /*.p-5*/
-    border-left-width: 2px; /*.border-l-2*/
+    /* 
+    CUSTOMIZED THESE:
+    font-size: 1.25rem; 
+    padding: 1.25rem; 
+    border-left-width: 2px;
+    */
+    
     border-color: #D4D4D8; /*.border-gray-300*/
-    background-color: #f8fafc; /*.bg-gray-100 */
-    color: #57534E; /*.text-indigo*/
+    /* 
+    CUSTOMIZED THESE:
+     background-color: #f8fafc;
+    color: #57534E; 
+    */
+    background-color: #BFDBFE; /*.bg-gray-100 */
     }
     /* Icon */
     .tab label::after {

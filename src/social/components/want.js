@@ -1,5 +1,5 @@
 export default function Want(want) {
-    const key = `want_${want.index}`
+    const key = `${want.type}_${want.index}`
     return (
 
         <div className="tab-content overflow-hidden border-l-2 bg-gray-100 hover:bg-blue-100 border-gray-300 leading-normal">
@@ -16,7 +16,7 @@ export default function Want(want) {
                 </a>
             </div>
             
-            <div class='h-px w-full bg-gray-400'></div>
+            <div className='h-px w-full bg-gray-400'></div>
         </div>
         
         
