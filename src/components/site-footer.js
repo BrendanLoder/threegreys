@@ -8,11 +8,10 @@ export default function SiteFooter() {
 
             <div className="absolute bottom-0 left-0 w-15 h-5 p-5">
                 <p className="text-xs text-teal-400">
-                    v7.5
+                    v7.5.1
                 </p>
             </div>
-            
-            
+              
         </div>
 
     )

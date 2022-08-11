@@ -64,7 +64,7 @@ export default function Dashboard() {
             <div className="font-sans container">
                 <div className="w-full md:w-3/5 mx-auto p-8">
                     <div className="shadow-md">
-                        <div className="tab w-full overflow-hidden border-t">
+                        <div className="tab w-full overflow-scroll border-t max-h-80 no-scrollbar">
                             <input className="absolute opacity-0 " id="tab-multi-one" type="checkbox" name="tabs" />
                             <label className="block p-5 leading-normal cursor-pointer font-bold" htmlFor="tab-multi-one">Si</label>
                             {wantItems}
