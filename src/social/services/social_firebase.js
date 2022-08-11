@@ -25,13 +25,15 @@ export async function doesUsernameExist(username) {
 }       
 
 export async function getUserByUserId(userId) {
-
+    let user
+    if(userId){
     const q = query(collection(db, "social-users"), where("userId", "==", userId));
     const querySnapshot = await getDocs(q)
-    let user
     querySnapshot.forEach((myDoc) => {
         user = myDoc.data()
     });
+
+    }
 
     return user
 
@@ -63,16 +65,37 @@ export async function getWantById(wantId) {
 export async function getWantItemsByUserId(userId) {
     let wantIds = []
     let wantItemList = []
-    const user = await getUserByUserId(userId)
-    wantIds = user.wantIds 
-    if(wantIds) {
-        for (const wantId of wantIds) {
-            const want = await getWantById(wantId)
-            wantItemList.push(want)
+    if(userId) {
+        const user = await getUserByUserId(userId)
+        if(user) {
+            wantIds = user.wantIds 
+            if(wantIds) {
+                for (const wantId of wantIds) {
+                    const want = await getWantById(wantId)
+                    wantItemList.push(want)
+                }
+            }
         }
     }
-
     return wantItemList
+}
+
+export async function getDoNotWantItemsByUserId(userId) {
+    let doNotWantIds = []
+    let doNotWantItemList = []
+    if(userId) {
+        const user = await getUserByUserId(userId)
+        if(user) {
+            doNotWantIds = user.doNotWantIds 
+            if(doNotWantIds) {
+                for (const doNotWantId of doNotWantIds) {
+                    const doNotWant = await getWantById(doNotWantId)
+                    doNotWantItemList.push(doNotWant)
+                }
+            }
+        }
+    }
+    return doNotWantItemList
 }
 
 // DOESNT WORK
