@@ -45,8 +45,6 @@ export default function Header() {
         }catch(error){
             console.log('error in firebaseSignOut:', error)
         }
-
-            navigate(RoutePaths.SOCIAL_LOGIN)
     }
 
 

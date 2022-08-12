@@ -87,40 +87,6 @@ export default function Signup() {
             } catch (error) {
                 setError(error.message)
             }
-
-            // createUserWithEmailAndPassword(auth, emailAddress, password)
-            // .then((userCredential) => {
-            //     // Signed in 
-            //     const user = userCredential.user;
-            //     updateProfile(user, {
-            //         displayName: username
-            //     }).then(() => {
-            //         console.log('User Profile Updated With Username')
-            //     }).catch((error) => {
-            //         setError('Error updating auth profile')
-            //         console.log('User Profile NOT Updated With Username')
-            //     });
-
-            //     console.log('X user:', user)
-            //     setTestOutput(user.uid)
-
-            //     const newUserRef = doc(collection(db, "social-users"));
-
-            //     setDoc(newUserRef, {
-            //         'userId': user.uid,
-            //         'username': username,
-            //         'emailAddress': emailAddress,
-            //         'followers': [],
-            //         'following': []
-            //     })
-
-                // clearFields()
-
-            // })
-            // .catch((error) => {
-            //     setError(error.message)
-            //     clearFields()
-            // });
             
         } else {
             setError('That username is already taken, please try another.')
@@ -192,8 +158,6 @@ export default function Signup() {
                         <button
                             // disabled={isInvalid}
                             type="submit"
-                            // className={`bg-blue-500 text-white w-full rounded h-8 font-bold ${ isInvalid && 'cursor-not-allowed opacity-50'
-                            // }`}
                             className={`bg-blue-500 text-white w-full rounded h-8 font-bold shadow-lg hover:shadow-none`}
                         >
                             Sign Up
