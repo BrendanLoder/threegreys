@@ -7,10 +7,11 @@ import RoutePaths from './constants/routes'
 import UserContext from './context/user'
 import SiteHeader from './components/site-header'
 import SiteFooter from './components/site-footer'
-import RingLoader from "react-spinners/RingLoader";
 
 import FirebaseUserContext from './context/firebaseUser';
 import useFirebaseAuthListener from './hooks/use-firebase-auth-listener';
+
+import 'tw-elements'
 
 const Dashboard = lazy(() => import ('./pages/dashboard'));
 const Login = lazy(() => import ('./pages/login'));
@@ -27,6 +28,7 @@ const Social_Dashboard = lazy(() => import ('./social/pages/dashboard'));
 const Social_Signup = lazy(() => import ('./social/pages/signup'));
 const Social_Login = lazy(() => import ('./social/pages/login'));
 const Social_Profile = lazy(() => import ('./social/pages/profile'));
+
 
 const App = ({ signOut, user }) => {    
 
@@ -50,7 +52,8 @@ const App = ({ signOut, user }) => {
                         <FirebaseUserContext.Provider value={firebaseAuthUser}>
 
                             <Router>
-                                <Suspense fallback={<div className="w-full text-center p-2"><RingLoader color="gray" loading={true} cssOverride={{margin: "0 auto"}} size={40} /></div>}>
+                                <Suspense fallback={<div className="w-full text-center p-2">
+                                <div class="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full" role="status"><span class="visually-hidden">Loading...</span></div></div>}>
                                     <Routes>
                                         <Route path={RoutePaths.LOGIN} element={<Login />} />
                                         <Route path={RoutePaths.PROFILE} element={<Profile user={user} />} />

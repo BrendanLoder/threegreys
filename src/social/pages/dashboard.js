@@ -57,31 +57,78 @@ export default function Dashboard() {
     return (
         <div>
             <Header />
-            <div className="font-sans container w-full mx-auto">
+            <div className="font-sans container w-full mx-auto py-5">
                 <div className="font-bold text-xl">{currentUser.username}</div>
-                <div className="w-full md:w-3/5 mx-auto p-8">
-                    <div className="shadow-md">
-                    <div className='h-px w-full bg-gray-300'></div>
-                        <div className="tab w-full overflow-scroll border-t max-h-80 no-scrollbar">
-                            <input className="absolute top-0 right-0opacity-0 " id="tab-multi-one" type="checkbox" name="tabs" />
-                            <label className="block p-5 leading-normal cursor-pointer font-bold" htmlFor="tab-multi-one">Si ({wantItems.length})</label>
-                            {wantItems}
-                            {wantItems}
-                            {wantItems}
+                
+                {/* WANTS ACCORDION */}
+                <div className="accordion accordion-flush" id="wantsAccordion">
+                    <div className="accordion-item border-t-0 border-l-0 border-r-0 rounded-none bg-white border border-gray-200 mb-2">
+                        <h2 className="accordion-header mb-0" id="wantsHeadingOne">
+                            <button className="
+                            accordion-button
+                            collapsed
+                            relative
+                            flex
+                            items-center
+                            w-full
+                            py-4
+                            px-5
+                            text-base text-gray-800 text-left
+                            bg-white
+                            border-0
+                            rounded-none
+                            transition
+                            focus:outline-none
+                            " type="button" data-bs-toggle="collapse" data-bs-target="#wantsCollapseOne" aria-expanded="true"
+                            aria-controls="wantsCollapseOne">
+                            Si
+                            </button>
+                        </h2>
+                        <div id="wantsCollapseOne" className="accordion-collapse collapse" aria-labelledby="wantsHeadingOne">
+                            <div className="accordion-body py-4 px-5 bg-blue-200 max-h-48  overflow-scroll no-scrollbar">
+                                {wantItems}
+                                {wantItems}
+                                {wantItems}
+                            </div>
                         </div>
-                        <div className='h-2 w-full bg-gray-300'></div>
-                        <div className="tab w-full overflow-hidden border-t max-h-80 no-scrollbar">
-                            <input className="absolute opacity-0 " id="tab-multi-two" type="checkbox" name="tabs" />
-                            <label className="block p-5 leading-normal cursor-pointer font-bold" htmlFor="tab-multi-two">Nein ({doNotWantItems.length})</label>
-                            {doNotWantItems}
-                            {doNotWantItems}
-                            {doNotWantItems}
-                        </div>
-                        
-                        
-                        
                     </div>
                 </div>
+
+
+                {/* DO NOT WANTS ACCORDION */}
+                <div className="accordion accordion-flush" id="doNotWantsAccordion">
+                    <div className="accordion-item border-t-0 border-l-0 border-r-0 rounded-none bg-white border border-gray-200 mb-2">
+                        <h2 className="accordion-header mb-0" id="doNotWantsHeadingOne">
+                            <button className="
+                            accordion-button
+                            collapsed
+                            relative
+                            flex
+                            items-center
+                            w-full
+                            py-4
+                            px-5
+                            text-base text-gray-800 text-left
+                            bg-white
+                            border-0
+                            rounded-none
+                            transition
+                            focus:outline-none
+                            " type="button" data-bs-toggle="collapse" data-bs-target="#doNotWantsCollapseOne" aria-expanded="true"
+                            aria-controls="doNotWantsCollapseOne">
+                            Nein
+                            </button>
+                        </h2>
+                        <div id="doNotWantsCollapseOne" className="accordion-collapse collapse" aria-labelledby="doNotWantsHeadingOne">
+                            <div className="accordion-body py-4 px-5 bg-blue-200 max-h-48  overflow-scroll no-scrollbar">
+                                {doNotWantItems}
+                                {doNotWantItems}
+                                {doNotWantItems}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
                 
             </div>
         </div>  

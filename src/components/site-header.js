@@ -8,34 +8,80 @@ export default function SiteHeader() {
                 </a>
 
                 <div className="absolute top-5 right-5 z-40 font-serif text-sm">
-                
-                    <div className="dropdown inline-block relative w-50">
-                        <button className="bg-gray-300 text-gray-700 py-2 px-4 rounded inline-flex items-center">
-                            <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path fillRule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/></svg>
-                            
-                        </button>
-                        <ul className="dropdown-menu absolute hidden text-gray-700 right-0 w-40 text-sm pt-1">
-                            <li className=""><a className="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/tw">Tailwind</a></li>
-                            <li className=""><a className="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/tw-ex">Tailwind Example</a></li>
-                            <li className=""><a className="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/carousels">Carousels</a></li>
-                            <li className=""><a className="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/login">Login (non-social)</a></li>
-                            <li className=""><a className="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/p">Profile (non-social)</a></li>
-                            <li className=""><a className="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/draganddrop">Drag and Drop</a></li>
-                            <li className=""><a className="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/firebase">Base test</a></li>
-                            <li className=""><a className="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/william">William</a></li>
-                            <li className=""><a className="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/playground">Playground</a></li>
 
+                <div class="dropdown relative">
+                    <button 
+                        class="dropdown-toggle inline-block px-2 py-1.5"
+                        type="button"
+                        id="dropdownMenuSmallButton"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >
+                        <svg viewBox="0 0 100 80" width="20" height="20">
+                            <rect width="100" height="20"></rect>
+                            <rect y="30" width="100" height="20"></rect>
+                            <rect y="60" width="100" height="20"></rect>
+                        </svg>
 
-                            <li className=""><a className="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/social">Social Dashboard</a></li>
-                            <li className=""><a className="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/social/login">Social Login</a></li>
-                            <li className=""><a className="bg-gray-300 hover:bg-gray-400 py-2 px-4 block" href="/social/signup">Social Signup</a></li>
-                        </ul>
-                    </div>
+                    </button>
 
-                    {/* <button type="button" className="text-white hover:text-gray-300">
-                        <svg className="w-9 h-9 fill-current" viewBox="0 0 24 24"><path fillRule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/></svg>
-                    </button> */}
+                    <ul class="dropdown-menu min-w-max absolute hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded-lg shadow-lg mt-1 hidden m-0 bg-clip-padding border-none" aria-labelledby="dropdownMenuSmallButton">
+
+                        <li>
+                            <a
+                            class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100" href="/tw">Tailwind</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
+                            href="/tw-ex">Tailwind Example</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
+                            href="/carousels">Carousels</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100" href="/login">Login (not social)</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100" href="/p">Profile (not social)</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100" href="/draganddrop">Drag and Drop</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"href="/firebase">Firebase Test</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100" href="/william">William</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100" href="/playground">Playground</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100" href="/social">Social Dashboard</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100" href="/social/login">Social Login</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100" href="/social/signup" >Social Signup</a>
+                        </li>
+
+                    </ul>
+
                 </div>
             </div>
+        </div>
     )
 }
