@@ -85,7 +85,7 @@ export default function Dashboard() {
                             </button>
                         </h2>
                         <div id="wantsCollapseOne" className="accordion-collapse collapse" aria-labelledby="wantsHeadingOne">
-                            <div className="accordion-body py-4 px-5 bg-blue-200 max-h-48  overflow-scroll no-scrollbar">
+                            <div className="accordion-body py-4 px-5 max-h-48  overflow-scroll no-scrollbar">
                                 {wantItems}
                                 {wantItems}
                                 {wantItems}
@@ -120,7 +120,7 @@ export default function Dashboard() {
                             </button>
                         </h2>
                         <div id="doNotWantsCollapseOne" className="accordion-collapse collapse" aria-labelledby="doNotWantsHeadingOne">
-                            <div className="accordion-body py-4 px-5 bg-blue-200 max-h-48  overflow-scroll no-scrollbar">
+                            <div className="accordion-body py-4 px-5 max-h-48  overflow-scroll no-scrollbar">
                                 {doNotWantItems}
                                 {doNotWantItems}
                                 {doNotWantItems}
