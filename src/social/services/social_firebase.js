@@ -115,9 +115,10 @@ export async function addUserWant (want) {
             newUserWantIds = [...userWantIds, '123456']
             console.log('newUserWantIds:', newUserWantIds)
             console.log('docRef.id (social-user-want id):', docRef.id)
-            // await updateDoc(washingtonRef, {
-            //     capital: true
-            //   });
+            const userRef = (db, "social-users", user.userDocId)
+            await updateDoc(userRef, {
+                wantIds: newUserWantIds
+              });
         } else {
             console.log('DO NOT have a user')
         }
@@ -148,11 +149,9 @@ export async function testGetUserByUserId(userId) {
         if(!querySnapshot.empty) {
             querySnapshot.forEach((myDoc) => {
                 user = myDoc.data()
-                userUid = myDoc.id
             }); 
             wantIdList = user.wantIds
-            console.log('wantIdList', wantIdList)
-            console.log('userUid?', userUid)
+            console.log('hhhh', user)
         }
 
     }
