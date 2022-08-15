@@ -77,7 +77,9 @@ export default function Signup() {
                     'username': username,
                     'emailAddress': emailAddress,
                     'followers': [],
-                    'following': []
+                    'following': [],
+                    'fullName': fullName,
+                    'userDocId': newUserRef.id
                 })
                 
                 setSuccessMessage(`User Creation Successful for "${username}"`)

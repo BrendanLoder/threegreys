@@ -53,7 +53,7 @@ const App = ({ signOut, user }) => {
 
                             <Router>
                                 <Suspense fallback={<div className="w-full text-center p-2">
-                                <div class="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full" role="status"><span class="visually-hidden">Loading...</span></div></div>}>
+                                <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full" role="status"><span className="visually-hidden">Loading...</span></div></div>}>
                                     <Routes>
                                         <Route path={RoutePaths.LOGIN} element={<Login />} />
                                         <Route path={RoutePaths.PROFILE} element={<Profile user={user} />} />

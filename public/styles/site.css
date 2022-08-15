@@ -2,11 +2,6 @@ body {
     background: #0000
 }
 
-.carousel .slide img {
-    max-height: 900px;  /* change this to whatever you want */
-    width: auto;
-}
-
 /* Hide scrollbar for Chrome, Safari and Opera */
 .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -16,44 +11,4 @@ body {
 .no-scrollbar {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
-}
-
-/* .carousel .slide .legend {
-    -webkit-transition: all 0.5s ease-in-out;
-    -moz-transition: all 0.5s ease-in-out;
-    -ms-transition: all 0.5s ease-in-out;
-    -o-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    margin-left: -45%;
-    width: 90%;
-    border-radius: 10px;
-    background: #000;
-    color: #fff;
-    padding: 10px;
-    font-size: 12px;
-    text-align: center;
-    opacity: 0.25;
-    -webkit-transition: opacity 0.35s ease-in-out;
-} */
-
-
-/* .carousel.carousel-slider .control-arrow {
-    top: 0;
-    color: #000;
-    font-size: 26px;
-    bottom: 0;
-    margin-top: 0;
-    padding: 5px;
-} */
-
-.carousel .control-next.control-arrow:before {
-    border-left: 8px solid #000;
-}
-
-
-.carousel .control-prev.control-arrow:before {
-    border-right: 8px solid #000;
 }

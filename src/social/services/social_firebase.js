@@ -1,5 +1,5 @@
 import {firebase, db} from '../../lib/firebase'
-import { getFirestore, collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore'
+import { getFirestore, collection, doc, getDoc, getDocs, query, where, setDoc, addDoc, updateDoc } from 'firebase/firestore'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import FirebaseUserContext from '../../context/firebaseUser';
 
@@ -27,11 +27,11 @@ export async function doesUsernameExist(username) {
 export async function getUserByUserId(userId) {
     let user
     if(userId){
-    const q = query(collection(db, "social-users"), where("userId", "==", userId));
-    const querySnapshot = await getDocs(q)
-    querySnapshot.forEach((myDoc) => {
-        user = myDoc.data()
-    });
+        const q = query(collection(db, "social-users"), where("userId", "==", userId));
+        const querySnapshot = await getDocs(q)
+        querySnapshot.forEach((myDoc) => {
+            user = myDoc.data()
+        });
 
     }
 
@@ -42,7 +42,7 @@ export async function getUserByUserId(userId) {
 export async function getWantsByUserId(userId) {
     const wants = []
     if(userId) {
-        const q = query(collection(db, "social-user-wants"), where("socialUserId", "==", userId));
+        const q = query(collection(db, "social-user-wants"), where("userId", "==", userId));
         const querySnapshot = await getDocs(q)
         const userWantsList = querySnapshot.docs.map(doc => doc.data());
         return userWantsList
@@ -58,7 +58,7 @@ export async function getWantById(wantId) {
     querySnapshot.forEach((myDoc) => {
         want = myDoc.data()
     });
-
+    
     return want
 }
 
@@ -96,6 +96,69 @@ export async function getDoNotWantItemsByUserId(userId) {
         }
     }
     return doNotWantItemList
+}
+
+export async function addUserWant (want) {
+    console.log('in social_firebase -- addUserWant(want) is:',want)
+
+    let userWantIds = []
+    let newUserWantIds = []
+
+    try {
+        
+        const docRef = doc(collection(db, "social-user-wants"));
+
+        const user = await testGetUserByUserId(want.userId)
+        if(user){
+            const userWantIds = user.wantIds
+            console.log('userWantIds', userWantIds)
+            newUserWantIds = [...userWantIds, '123456']
+            console.log('newUserWantIds:', newUserWantIds)
+            console.log('docRef.id (social-user-want id):', docRef.id)
+            // await updateDoc(washingtonRef, {
+            //     capital: true
+            //   });
+        } else {
+            console.log('DO NOT have a user')
+        }
+        // const userWantIds = user.wantIds
+        // const updatedUserWantIds = [...userWantIds, docRef]
+        // console.log('getting user.wantIds:', user.wantIds)
+        
+        // await setDoc(docRef, {
+        //     ...want, 
+        //     'wantId': docRef.id
+        // });
+
+
+
+    } catch(error) {
+        console.log('error in social_firebase/addUserWant:', error)
+    }
+}
+
+
+export async function testGetUserByUserId(userId) {
+    let user
+    let wantIdList = []
+    let userUid
+    if(userId){
+        const q = query(collection(db, "social-users"), where("userId", "==", userId));
+        const querySnapshot = await getDocs(q)
+        if(!querySnapshot.empty) {
+            querySnapshot.forEach((myDoc) => {
+                user = myDoc.data()
+                userUid = myDoc.id
+            }); 
+            wantIdList = user.wantIds
+            console.log('wantIdList', wantIdList)
+            console.log('userUid?', userUid)
+        }
+
+    }
+
+    return user
+
 }
 
 // DOESNT WORK

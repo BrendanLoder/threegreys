@@ -16,16 +16,10 @@ export default function Header() {
 
     useEffect(()=>{
 
-        console.log('checking path:' , window.location.pathname)
-
-        
-
         const getCurrentUser = async () => {
 
             if(firebaseAuthUser){
-                console.log('In header.js -- hitting function if(firebaseAuthUser) - which is true')
                 try {
-                    console.log('In header.js -- in try{} for getUserByUserId(firebaseAuthUser.uid)}')
                     const dbUser = await getUserByUserId(firebaseAuthUser.uid)
                     setCurrentUser(dbUser)
                     setUsername(dbUser.username)
@@ -36,11 +30,9 @@ export default function Header() {
             } else {
 
                 if(window.location.pathname != '/social/login' && window.location.pathname != '/social/signup') {
-                    console.log('hitting path name true')
-                    // return
                     navigate(RoutePaths.SOCIAL_LOGIN)
                 } else{
-                    console.log('In header.js -- hitting function if(firebaseAuthUser) - which is false')
+                    // console.log('In header.js -- hitting function if(firebaseAuthUser) - which is false')
                     setCurrentUser({})
                     setUsername('')
                     setIsCurrentUser(false)

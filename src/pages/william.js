@@ -9,6 +9,7 @@ function William() {
             <b className="text-xl">
             
                 
+                
             </b><br/>
             <div className="w-72 m-auto">
             <img src="/images/william.jpg"/>

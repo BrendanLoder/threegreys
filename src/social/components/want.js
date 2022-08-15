@@ -15,8 +15,6 @@ export default function Want(want) {
                     </div>
                 </a>
             </div>
-            
-            {/* <div className='h-px w-full bg-gray-400'></div> */}
         </div>
         
     )

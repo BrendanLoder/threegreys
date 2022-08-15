@@ -63,7 +63,6 @@ export default function Signup() {
     }, []);
 
     useEffect(() => {
-        console.log('firebaseAuthUser:', firebaseAuthUser)
         // console.log('firebaseAuthUser.uid:', firebaseAuthUser.uid)
         if(firebaseAuthUser && firebaseAuthUser.uid) {
             navigate(RoutePaths.SOCIAL_DASHBOARD)

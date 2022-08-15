@@ -95,7 +95,7 @@
     margin-right: 6px;
     white-space: nowrap;
     overflow: hidden;
-    border: 3px solid #fff;
+    border: 3px solid yellow;
     padding: 2px; }
     .carousel .thumb:focus {
       border: 3px solid #ccc;
@@ -110,7 +110,7 @@
     overflow: hidden; }
     .carousel.carousel-slider .control-arrow {
       top: 0;
-      color: #fff;
+      color: red;
       font-size: 26px;
       bottom: 0;
       margin-top: 0;
