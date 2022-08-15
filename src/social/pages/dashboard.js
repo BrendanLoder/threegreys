@@ -230,8 +230,6 @@ export default function Dashboard() {
                         <div id="doNotWantsCollapseOne" className="accordion-collapse collapse" aria-labelledby="doNotWantsHeadingOne">
                             <div className="accordion-body py-4 px-5 max-h-48  overflow-scroll no-scrollbar">
                                 {doNotWantItems}
-                                {doNotWantItems}
-                                {doNotWantItems}
                             </div>
                         </div>
                     </div>
