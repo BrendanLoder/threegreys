@@ -98,40 +98,56 @@ export async function getDoNotWantItemsByUserId(userId) {
     return doNotWantItemList
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export async function addUserWant (want) {
-    console.log('in social_firebase -- addUserWant(want) is:',want)
+    // console.log('in social_firebase -- addUserWant(want) is:',want)
 
-    let userWantIds = []
-    let newUserWantIds = []
-
-    try {
+        let userWantIds = []
+        let newUserWantIds = []
         
-        const docRef = doc(collection(db, "social-user-wants"));
+    try {
 
-        const user = await testGetUserByUserId(want.userId)
+        const user = await getUserByUserId(want.userId)
+
         if(user){
-            const userWantIds = user.wantIds
-            console.log('userWantIds', userWantIds)
-            newUserWantIds = [...userWantIds, '123456']
-            console.log('newUserWantIds:', newUserWantIds)
-            console.log('docRef.id (social-user-want id):', docRef.id)
-            const userRef = (db, "social-users", user.userDocId)
+
+            // creating want item and adding wantId as a field
+            const docRef = doc(collection(db, "social-user-wants"));
+            const newWantRefId =  docRef.id
+            await setDoc(docRef, {
+                ...want, 
+                'wantId': newWantRefId
+            });
+
+            userWantIds = user.wantIds
+            newUserWantIds = [...userWantIds, newWantRefId]
+            const userRef = doc(db, "social-users", user.userDocId)
+
+            // updating the wantIds array for the user 
             await updateDoc(userRef, {
                 wantIds: newUserWantIds
-              });
+            });
+
         } else {
             console.log('DO NOT have a user')
         }
-        // const userWantIds = user.wantIds
-        // const updatedUserWantIds = [...userWantIds, docRef]
-        // console.log('getting user.wantIds:', user.wantIds)
-        
-        // await setDoc(docRef, {
-        //     ...want, 
-        //     'wantId': docRef.id
-        // });
-
-
 
     } catch(error) {
         console.log('error in social_firebase/addUserWant:', error)
@@ -139,10 +155,34 @@ export async function addUserWant (want) {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export async function testGetUserByUserId(userId) {
     let user
     let wantIdList = []
-    let userUid
     if(userId){
         const q = query(collection(db, "social-users"), where("userId", "==", userId));
         const querySnapshot = await getDocs(q)
@@ -150,8 +190,6 @@ export async function testGetUserByUserId(userId) {
             querySnapshot.forEach((myDoc) => {
                 user = myDoc.data()
             }); 
-            wantIdList = user.wantIds
-            console.log('hhhh', user)
         }
 
     }
