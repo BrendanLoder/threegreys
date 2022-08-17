@@ -98,26 +98,7 @@ export async function getDoNotWantItemsByUserId(userId) {
     return doNotWantItemList
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export async function addUserWant (want) {
-    // console.log('in social_firebase -- addUserWant(want) is:',want)
 
         let userWantIds = []
         let newUserWantIds = []
@@ -152,29 +133,52 @@ export async function addUserWant (want) {
     } catch(error) {
         console.log('error in social_firebase/addUserWant:', error)
     }
+
+    return newUserWantIds
 }
 
 
 
 
 
+export async function addUserDoNotWant (want) {
 
+    let userDoNotWantIds = []
+    let newUserDoNotWantIds = []
+    
+try {
 
+    const user = await getUserByUserId(want.userId)
 
+    if(user){
 
+        // creating want item and adding wantId as a field
+        const docRef = doc(collection(db, "social-user-wants"));
+        const newDoNotWantRefId =  docRef.id
+        await setDoc(docRef, {
+            ...want, 
+            'wantId': newDoNotWantRefId
+        });
 
+        userDoNotWantIds = user.doNotWantIds
+        newUserDoNotWantIds = [...userDoNotWantIds, newDoNotWantRefId]
+        const userRef = doc(db, "social-users", user.userDocId)
 
+        // updating the wantIds array for the user 
+        await updateDoc(userRef, {
+            doNotWantIds: newUserDoNotWantIds
+        });
 
+    } else {
+        console.log('DO NOT have a user')
+    }
 
+} catch(error) {
+    console.log('error in social_firebase/addUserDoNotWant:', error)
+}
 
-
-
-
-
-
-
-
-
+return newUserDoNotWantIds
+}
 
 
 

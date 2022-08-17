@@ -1,6 +1,6 @@
 import FirebaseUserContext from "../../context/firebaseUser"
 import { useEffect, useState, useContext } from "react";
-import { getUserByUserId, getWantsByUserId, getWantItemsByUserId, getDoNotWantItemsByUserId, addUserWant } from "../services/social_firebase";
+import { getUserByUserId, getWantsByUserId, getWantItemsByUserId, getDoNotWantItemsByUserId, addUserWant, addUserDoNotWant } from "../services/social_firebase";
 import Header from '../components/header'
 import { useNavigate } from 'react-router-dom';
 import Want from "../components/want";
@@ -23,18 +23,26 @@ export default function Dashboard() {
     const [newWantIndex, setNewWantIndex] = useState('');
     const [newWantError, setNewWantError] = useState('');
 
+    const [newDoNotWant, setNewDoNotWant] = useState()
+    const [newDoNotWantTitle, setNewDoNotWantTitle] = useState('');
+    const [newDoNotWantDescription, setNewDoNotWantDescription] = useState('');
+    const [newDoNotWantImageUrl, setNewDoNotWantImageUrl] = useState('');
+    const [newDoNotWantLink, setNewDoNotWantLink] = useState('');
+    const [newDoNotWantType, setNewDoNotWantype] = useState('');
+    const [newDoNotWantIndex, setNewDoNotWantIndex] = useState('');
+    const [newDoNotWantError, setNewDoNotWantError] = useState('');
+    
+
+    const [changingWant, setChangingWant] = useState(false)
+
     const navigate = useNavigate();
     const wantItems = wants && wants.length > 0 ? wants.map((want, index) => 
         <Want key={index} type="wantItem" title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} index={index}/> 
     ) : []
+    console.log("HERE IS THE TEST:", doNotWants)
     const doNotWantItems = doNotWants && doNotWants.length > 0 ? doNotWants.map((doNotWant, index) => 
         <Want key={index} type="doNotWantItem" title={doNotWant.title} description={doNotWant.description} imageUrl={doNotWant.imageUrl} link={doNotWant.link} index={index}/> 
     ) : []
-
-    useEffect(() => {
-        
-        document.title = `Dashboard - TG Social`;
-    }, [])
 
     useEffect(()=>{
 
@@ -74,7 +82,7 @@ export default function Dashboard() {
 
 
 
-    const handleNewWantSubmission = (event) =>
+    const handleNewWantSubmission = async (event) =>
     {
         event.preventDefault()
 
@@ -97,9 +105,9 @@ export default function Dashboard() {
         // console.log('length of wants is:', wants.length)
         const newWantKey = wants.length +1
         const newWant = {
-            'title:': newWantTitle,
+            'title': newWantTitle,
             'description': newWantDescription,
-            'imageUrl:': newWantImageUrl,
+            'imageUrl': newWantImageUrl,
             'link': newWantLink,
             'userId': currentUser.userId
         }
@@ -110,8 +118,57 @@ export default function Dashboard() {
         // console.log('link: ', newWantType)
         // console.log('userId: ', currentUser.userId)
 
-        addUserWant(newWant)
+        const newUserWantList = await addUserWant(newWant)
+        console.log('newUserWantList', newUserWantList)
+        setWants(newUserWantList)
     }
+
+
+    // ---------- START handleNewDoNotWantSubmission ----------
+
+    const handleNewDoNotWantSubmission = async (event) =>
+    {
+        event.preventDefault()
+
+        if(newDoNotWantTitle == '') {
+            setNewDoNotWantError('Please Enter a Title')
+            return
+        }
+        if(newDoNotWantDescription == '') {
+            setNewDoNotWantError('Please Enter a Description')
+            return
+        }
+        if(newDoNotWantImageUrl == '') {
+            setNewDoNotWantError('Please Enter an Image Url')
+            return
+        }
+        if(newDoNotWantLink == '') {
+            setNewDoNotWantError('Please Enter a Link')
+            return
+        }
+        // console.log('length of wants is:', wants.length)
+        const newDoNotWantKey = doNotWants.length +1
+        const newDoNotWant = {
+            'title': newDoNotWantTitle,
+            'description': newDoNotWantDescription,
+            'imageUrl': newDoNotWantImageUrl,
+            'link': newDoNotWantLink,
+            'userId': currentUser.userId
+        }
+        console.log('Would be adding this to new Do NOT want:')
+        console.log('desscription:', newDoNotWantDescription)
+        console.log('title: ', newDoNotWantTitle)
+        console.log('imageUrl: ', newDoNotWantImageUrl)
+        console.log('link: ', newDoNotWantLink)
+        console.log('userId: ', currentUser.userId)
+
+        const newUserNoNotWantList = await addUserDoNotWant(newDoNotWant)
+        setDoNotWants(newUserNoNotWantList)
+    }
+
+     // ---------- END handleNewDoNotWantSubmission ----------
+
+
 
 
     return (
@@ -122,8 +179,8 @@ export default function Dashboard() {
 
 
 
-                        {/* TEST */}
-                        <form onSubmit={handleNewWantSubmission} method="POST">
+                        {/* --------- START NEW WANT SUBMISSION ---------- */}
+                        <form onSubmit={handleNewWantSubmission} method="POST" className='w-full'>
 
                             <p>{newWantError}</p>
                             <p><input
@@ -131,6 +188,7 @@ export default function Dashboard() {
                                 placeholder="Want Title"
                                 value={newWantTitle}
                                 onChange={({ target }) => setNewWantTitle(target.value)}
+                                className='w-full'
                             /></p>
 
                             <p><input
@@ -138,6 +196,7 @@ export default function Dashboard() {
                                 placeholder="Want Description"
                                 value={newWantDescription}
                                 onChange={({ target }) => setNewWantDescription(target.value)}
+                                className='w-full'
                             /></p>
 
                             <p><input
@@ -145,6 +204,7 @@ export default function Dashboard() {
                                 placeholder="Want Image Url"
                                 value={newWantImageUrl}
                                 onChange={({ target }) => setNewWantImageUrl(target.value)}
+                                className='w-full'
                             /></p>
 
                             <p><input
@@ -152,16 +212,18 @@ export default function Dashboard() {
                                     placeholder="Want Link"
                                     value={newWantLink}
                                     onChange={({ target }) => setNewWantLink(target.value)}
+                                    className='w-full'
                             /></p>
 
                             <button
                                 type="submit"
-                                className={`bg-blue-500 text-white w-full rounded h-8 font-bold shadow-lg hover:shadow-none`}
+                                className={`bg-blue-500 text-white w-full rounded h-8 font-bold shadow-lg hover:shadow-none w-full`}
                             >
                                 Add Want
                             </button>
 
                         </form>
+                        {/* --------- START NEW WANT SUBMIRRION ---------- */}
                         {/* <button className="mt-2 px-3 py-2 bg-blue-900 text-blue-100 rounded-lg" onClick={addWant}>
                             test:
                         </button>
@@ -203,6 +265,52 @@ export default function Dashboard() {
                 </div>
 
 
+
+
+                <form onSubmit={handleNewDoNotWantSubmission} method="POST" className='w-full'>
+
+                    <p>{newDoNotWantError}</p>
+                    <p><input
+                        aria-label="Enter DoNotWant Title"
+                        placeholder="DoNotWant Title"
+                        value={newDoNotWantTitle}
+                        onChange={({ target }) => setNewDoNotWantTitle(target.value)}
+                        className='w-full'
+                    /></p>
+
+                    <p><input
+                        aria-label="Enter DoNotWant Description"
+                        placeholder="DoNotWant Description"
+                        value={newDoNotWantDescription}
+                        onChange={({ target }) => setNewDoNotWantDescription(target.value)}
+                        className='w-full'
+                    /></p>
+
+                    <p><input
+                        aria-label="Enter DoNotWant Image Url"
+                        placeholder="DoNotWant Image Url"
+                        value={newDoNotWantImageUrl}
+                        onChange={({ target }) => setNewDoNotWantImageUrl(target.value)}
+                        className='w-full'
+                    /></p>
+
+                    <p><input
+                            aria-label="Enter DoNotWant Link"
+                            placeholder="Want DoNotLink"
+                            value={newDoNotWantLink}
+                            onChange={({ target }) => setNewDoNotWantLink(target.value)}
+                            className='w-full'
+                    /></p>
+
+                    <button
+                        type="submit"
+                        className={`bg-blue-500 text-white w-full rounded h-8 font-bold shadow-lg hover:shadow-none w-full`}
+                    >
+                        Add DoNotWant
+                    </button>
+
+                </form>        
+
                 {/* DO NOT WANTS ACCORDION */}
                 <div className="accordion accordion-flush" id="doNotWantsAccordion">
                     <div className="accordion-item border-t-0 border-l-0 border-r-0 rounded-none bg-white border border-gray-200 mb-2">
@@ -229,8 +337,6 @@ export default function Dashboard() {
                         </h2>
                         <div id="doNotWantsCollapseOne" className="accordion-collapse collapse" aria-labelledby="doNotWantsHeadingOne">
                             <div className="accordion-body py-4 px-5 max-h-48  overflow-scroll no-scrollbar">
-                                {doNotWantItems}
-                                {doNotWantItems}
                                 {doNotWantItems}
                             </div>
                         </div>
