@@ -22,13 +22,19 @@ export default function Dashboard() {
     const [newWantImageUrl, setNewWantImageUrl] = useState('');
     const [newWantLink, setNewWantLink] = useState('');
     const [newWantError, setNewWantError] = useState('');
+    const [newWantWarning, setNewWantWarning] = useState('');
 
-    
     const [newDoNotWantTitle, setNewDoNotWantTitle] = useState('');
     const [newDoNotWantDescription, setNewDoNotWantDescription] = useState('');
     const [newDoNotWantImageUrl, setNewDoNotWantImageUrl] = useState('');
     const [newDoNotWantLink, setNewDoNotWantLink] = useState('');
     const [newDoNotWantError, setNewDoNotWantError] = useState('');
+
+    const [newWantSaveSuccess, setNewWantSaveSuccess] = useState('')
+
+    const warningText = '* title or description required'
+    const errorText = 'Please Enter a Title or Description'
+
 
     useEffect(() => {
         document.title = 'TG Social - Dashboard';
@@ -61,27 +67,47 @@ export default function Dashboard() {
         
     }, [firebaseAuthUser])
     
-        function displayWants (wants) {
-            const wantItems = wants && wants.length > 0 ? wants.map((want, index) => 
-                <Want key={index} type="wantItem" title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} index={index}/> 
-            ) : []
-            setWantItems(wantItems)
+    function displayWants (wants) {
+        const wantItems = wants && wants.length > 0 ? wants.map((want, index) => 
+            <Want key={index} type="wantItem" title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} index={index}/> 
+        ) : []
+        setWantItems(wantItems)
 
+    }
+
+    useEffect(() => {
+        if(wants.length > 0){
+            displayWants(wants)
         }
-        useEffect(() => {
-            if(wants.length > 0){
-                displayWants(wants)
-            }
-        }, [wants])
+    }, [wants])
 
-        function displayDoNotWants (doNotWants) {
-            console.log('displayDoNotWants called with doNotWants:', doNotWants)
-            const doNotWantItems = doNotWants && doNotWants.length > 0 ? doNotWants.map((doNotWant, index) => 
-                <Want key={index} type="doNotWantItem" title={doNotWant.title} description={doNotWant.description} imageUrl={doNotWant.imageUrl} link={doNotWant.link} index={index}/> 
-            ) : []
-            setDoNotWantItems(doNotWantItems)
+    useEffect(() => {
+        setNewWantWarning(warningText)
+    }, [])
 
+    function clearFields(type){
+        if(type == 'wantForm'){
+            setNewWantTitle('')
+            setNewWantDescription('')
+            setNewWantImageUrl('')
+            setNewWantLink('')
         }
+        if(type == 'doNotWantForm'){
+            setNewDoNotWantTitle('')
+            setNewDoNotWantDescription('')
+            setNewDoNotWantImageUrl('')
+            setNewDoNotWantLink('')
+        }
+    }
+
+    function displayDoNotWants (doNotWants) {
+        console.log('displayDoNotWants called with doNotWants:', doNotWants)
+        const doNotWantItems = doNotWants && doNotWants.length > 0 ? doNotWants.map((doNotWant, index) => 
+            <Want key={index} type="doNotWantItem" title={doNotWant.title} description={doNotWant.description} imageUrl={doNotWant.imageUrl} link={doNotWant.link} index={index}/> 
+        ) : []
+        setDoNotWantItems(doNotWantItems)
+
+    }
     useEffect(() => {
 
         if(doNotWants.length > 0){
@@ -90,27 +116,48 @@ export default function Dashboard() {
     
     }, [doNotWants])
 
+    const fadeSuccess = (type) => {
+
+        const saveMessage = 'Save successful'
+        if(type == 'newWant'){
+            setNewWantSaveSuccess(saveMessage)
+
+            setTimeout(() => {
+                setNewWantSaveSuccess('')
+            }, 2000)
+        } else if(type == 'newDoNotWant') {
+
+        }
+
+    }
+    
+        
+      
 
     const handleNewWantSubmission = async (event) =>
     {
         event.preventDefault()
 
-        if(newWantTitle == '') {
-            setNewWantError('Please Enter a Title')
+        if(newWantTitle == '' && newWantDescription == '') {
+            setNewWantWarning('')
+            setNewWantError(errorText)
             return
+        } else {
+            setNewWantWarning(warningText)
+            setNewWantError('')
         }
-        if(newWantDescription == '') {
-            setNewWantError('Please Enter a Description')
-            return
-        }
-        if(newWantImageUrl == '') {
-            setNewWantError('Please Enter an Image Url')
-            return
-        }
-        if(newWantLink == '') {
-            setNewWantError('Please Enter a Link')
-            return
-        }
+        // if(newWantDescription == '') {
+        //     setNewWantError('Please Enter a Description')
+        //     return
+        // }
+        // if(newWantImageUrl == '') {
+        //     setNewWantError('Please Enter an Image Url')
+        //     return
+        // }
+        // if(newWantLink == '') {
+        //     setNewWantError('Please Enter a Link')
+        //     return
+        // }
 
         const newWantKey = wants.length +1
         const newWant = {
@@ -120,11 +167,20 @@ export default function Dashboard() {
             'link': newWantLink,
             'userId': currentUser.userId
         }
-        await addUserWant(newWant)
-        const wantList = wants
-        wantList.push(newWant)
-        setWants(wantList)
-        displayWants(wantList)
+        try{
+
+            await addUserWant(newWant)
+            const wantList = wants
+            wantList.push(newWant)
+            setWants(wantList)
+            displayWants(wantList)
+            clearFields('wantForm')
+            fadeSuccess('newWant')
+
+        } catch(err){
+            setNewWantError('want saving error: ' + err)
+        }
+        
     }
 
 
@@ -180,43 +236,55 @@ export default function Dashboard() {
             <div className="font-sans container w-full mx-auto py-5">
                 <div className="font-bold text-xl">{currentUser.username}</div>
 
+                    <div className="px-5 pt-0 pb-5 w-80 mb-3 rounded-lg border-2 border-blue-200 shadow-md m-auto">
 
+                        
+                        {/* --------- START NEW WANT SUBMISSION FORM ---------- */}
+                        <form onSubmit={handleNewWantSubmission} method="POST" className='w-full px-2'>
+                            <div className="text-xs text-red-500 mb-1 w-full text-center text-center text-red-700  min-h-[20px] h-[20px] pt-1">
+                                <span className='text-indigo-600'>{newWantSaveSuccess}</span>
+                                {newWantError}
+                            </div>
 
-                        {/* --------- START NEW WANT SUBMISSION ---------- */}
-                        <form onSubmit={handleNewWantSubmission} method="POST" className='w-full'>
+                            <div>
+                                <input
+                                    aria-label="Enter Want Title"
+                                    placeholder="Want Title"
+                                    value={newWantTitle}
+                                    onChange={({ target }) => setNewWantTitle(target.value)}
+                                    className='w-full border-2 border-blue-100 rounded-md mb-1 px-2 py-1 text-sm font-medium shadow-md'
+                                />
+                            </div>
 
-                            <p>{newWantError}</p>
-                            <p><input
-                                aria-label="Enter Want Title"
-                                placeholder="Want Title"
-                                value={newWantTitle}
-                                onChange={({ target }) => setNewWantTitle(target.value)}
-                                className='w-full'
-                            /></p>
+                            <div>
+                                <input
+                                    aria-label="Enter Want Description"
+                                    placeholder="Want Description"
+                                    value={newWantDescription}
+                                    onChange={({ target }) => setNewWantDescription(target.value)}
+                                    className='w-full border-2 border-blue-100 rounded-md mb-1 px-2 py-1 text-sm font-medium shadow-md'
+                                />
+                            </div>
 
-                            <p><input
-                                aria-label="Enter Want Description"
-                                placeholder="Want Description"
-                                value={newWantDescription}
-                                onChange={({ target }) => setNewWantDescription(target.value)}
-                                className='w-full'
-                            /></p>
+                            <div>
+                                <input
+                                    aria-label="Enter Want Image Url"
+                                    placeholder="Want Image Url"
+                                    value={newWantImageUrl}
+                                    onChange={({ target }) => setNewWantImageUrl(target.value)}
+                                    className='w-full border-2 border-blue-100 rounded-md mb-1 px-2 py-1 text-sm font-medium shadow-md'
+                                />
+                            </div>
 
-                            <p><input
-                                aria-label="Enter Want Image Url"
-                                placeholder="Want Image Url"
-                                value={newWantImageUrl}
-                                onChange={({ target }) => setNewWantImageUrl(target.value)}
-                                className='w-full'
-                            /></p>
-
-                            <p><input
+                            <div>
+                                <input
                                     aria-label="Enter Want Link"
                                     placeholder="Want Link"
                                     value={newWantLink}
                                     onChange={({ target }) => setNewWantLink(target.value)}
-                                    className='w-full'
-                            /></p>
+                                    className='w-full border-2 border-blue-100 rounded-md mb-1 px-2 py-1 text-sm font-medium shadow-md'
+                                />
+                            </div>
 
                             <button
                                 type="submit"
@@ -226,6 +294,10 @@ export default function Dashboard() {
                             </button>
 
                         </form>
+
+                    </div>
+
+                        
                         
                 
                 {/* WANTS ACCORDION */}
