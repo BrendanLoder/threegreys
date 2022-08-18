@@ -59,7 +59,7 @@ export default function Signup() {
     }
     
     useEffect(() => {
-        document.title = `Login - TG Social`;
+        document.title = 'TG Social - Login';
     }, []);
 
     useEffect(() => {

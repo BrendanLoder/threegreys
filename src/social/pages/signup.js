@@ -56,7 +56,6 @@ export default function Signup() {
         }
         
         const userExists = await doesUsernameExist(username);
-        console.log('userExists comes back as:', userExists)
 
         if(!userExists) {
 
@@ -96,7 +95,7 @@ export default function Signup() {
     }
     
     useEffect(() => {
-        document.title = `Signup - TG Social`;
+        document.title = 'TG Social - Signup';
     }, []);
 
 

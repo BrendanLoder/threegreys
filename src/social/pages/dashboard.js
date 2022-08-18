@@ -12,37 +12,27 @@ export default function Dashboard() {
     const [currentUser, setCurrentUser] = useState({})
     const [wants, setWants] = useState([])
     const [doNotWants, setDoNotWants] = useState([])
-    const [wantIds, setWantIds] = useState([])
 
-    const [newWant, setNewWant] = useState()
+    const [wantItems, setWantItems] = useState([])
+    const [doNotWantItems, setDoNotWantItems] = useState([])
+
+   
     const [newWantTitle, setNewWantTitle] = useState('');
     const [newWantDescription, setNewWantDescription] = useState('');
     const [newWantImageUrl, setNewWantImageUrl] = useState('');
     const [newWantLink, setNewWantLink] = useState('');
-    const [newWantType, setNewWantType] = useState('');
-    const [newWantIndex, setNewWantIndex] = useState('');
     const [newWantError, setNewWantError] = useState('');
 
-    const [newDoNotWant, setNewDoNotWant] = useState()
+    
     const [newDoNotWantTitle, setNewDoNotWantTitle] = useState('');
     const [newDoNotWantDescription, setNewDoNotWantDescription] = useState('');
     const [newDoNotWantImageUrl, setNewDoNotWantImageUrl] = useState('');
     const [newDoNotWantLink, setNewDoNotWantLink] = useState('');
-    const [newDoNotWantType, setNewDoNotWantype] = useState('');
-    const [newDoNotWantIndex, setNewDoNotWantIndex] = useState('');
     const [newDoNotWantError, setNewDoNotWantError] = useState('');
-    
 
-    const [changingWant, setChangingWant] = useState(false)
-
-    const navigate = useNavigate();
-    const wantItems = wants && wants.length > 0 ? wants.map((want, index) => 
-        <Want key={index} type="wantItem" title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} index={index}/> 
-    ) : []
-    console.log("HERE IS THE TEST:", doNotWants)
-    const doNotWantItems = doNotWants && doNotWants.length > 0 ? doNotWants.map((doNotWant, index) => 
-        <Want key={index} type="doNotWantItem" title={doNotWant.title} description={doNotWant.description} imageUrl={doNotWant.imageUrl} link={doNotWant.link} index={index}/> 
-    ) : []
+    useEffect(() => {
+        document.title = 'TG Social - Dashboard';
+    }, []);
 
     useEffect(()=>{
 
@@ -54,9 +44,10 @@ export default function Dashboard() {
                     const dbUser = await getUserByUserId(firebaseAuthUser.uid)
                     setCurrentUser(dbUser)
                     const wants = await getWantItemsByUserId(dbUser.userId)
-                    setWants(wants)
+                    wants && wants.length > 0 && setWants(wants)
                     const doNotWants = await getDoNotWantItemsByUserId(dbUser.userId)
                     setDoNotWants(doNotWants)
+                    
                 } catch (err){
                     console.log('Error in dashboard.js getUserById and getWantsByUserId and getDoNotWantItemsByUserId', err)
                 }
@@ -69,17 +60,35 @@ export default function Dashboard() {
         getCurrentUser()
         
     }, [firebaseAuthUser])
+    
+        function displayWants (wants) {
+            const wantItems = wants && wants.length > 0 ? wants.map((want, index) => 
+                <Want key={index} type="wantItem" title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} index={index}/> 
+            ) : []
+            setWantItems(wantItems)
 
+        }
+        useEffect(() => {
+            if(wants.length > 0){
+                displayWants(wants)
+            }
+        }, [wants])
 
-    // NEW WANT functionality
-    // const addWant = async (want) => {
-    //     console.log('passed in want:', want)
-    //     const key = "newWant_" + wants.length
-    //     let newWantItem = <Want type="newWantItem" title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} index={wants.length + 1}/> 
+        function displayDoNotWants (doNotWants) {
+            console.log('displayDoNotWants called with doNotWants:', doNotWants)
+            const doNotWantItems = doNotWants && doNotWants.length > 0 ? doNotWants.map((doNotWant, index) => 
+                <Want key={index} type="doNotWantItem" title={doNotWant.title} description={doNotWant.description} imageUrl={doNotWant.imageUrl} link={doNotWant.link} index={index}/> 
+            ) : []
+            setDoNotWantItems(doNotWantItems)
 
-    //     setNewWant(newWantItem)
-    // }
+        }
+    useEffect(() => {
 
+        if(doNotWants.length > 0){
+            displayDoNotWants(doNotWants)
+        }
+    
+    }, [doNotWants])
 
 
     const handleNewWantSubmission = async (event) =>
@@ -102,7 +111,7 @@ export default function Dashboard() {
             setNewWantError('Please Enter a Link')
             return
         }
-        // console.log('length of wants is:', wants.length)
+
         const newWantKey = wants.length +1
         const newWant = {
             'title': newWantTitle,
@@ -111,16 +120,11 @@ export default function Dashboard() {
             'link': newWantLink,
             'userId': currentUser.userId
         }
-        // console.log('Would be adding this to new want:')
-        // console.log('desscription:', newWantDescription)
-        // console.log('title: ', newWantTitle)
-        // console.log('imageUrl: ', newWantImageUrl)
-        // console.log('link: ', newWantType)
-        // console.log('userId: ', currentUser.userId)
-
-        const newUserWantList = await addUserWant(newWant)
-        console.log('newUserWantList', newUserWantList)
-        setWants(newUserWantList)
+        await addUserWant(newWant)
+        const wantList = wants
+        wantList.push(newWant)
+        setWants(wantList)
+        displayWants(wantList)
     }
 
 
@@ -146,7 +150,7 @@ export default function Dashboard() {
             setNewDoNotWantError('Please Enter a Link')
             return
         }
-        // console.log('length of wants is:', wants.length)
+        
         const newDoNotWantKey = doNotWants.length +1
         const newDoNotWant = {
             'title': newDoNotWantTitle,
@@ -155,15 +159,14 @@ export default function Dashboard() {
             'link': newDoNotWantLink,
             'userId': currentUser.userId
         }
-        console.log('Would be adding this to new Do NOT want:')
-        console.log('desscription:', newDoNotWantDescription)
-        console.log('title: ', newDoNotWantTitle)
-        console.log('imageUrl: ', newDoNotWantImageUrl)
-        console.log('link: ', newDoNotWantLink)
-        console.log('userId: ', currentUser.userId)
 
-        const newUserNoNotWantList = await addUserDoNotWant(newDoNotWant)
-        setDoNotWants(newUserNoNotWantList)
+        await addUserDoNotWant(newDoNotWant)
+        const doNotWantList = doNotWants
+        doNotWantList.push(newDoNotWant)
+        setDoNotWants(doNotWantList)
+        displayDoNotWants(doNotWantList)
+
+        
     }
 
      // ---------- END handleNewDoNotWantSubmission ----------
@@ -223,13 +226,7 @@ export default function Dashboard() {
                             </button>
 
                         </form>
-                        {/* --------- START NEW WANT SUBMIRRION ---------- */}
-                        {/* <button className="mt-2 px-3 py-2 bg-blue-900 text-blue-100 rounded-lg" onClick={addWant}>
-                            test:
-                        </button>
-                        {newWant} */}
-
-                            {/* ENDTEST */}
+                        
                 
                 {/* WANTS ACCORDION */}
                 <div className="accordion accordion-flush" id="wantsAccordion">
@@ -252,12 +249,11 @@ export default function Dashboard() {
                             focus:outline-none
                             " type="button" data-bs-toggle="collapse" data-bs-target="#wantsCollapseOne" aria-expanded="true"
                             aria-controls="wantsCollapseOne">
-                            Si
+                            Si ({wants.length})
                             </button>
                         </h2>
                         <div id="wantsCollapseOne" className="accordion-collapse collapse" aria-labelledby="wantsHeadingOne">
                             <div className="accordion-body py-4 px-5 max-h-48  overflow-scroll no-scrollbar">
-                                {/* {newWant} */}
                                 {wantItems}
                             </div>
                         </div>
@@ -332,7 +328,7 @@ export default function Dashboard() {
                             focus:outline-none
                             " type="button" data-bs-toggle="collapse" data-bs-target="#doNotWantsCollapseOne" aria-expanded="true"
                             aria-controls="doNotWantsCollapseOne">
-                            Nein
+                            Nein ({doNotWants.length})
                             </button>
                         </h2>
                         <div id="doNotWantsCollapseOne" className="accordion-collapse collapse" aria-labelledby="doNotWantsHeadingOne">
