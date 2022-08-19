@@ -32,6 +32,9 @@ export default function Dashboard() {
 
     const [newWantSaveSuccess, setNewWantSaveSuccess] = useState('')
 
+    const [newWantFormDisplayClass, setNewWantFormDisplayClass] = useState('hidden')
+    const [addNewWantButtonDisplayClass, setAddNewWantButtonDisplayClass] = useState('')
+
     const warningText = '* title or description required'
     const errorText = 'Please Enter a Title or Description'
 
@@ -42,6 +45,11 @@ export default function Dashboard() {
 
     useEffect(()=>{
 
+            const Results = () => (
+                <div id="results" className="search-results">
+                Some Results
+                </div>
+            )
 
         const getCurrentUser = async () => {
 
@@ -124,6 +132,7 @@ export default function Dashboard() {
 
             setTimeout(() => {
                 setNewWantSaveSuccess('')
+                toggleNewWantFormDisplay()
             }, 2000)
         } else if(type == 'newDoNotWant') {
 
@@ -225,6 +234,19 @@ export default function Dashboard() {
         
     }
 
+    const toggleNewWantFormDisplay = (e) => {
+        if(e) e.preventDefault()
+
+        if(newWantFormDisplayClass == 'hidden') {
+            setNewWantFormDisplayClass('')
+            setAddNewWantButtonDisplayClass('hidden')
+        } else {
+            setNewWantFormDisplayClass('hidden')
+            clearFields('wantForm')
+            setAddNewWantButtonDisplayClass('')
+        }
+    }
+
      // ---------- END handleNewDoNotWantSubmission ----------
 
 
@@ -236,7 +258,29 @@ export default function Dashboard() {
             <div className="font-sans container w-full mx-auto py-5">
                 <div className="font-bold text-xl">{currentUser.username}</div>
 
-                    <div className="px-5 pt-0 pb-5 w-80 mb-3 rounded-lg border-2 border-blue-200 shadow-md m-auto">
+
+
+
+
+
+                    <div className='relative'>
+
+                    <a href='' onClick={toggleNewWantFormDisplay}>
+                        <div className={`w-6 h-6 text-md rounded-full bg-blue-500 text-white shadow-md hover:shadow-none text-center font-bold mx-1 my-1 ${addNewWantButtonDisplayClass}`}>
+                                +
+                        </div>
+                    </a>
+                    
+                    <div className={`px-5 pt-0 pb-5 p-1 w-80 mb-3 rounded-lg border-2 border-blue-200 shadow-md m-auto relative ${newWantFormDisplayClass}`}>
+
+                        
+
+
+                        {/* Close new want form */}
+                        <div className='absolute right-1 top-1'>
+                            <a href='' onClick={toggleNewWantFormDisplay}><div className='w-6 h-6 text-md rounded-full content-between text-center bg-blue-500 text-white shadow-md hover:shadow-none font-bold'>x</div></a>
+                        </div>
+                        
 
                         
                         {/* --------- START NEW WANT SUBMISSION FORM ---------- */}
@@ -294,6 +338,12 @@ export default function Dashboard() {
                             </button>
 
                         </form>
+
+                    </div>
+
+
+
+
 
                     </div>
 
