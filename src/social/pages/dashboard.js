@@ -22,7 +22,6 @@ export default function Dashboard() {
     const [newWantImageUrl, setNewWantImageUrl] = useState('');
     const [newWantLink, setNewWantLink] = useState('');
     const [newWantError, setNewWantError] = useState('');
-    const [newWantWarning, setNewWantWarning] = useState('');
 
     const [newDoNotWantTitle, setNewDoNotWantTitle] = useState('');
     const [newDoNotWantDescription, setNewDoNotWantDescription] = useState('');
@@ -35,7 +34,6 @@ export default function Dashboard() {
     const [newWantFormDisplayClass, setNewWantFormDisplayClass] = useState('hidden')
     const [addNewWantButtonDisplayClass, setAddNewWantButtonDisplayClass] = useState('')
 
-    const warningText = '* title or description required'
     const errorText = 'Please Enter a Title or Description'
 
 
@@ -44,12 +42,6 @@ export default function Dashboard() {
     }, []);
 
     useEffect(()=>{
-
-            const Results = () => (
-                <div id="results" className="search-results">
-                Some Results
-                </div>
-            )
 
         const getCurrentUser = async () => {
 
@@ -88,10 +80,6 @@ export default function Dashboard() {
             displayWants(wants)
         }
     }, [wants])
-
-    useEffect(() => {
-        setNewWantWarning(warningText)
-    }, [])
 
     function clearFields(type){
         if(type == 'wantForm'){
@@ -148,11 +136,9 @@ export default function Dashboard() {
         event.preventDefault()
 
         if(newWantTitle == '' && newWantDescription == '') {
-            setNewWantWarning('')
             setNewWantError(errorText)
             return
         } else {
-            setNewWantWarning(warningText)
             setNewWantError('')
         }
         // if(newWantDescription == '') {
@@ -271,7 +257,7 @@ export default function Dashboard() {
                         </div>
                     </a>
                     
-                    <div className={`px-5 pt-0 pb-5 p-1 w-80 mb-3 rounded-lg border-2 border-blue-200 shadow-md m-auto relative ${newWantFormDisplayClass}`}>
+                    <div className={`px-5 pt-0 pb-5 p-1 w-80 mb-3 rounded-lg border-2 bg-blue-50 border-blue-200 shadow-md m-auto relative ${newWantFormDisplayClass}`}>
 
                         
 
