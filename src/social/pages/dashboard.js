@@ -34,8 +34,15 @@ export default function Dashboard() {
     const [newWantFormDisplayClass, setNewWantFormDisplayClass] = useState('hidden')
     const [addNewWantButtonDisplayClass, setAddNewWantButtonDisplayClass] = useState('')
 
+    // const [wantsEditable] = useState(false)
+    const [wantsEditable] = useState(true)
+
     const errorText = 'Please Enter a Title or Description'
 
+
+    const tester = (data) => {
+        console.log('tester called. Data:', data)
+    }
 
     useEffect(() => {
         document.title = 'TG Social - Dashboard';
@@ -69,7 +76,7 @@ export default function Dashboard() {
     
     function displayWants (wants) {
         const wantItems = wants && wants.length > 0 ? wants.map((want, index) => 
-            <Want key={index} type="wantItem" title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} index={index}/> 
+            <Want key={index} type="wantItem" title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} wantId={want.wantId} wantsEditable={wantsEditable} index={index} /> 
         ) : []
         setWantItems(wantItems)
 
@@ -164,7 +171,7 @@ export default function Dashboard() {
         }
         try{
 
-            await addUserWant(newWant)
+            newWant.wantId = await addUserWant(newWant)
             const wantList = wants
             wantList.push(newWant)
             setWants(wantList)
@@ -230,13 +237,18 @@ export default function Dashboard() {
             setNewWantFormDisplayClass('hidden')
             clearFields('wantForm')
             setAddNewWantButtonDisplayClass('')
-        }
+        } 
     }
 
      // ---------- END handleNewDoNotWantSubmission ----------
 
+    const handleWantsEditSubmit = (event) => {
+        event.preventDefault()
+        const target = event.target;
+        console.log('ok its a start value', target[0].value)
+    }
 
-
+    
 
     return (
         <div>
@@ -361,9 +373,21 @@ export default function Dashboard() {
                             </button>
                         </h2>
                         <div id="wantsCollapseOne" className="accordion-collapse collapse" aria-labelledby="wantsHeadingOne">
-                            <div className="accordion-body py-4 px-5 max-h-48  overflow-scroll no-scrollbar">
-                                {wantItems}
-                            </div>
+                            <form onSubmit={handleWantsEditSubmit} method="POST">
+                                <div className="accordion-body py-4 px-5 max-h-48  overflow-scroll no-scrollbar">
+
+                                    
+                                        {wantItems}
+                                        
+
+                                </div>
+                                <button
+                                    type="submit"
+                                    className={`bg-blue-500 text-white w-full rounded h-8 font-bold shadow-lg hover:shadow-none w-full`}
+                                >
+                                    Save Edits
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

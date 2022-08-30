@@ -12,6 +12,7 @@ const RoutePaths = {
     SOCIAL_DASHBOARD: '/social',
     SOCIAL_LOGIN: '/social/login',
     SOCIAL_SIGN_UP: '/social/signup',
-    SOCIAL_PROFILE: '/social/p/:username'
+    SOCIAL_PROFILE: '/social/p/:username',
+    TEST: '/social/test'
 }
 export default RoutePaths

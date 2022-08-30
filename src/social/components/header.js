@@ -17,27 +17,13 @@ export default function Header() {
     useEffect(()=>{
 
         const getCurrentUser = async () => {
-
-            if(firebaseAuthUser){
-                try {
-                    const dbUser = await getUserByUserId(firebaseAuthUser.uid)
-                    setCurrentUser(dbUser)
-                    setUsername(dbUser.username)
-                    setIsCurrentUser(true)
-                } catch (err){
-                    console.log('In header.js - in catch{} for getUserById(firebaseAuthUser.uid)', err)
-                }
-            } else {
-
-                if(window.location.pathname != '/social/login' && window.location.pathname != '/social/signup') {
-                    navigate(RoutePaths.SOCIAL_LOGIN)
-                } else{
-                    // console.log('In header.js -- hitting function if(firebaseAuthUser) - which is false')
-                    setCurrentUser({})
-                    setUsername('')
-                    setIsCurrentUser(false)
-                }
-                
+            try {
+                const dbUser = await getUserByUserId(firebaseAuthUser.uid)
+                setCurrentUser(dbUser)
+                setUsername(dbUser.username)
+                setIsCurrentUser(true)
+            } catch (err){
+                console.log('In header.js - in catch{} for getUserById(firebaseAuthUser.uid)', err)
             }
         }
 

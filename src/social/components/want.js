@@ -7,9 +7,24 @@ export default function Want(want) {
     // console.log('want.description: '  + want.description)
     // console.log('key: '  + key)
     // console.log('-- END IN WANT.JS --')
+    
     return (
 
-        <div className="bg-gray-100 hover:bg-indigo-50 border-gray-300 leading-normal mb-2 border-y-2">
+        <div className="bg-gray-100 hover:bg-indigo-50 border-gray-300 leading-normal mb-2 border-y-2 relative">
+            <p>wantId = {want.wantId}</p>
+            {want.wantsEditable &&
+                <p>
+                    <label>
+                        Delete:<br/>
+                        <input
+                            type="checkbox"
+                            name="deleteWants"
+                            value={want.wantId}
+                            
+                        />
+                    </label>
+              </p>
+            }
             <div className="p-2">
                 <a {... want.link ? {href: want.link} : {}}>
                     {want.imageUrl && want.imageUrl.length > 0 &&
@@ -22,6 +37,7 @@ export default function Want(want) {
                     </div>
                 </a>
             </div>
+
         </div>
         
     )

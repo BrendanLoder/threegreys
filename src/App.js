@@ -7,6 +7,7 @@ import RoutePaths from './constants/routes'
 import UserContext from './context/user'
 import SiteHeader from './components/site-header'
 import SiteFooter from './components/site-footer'
+import ProtectedRoute from './social/helpers/protected-routes';
 
 import FirebaseUserContext from './context/firebaseUser';
 import useFirebaseAuthListener from './hooks/use-firebase-auth-listener';
@@ -28,6 +29,7 @@ const Social_Dashboard = lazy(() => import ('./social/pages/dashboard'));
 const Social_Signup = lazy(() => import ('./social/pages/signup'));
 const Social_Login = lazy(() => import ('./social/pages/login'));
 const Social_Profile = lazy(() => import ('./social/pages/profile'));
+const Test = lazy(() => import ('./social/pages/test'))
 
 
 const App = ({ signOut, user }) => {    
@@ -55,6 +57,7 @@ const App = ({ signOut, user }) => {
                                 <Suspense fallback={<div className="w-full text-center p-2">
                                 <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full" role="status"><span className="visually-hidden">Loading...</span></div></div>}>
                                     <Routes>
+                                        
                                         <Route path={RoutePaths.LOGIN} element={<Login />} />
                                         <Route path={RoutePaths.PROFILE} element={<Profile user={user} />} />
                                         <Route exact path={RoutePaths.DASHBOARD} element={<Dashboard />} />
@@ -68,7 +71,14 @@ const App = ({ signOut, user }) => {
                                         <Route exact path={RoutePaths.SOCIAL_DASHBOARD} element={<Social_Dashboard />} />
                                         <Route exact path={RoutePaths.SOCIAL_LOGIN} element={<Social_Login />} />
                                         <Route exact path={RoutePaths.SOCIAL_SIGN_UP} element={<Social_Signup />} />
-                                        <Route exact path={RoutePaths.SOCIAL_PROFILE} element={<Social_Profile />} />
+                                        <Route exact
+                                            path={RoutePaths.TEST}
+                                            element={
+                                                <ProtectedRoute user={firebaseAuthUser}>
+                                                    <Test />
+                                                </ProtectedRoute>
+                                            }
+                                        />
                                         <Route path="*" element={<NotFound/>} />
                                     </Routes>
                                 </Suspense>

@@ -102,6 +102,7 @@ export async function addUserWant (want) {
 
         let userWantIds = []
         let newUserWantIds = []
+        let newWantId
         
     try {
 
@@ -125,7 +126,7 @@ export async function addUserWant (want) {
             await updateDoc(userRef, {
                 wantIds: newUserWantIds
             });
-
+            newWantId = newWantRefId
         } else {
             console.log('DO NOT have a user')
         }
@@ -134,7 +135,7 @@ export async function addUserWant (want) {
         console.log('error in social_firebase/addUserWant:', error)
     }
 
-    return newUserWantIds
+    return newWantId
 }
 
 
