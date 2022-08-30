@@ -11,19 +11,17 @@ export default function Want(want) {
     return (
 
         <div className="bg-gray-100 hover:bg-indigo-50 border-gray-300 leading-normal mb-2 border-y-2 relative">
-            <p>wantId = {want.wantId}</p>
             {want.wantsEditable &&
-                <p>
+                <div className="m-1">
                     <label>
-                        Delete:<br/>
                         <input
                             type="checkbox"
                             name="deleteWants"
                             value={want.wantId}
-                            
                         />
+                        &nbsp;<span className='text-xs text-blue-400'>Delete</span>
                     </label>
-              </p>
+              </div>
             }
             <div className="p-2">
                 <a {... want.link ? {href: want.link} : {}}>

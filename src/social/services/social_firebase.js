@@ -1,5 +1,5 @@
 import {firebase, db} from '../../lib/firebase'
-import { getFirestore, collection, doc, getDoc, getDocs, query, where, setDoc, addDoc, updateDoc } from 'firebase/firestore'
+import { getFirestore, collection, doc, getDoc, getDocs, query, where, setDoc, addDoc, updateDoc, deleteDoc } from 'firebase/firestore'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import FirebaseUserContext from '../../context/firebaseUser';
 
@@ -179,6 +179,36 @@ try {
 }
 
 return newUserDoNotWantIds
+}
+
+export async function updateUserWants({
+    userId,
+    deleteArray,
+    keepArray
+}) {
+    try {
+        const user = await getUserByUserId(userId)
+        const userRef = doc(db, "social-users", user.userDocId)
+        if(keepArray && keepArray.length > 0) {
+            await updateDoc(userRef, {
+                wantIds: keepArray
+            });
+        }
+        // await deleteDoc(doc(db, "cities", "DC"));
+        
+        if(deleteArray && deleteArray.length > 0) {
+            await Promise.all(deleteArray.map(async (wantId) => deleteDoc(doc(db, "social-user-wants", wantId))));
+        }
+    } catch(error){
+        console.log('Error in updateUserWants():', error)
+    }
+    
+    // JX96J0bLvnwvWJwyZKjS
+    
+    console.log('in updateUserWants() - userId: ', userId)
+    // console.log('in updateUserWants() - user: ', user)
+    console.log('in updateUserWants() - deleteArray: ', deleteArray)
+    console.log('in updateUserWants() - keepArray: ', keepArray)
 }
 
 

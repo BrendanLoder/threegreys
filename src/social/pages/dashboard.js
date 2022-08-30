@@ -1,6 +1,6 @@
 import FirebaseUserContext from "../../context/firebaseUser"
 import { useEffect, useState, useContext } from "react";
-import { getUserByUserId, getWantsByUserId, getWantItemsByUserId, getDoNotWantItemsByUserId, addUserWant, addUserDoNotWant } from "../services/social_firebase";
+import { getUserByUserId, getWantsByUserId, getWantItemsByUserId, getDoNotWantItemsByUserId, addUserWant, addUserDoNotWant, updateUserWants } from "../services/social_firebase";
 import Header from '../components/header'
 import { useNavigate } from 'react-router-dom';
 import Want from "../components/want";
@@ -33,6 +33,9 @@ export default function Dashboard() {
 
     const [newWantFormDisplayClass, setNewWantFormDisplayClass] = useState('hidden')
     const [addNewWantButtonDisplayClass, setAddNewWantButtonDisplayClass] = useState('')
+
+    const [wantDeleteArray, setWantDeleteArray] = useState([])
+    const [wantKeepArray, setWantKeepArray] = useState([])
 
     // const [wantsEditable] = useState(false)
     const [wantsEditable] = useState(true)
@@ -75,6 +78,7 @@ export default function Dashboard() {
     }, [firebaseAuthUser])
     
     function displayWants (wants) {
+        console.log('displayWants:', wants)
         const wantItems = wants && wants.length > 0 ? wants.map((want, index) => 
             <Want key={index} type="wantItem" title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} wantId={want.wantId} wantsEditable={wantsEditable} index={index} /> 
         ) : []
@@ -242,10 +246,37 @@ export default function Dashboard() {
 
      // ---------- END handleNewDoNotWantSubmission ----------
 
-    const handleWantsEditSubmit = (event) => {
+    const handleWantsEditSubmit = async (event) => {
         event.preventDefault()
         const target = event.target;
-        console.log('ok its a start value', target[0].value)
+        console.log('target[0]: ', target[0])
+        Array.prototype.forEach.call(event.target.elements, (element) => {
+            console.log('hm?', element.value);
+            console.log('checked?', element.checked);
+            if(element && element.value && element.checked) {
+                console.log('pushing to delete array')
+                setWantDeleteArray(wantDeleteArray.push(element.value)) 
+            } else if(element && element.value && !element.checked) {
+                setWantKeepArray(wantKeepArray.push(element.value))
+            }
+            
+        })
+        console.log('wantDeleteArray:', wantDeleteArray)
+        console.log('wantKeepArray:', wantKeepArray)
+        await updateUserWants({
+            userId: currentUser.userId,
+            deleteArray: wantDeleteArray,
+            keepArray: wantKeepArray
+        })
+        const wants = await getWantItemsByUserId(currentUser.userId)
+        wants && wants.length > 0 && setWants(wants)
+        setWantDeleteArray([])
+        setWantKeepArray([])
+        // console.log('ok its a start value', target[0].value)
+        // console.log('MAP:')
+        // wants && wants.length > 0 ? target.value.map((want, index) => {
+        //     console.log('foo')
+        // }): null
     }
 
     
