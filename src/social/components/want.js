@@ -19,7 +19,7 @@ export default function Want(want) {
                             name="deleteWants"
                             value={want.wantId}
                         />
-                        &nbsp;<span className='text-xs text-blue-400'>Delete</span>
+                        &nbsp;<span className='text-xs text-red-400'>Delete</span>
                     </label>
               </div>
             }
