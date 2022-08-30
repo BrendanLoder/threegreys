@@ -27,7 +27,9 @@ export default function Header() {
             }
         }
 
-        getCurrentUser()
+        if(firebaseAuthUser) {
+            getCurrentUser()
+        }
 
     }, [firebaseAuthUser])
 

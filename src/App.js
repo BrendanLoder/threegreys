@@ -68,17 +68,24 @@ const App = ({ signOut, user }) => {
                                         <Route exact path={RoutePaths.TAILWIND} element={<Tailwind />} />
                                         <Route exact path={RoutePaths.TAILWIND_EXAMPLE} element={<Tailwind_Example />} />
                                         <Route exact path={RoutePaths.PLAYGROUND} element={<Playground />} />
-                                        <Route exact path={RoutePaths.SOCIAL_DASHBOARD} element={<Social_Dashboard />} />
+                                        <Route exact
+                                            path={RoutePaths.SOCIAL_DASHBOARD}
+                                            element={
+                                                <ProtectedRoute user={firebaseAuthUser}>
+                                                    <Social_Dashboard />
+                                                </ProtectedRoute>
+                                            }
+                                        />
                                         <Route exact path={RoutePaths.SOCIAL_LOGIN} element={<Social_Login />} />
                                         <Route exact path={RoutePaths.SOCIAL_SIGN_UP} element={<Social_Signup />} />
-                                        <Route exact
+                                        {/* <Route exact
                                             path={RoutePaths.TEST}
                                             element={
                                                 <ProtectedRoute user={firebaseAuthUser}>
                                                     <Test />
                                                 </ProtectedRoute>
                                             }
-                                        />
+                                        /> */}
                                         <Route path="*" element={<NotFound/>} />
                                     </Routes>
                                 </Suspense>
