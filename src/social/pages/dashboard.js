@@ -6,45 +6,49 @@ import { useNavigate } from 'react-router-dom';
 import Want from "../components/want";
 
 export default function Dashboard() {
+
+    // Set Page Title useEffect
+    useEffect(() => {
+        document.title = 'TG Social - Dashboard';
+    }, []);
     
     const firebaseAuthUser = useContext(FirebaseUserContext)
-    
     const [currentUser, setCurrentUser] = useState({})
 
-    const [wants, setWants] = useState([])
-    const [doNotWants, setDoNotWants] = useState([])
-    const [wantItems, setWantItems] = useState([])
-    const [doNotWantItems, setDoNotWantItems] = useState([])
+    // Start Wants Specific States
 
-   
+    const [wants, setWants] = useState([])
+    const [wantItems, setWantItems] = useState([])
     const [newWantTitle, setNewWantTitle] = useState('');
     const [newWantDescription, setNewWantDescription] = useState('');
     const [newWantImageUrl, setNewWantImageUrl] = useState('');
     const [newWantLink, setNewWantLink] = useState('');
     const [newWantError, setNewWantError] = useState('');
+    const [newWantSaveSuccess, setNewWantSaveSuccess] = useState('')
+    const [newWantFormDisplayClass, setNewWantFormDisplayClass] = useState('hidden')
+    const [addNewWantButtonDisplayClass, setAddNewWantButtonDisplayClass] = useState('')
+    const [wantDeleteArray, setWantDeleteArray] = useState([])
+    const [wantKeepArray, setWantKeepArray] = useState([])
+    const [wantsEditable, setWantsEditable] = useState(false)
 
+    // End Wants Specific States
+
+    // Start Do Not Wants Specific States
+
+    const [doNotWants, setDoNotWants] = useState([])
+    const [doNotWantItems, setDoNotWantItems] = useState([])
     const [newDoNotWantTitle, setNewDoNotWantTitle] = useState('');
     const [newDoNotWantDescription, setNewDoNotWantDescription] = useState('');
     const [newDoNotWantImageUrl, setNewDoNotWantImageUrl] = useState('');
     const [newDoNotWantLink, setNewDoNotWantLink] = useState('');
     const [newDoNotWantError, setNewDoNotWantError] = useState('');
 
-    const [newWantSaveSuccess, setNewWantSaveSuccess] = useState('')
+    // End Do Not Wants Specific States
 
-    const [newWantFormDisplayClass, setNewWantFormDisplayClass] = useState('hidden')
-    const [addNewWantButtonDisplayClass, setAddNewWantButtonDisplayClass] = useState('')
-
-    const [wantDeleteArray, setWantDeleteArray] = useState([])
-    const [wantKeepArray, setWantKeepArray] = useState([])
-
-    const [wantsEditable, setWantsEditable] = useState(false)
-
+    // New Want/Do Not Want Form Error
     const errorText = 'Please Enter a Title or Description'
 
-    useEffect(() => {
-        document.title = 'TG Social - Dashboard';
-    }, []);
-
+    // Get User useEffect
     useEffect(()=>{
 
         const getCurrentUser = async () => {
@@ -71,10 +75,7 @@ export default function Dashboard() {
         
     }, [firebaseAuthUser])
     
-    
-
-    
-// **-------------------- START SHARED WANT AND DO NOT WANT --------------------**
+    // **-------------------- Start Shared Want And Do Not Want Functions --------------------**
 
     function clearFields(type){
         if(type == 'wantForm'){
@@ -92,7 +93,6 @@ export default function Dashboard() {
     }
 
     const fadeSuccess = (type) => {
-
         const saveMessage = 'Save successful'
         if(type == 'newWant'){
             setNewWantSaveSuccess(saveMessage)
@@ -104,23 +104,20 @@ export default function Dashboard() {
         } else if(type == 'newDoNotWant') {
 
         }
-
     }
     
-// **-------------------- END SHARED WANT AND DO NOT WANT --------------------**
+    // **-------------------- End Shared Want And Do Not Want Functions --------------------**
   
 
 // **********************************************************************
 
 
-// **-------------------- START DO NOT WANTS SPECIFIC --------------------**
+    // **-------------------- Start Do Not Want Specific Functions --------------------**
 
     useEffect(() => {
-
         if(doNotWants.length > 0){
             displayDoNotWants(doNotWants)
         }
-
     }, [doNotWants])
 
     function displayDoNotWants (doNotWants) {
@@ -128,7 +125,6 @@ export default function Dashboard() {
             <Want key={index} type="doNotWantItem" title={doNotWant.title} description={doNotWant.description} imageUrl={doNotWant.imageUrl} link={doNotWant.link} index={index}/> 
         ) : []
         setDoNotWantItems(doNotWantItems)
-
     }
 
     const handleNewDoNotWantSubmission = async (event) =>
@@ -166,17 +162,13 @@ export default function Dashboard() {
         doNotWantList.push(newDoNotWant)
         setDoNotWants(doNotWantList)
         displayDoNotWants(doNotWantList)
-
-        
     }
 
-// **-------------------- END DO NOT WANT SPECIFIC --------------------**
+    // **-------------------- End Do Not Want Specific Functions --------------------**
 
-    
-// **********************************************************************
+    // **********************************************************************
 
-
-// **-------------------- START WANTS SPECIFIC --------------------**
+    // **-------------------- Start Wants Specific Functions --------------------**
 
     useEffect(() => {
         if(wants.length > 0){
@@ -189,7 +181,6 @@ export default function Dashboard() {
             <Want key={index} type="wantItem" title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} wantId={want.wantId} isEditable={wantsEditable} index={index} /> 
         ) : []
         setWantItems(wantItems)
-
     }
 
     const handleNewWantSubmission = async (event) =>
@@ -224,7 +215,6 @@ export default function Dashboard() {
         } catch(err){
             setNewWantError('want saving error: ' + err)
         }
-        
     }
 
     const toggleNewWantFormDisplay = (e) => {
@@ -257,52 +247,50 @@ export default function Dashboard() {
             deleteArray: wantDeleteArray,
             keepArray: wantKeepArray
         })
+
         const wants = await getWantItemsByUserId(currentUser.userId)
         wants && wants.length > 0 && setWants(wants)
         setWantDeleteArray([])
         setWantKeepArray([])
     }
 
-    function toggleWantsEditable(event) {
-        event.preventDefault()
+    function toggleWantsEditable() {
         setWantsEditable(!wantsEditable)
     }
 
-// **-------------------- END WANTS SPECIFIC --------------------**
+    // **-------------------- End Wants Specific Functions --------------------**
     
-
     return (
         <div>
             <Header />
             <div className="font-sans container w-full mx-auto py-5">
-                <div className="font-bold text-xl">{currentUser.username}</div>
-                    <div className='relative'>
+                
+                <div className='relative'>
 
-                    <a href='' onClick={toggleNewWantFormDisplay}>
-                        <div className={`w-6 h-6 text-md rounded-full bg-blue-500 text-white shadow-md text-center font-bold mx-1 my-1 hover:bg-blue-800 ${addNewWantButtonDisplayClass}`}>
-                                +
-                        </div>
-                    </a>
+                    {/* Add Want Button */}
+                    <button className={` bg-blue-500 hover:bg-blue-800 text-white font-bold py-1 px-1 rounded text-sm m-1 w-20 text-center ${addNewWantButtonDisplayClass}`} onClick={toggleNewWantFormDisplay}>
+                        Add Want
+                    </button>
                     
+                    {/* Add Want Form Window */}
                     <div className={`px-5 pt-0 pb-5 p-1 w-80 mb-3 rounded-lg border-2 bg-blue-50 border-blue-200 shadow-md m-auto relative ${newWantFormDisplayClass}`}>
 
-                        
-
-
-                        {/* Close new want form */}
+                        {/* Close Add Want Window Button */}
                         <div className='absolute right-1 top-1'>
                             <a href='' onClick={toggleNewWantFormDisplay}><div className='w-6 h-6 text-md rounded-full content-between text-center bg-blue-500 text-white shadow-md font-bold hover:bg-blue-800'>x</div></a>
                         </div>
                         
+                        {/* --------- Start New Want Submit Form ---------- */}
 
-                        
-                        {/* --------- START NEW WANT SUBMISSION FORM ---------- */}
                         <form onSubmit={handleNewWantSubmission} method="POST" className='w-full px-2'>
+
+                            {/* New Want Form Error/Success Message */}
                             <div className="text-xs text-red-500 mb-1 w-full text-center text-center text-red-700  min-h-[20px] h-[20px] pt-1">
                                 <span className='text-indigo-600'>{newWantSaveSuccess}</span>
                                 {newWantError}
                             </div>
 
+                            {/* New Want Title */}
                             <div>
                                 <input
                                     aria-label="Enter Want Title"
@@ -313,6 +301,7 @@ export default function Dashboard() {
                                 />
                             </div>
 
+                            {/* New Want Description */}
                             <div>
                                 <input
                                     aria-label="Enter Want Description"
@@ -323,6 +312,7 @@ export default function Dashboard() {
                                 />
                             </div>
 
+                            {/* New Want Image Url */}
                             <div>
                                 <input
                                     aria-label="Enter Want Image Url"
@@ -333,6 +323,7 @@ export default function Dashboard() {
                                 />
                             </div>
 
+                            {/* New Want Link */}
                             <div>
                                 <input
                                     aria-label="Enter Want Link"
@@ -343,6 +334,7 @@ export default function Dashboard() {
                                 />
                             </div>
 
+                            {/* New Want Submit Button */}
                             <button
                                 type="submit"
                                 className={`bg-blue-500 text-white w-full rounded h-8 font-bold shadow-lg hover:bg-blue-800`}
@@ -352,18 +344,12 @@ export default function Dashboard() {
 
                         </form>
 
-                    </div>
-
-
-
-
+                        {/* --------- End New Want Submit Form ---------- */}
 
                     </div>
-
-                        
-                        
+                </div>
                 
-                {/* WANTS ACCORDION */}
+                {/* Start Wants Accordion */}
                 <div className="accordion accordion-flush" id="wantsAccordion">
                     <div className="accordion-item border-t-0 border-l-0 border-r-0 rounded-none bg-white border border-gray-200 mb-2">
                         <h2 className="accordion-header mb-0" id="wantsHeadingOne">
@@ -389,10 +375,20 @@ export default function Dashboard() {
                         </h2>
                         <div id="wantsCollapseOne" className="accordion-collapse collapse" aria-labelledby="wantsHeadingOne">
                             <form onSubmit={handleWantsEditSubmit} method="POST">
+                            {/* ${wantsEditable ? "bg-red-500" : "bg-blue-500"} */}
+                                
+                                    <button href="" className={`${wantsEditable ? "bg-red-500" : "bg-blue-500"} hover:bg-blue-800 text-white font-bold py-1 px-1 rounded text-md text-center w-full`} onClick={toggleWantsEditable}>
+                                        {wantsEditable ? 
+                                        <span>Click To Cancel Edit</span> 
+                                        : 
+                                        <span>Click To Edit</span>
+                                        
+                                    }
+                                        
+                                    </button>
+
                                 <div className="accordion-body py-4 px-5 max-h-48  overflow-scroll no-scrollbar">
-                                    <a href="" className={`${wantsEditable ? "bg-red-500" : "bg-blue-500"} hover:bg-blue-800 text-white font-bold py-1 px-1 rounded text-md mx-1`} onClick={toggleWantsEditable}>
-                                        Edit
-                                    </a>
+                                    
                                     {wantItems}
                                     
                                 </div>
@@ -409,10 +405,9 @@ export default function Dashboard() {
                         </div>
                     </div>
                 </div>
+                {/* End Wants Accordion */}
 
-
-
-
+                {/* --------- Start New Do Not Want Submit Form ---------- */}
                 <form onSubmit={handleNewDoNotWantSubmission} method="POST" className='w-full'>
 
                     <p>{newDoNotWantError}</p>
@@ -454,11 +449,11 @@ export default function Dashboard() {
                     >
                         Add DoNotWant
                     </button>
-                    
+        
+                </form>
+                {/* --------- End New Do Not Want Submit Form ---------- */}      
 
-                </form>        
-
-                {/* DO NOT WANTS ACCORDION */}
+                {/* Start Do Not Want Accordion */}
                 <div className="accordion accordion-flush" id="doNotWantsAccordion">
                     <div className="accordion-item border-t-0 border-l-0 border-r-0 rounded-none bg-white border border-gray-200 mb-2">
                         <h2 className="accordion-header mb-0" id="doNotWantsHeadingOne">
@@ -489,6 +484,7 @@ export default function Dashboard() {
                         </div>
                     </div>
                 </div>
+                {/* End Do Not Want Accordion */}
             
                 
             </div>
