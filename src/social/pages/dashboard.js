@@ -38,14 +38,9 @@ export default function Dashboard() {
     const [wantKeepArray, setWantKeepArray] = useState([])
 
     // const [wantsEditable] = useState(false)
-    const [wantsEditable] = useState(true)
+    const [wantsEditable, setWantsEditable] = useState(false)
 
     const errorText = 'Please Enter a Title or Description'
-
-
-    const tester = (data) => {
-        console.log('tester called. Data:', data)
-    }
 
     useEffect(() => {
         document.title = 'TG Social - Dashboard';
@@ -78,9 +73,8 @@ export default function Dashboard() {
     }, [firebaseAuthUser])
     
     function displayWants (wants) {
-        console.log('displayWants:', wants)
         const wantItems = wants && wants.length > 0 ? wants.map((want, index) => 
-            <Want key={index} type="wantItem" title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} wantId={want.wantId} wantsEditable={wantsEditable} index={index} /> 
+            <Want key={index} type="wantItem" title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} wantId={want.wantId} isEditable={wantsEditable} index={index} /> 
         ) : []
         setWantItems(wantItems)
 
@@ -90,7 +84,7 @@ export default function Dashboard() {
         if(wants.length > 0){
             displayWants(wants)
         }
-    }, [wants])
+    }, [wants, wantsEditable])
 
     function clearFields(type){
         if(type == 'wantForm'){
@@ -108,7 +102,6 @@ export default function Dashboard() {
     }
 
     function displayDoNotWants (doNotWants) {
-        console.log('displayDoNotWants called with doNotWants:', doNotWants)
         const doNotWantItems = doNotWants && doNotWants.length > 0 ? doNotWants.map((doNotWant, index) => 
             <Want key={index} type="doNotWantItem" title={doNotWant.title} description={doNotWant.description} imageUrl={doNotWant.imageUrl} link={doNotWant.link} index={index}/> 
         ) : []
@@ -249,20 +242,15 @@ export default function Dashboard() {
     const handleWantsEditSubmit = async (event) => {
         event.preventDefault()
         const target = event.target;
-        console.log('target[0]: ', target[0])
         Array.prototype.forEach.call(event.target.elements, (element) => {
-            console.log('hm?', element.value);
-            console.log('checked?', element.checked);
             if(element && element.value && element.checked) {
-                console.log('pushing to delete array')
                 setWantDeleteArray(wantDeleteArray.push(element.value)) 
             } else if(element && element.value && !element.checked) {
                 setWantKeepArray(wantKeepArray.push(element.value))
             }
             
         })
-        console.log('wantDeleteArray:', wantDeleteArray)
-        console.log('wantKeepArray:', wantKeepArray)
+        
         await updateUserWants({
             userId: currentUser.userId,
             deleteArray: wantDeleteArray,
@@ -272,13 +260,12 @@ export default function Dashboard() {
         wants && wants.length > 0 && setWants(wants)
         setWantDeleteArray([])
         setWantKeepArray([])
-        // console.log('ok its a start value', target[0].value)
-        // console.log('MAP:')
-        // wants && wants.length > 0 ? target.value.map((want, index) => {
-        //     console.log('foo')
-        // }): null
     }
 
+    function toggleWantsEditable(event) {
+        event.preventDefault()
+        setWantsEditable(!wantsEditable)
+    }
     
 
     return (
@@ -286,16 +273,10 @@ export default function Dashboard() {
             <Header />
             <div className="font-sans container w-full mx-auto py-5">
                 <div className="font-bold text-xl">{currentUser.username}</div>
-
-
-
-
-
-
                     <div className='relative'>
 
                     <a href='' onClick={toggleNewWantFormDisplay}>
-                        <div className={`w-6 h-6 text-md rounded-full bg-blue-500 text-white shadow-md hover:shadow-none text-center font-bold mx-1 my-1 ${addNewWantButtonDisplayClass}`}>
+                        <div className={`w-6 h-6 text-md rounded-full bg-blue-500 text-white shadow-md text-center font-bold mx-1 my-1 hover:bg-blue-800 ${addNewWantButtonDisplayClass}`}>
                                 +
                         </div>
                     </a>
@@ -307,7 +288,7 @@ export default function Dashboard() {
 
                         {/* Close new want form */}
                         <div className='absolute right-1 top-1'>
-                            <a href='' onClick={toggleNewWantFormDisplay}><div className='w-6 h-6 text-md rounded-full content-between text-center bg-blue-500 text-white shadow-md hover:shadow-none font-bold'>x</div></a>
+                            <a href='' onClick={toggleNewWantFormDisplay}><div className='w-6 h-6 text-md rounded-full content-between text-center bg-blue-500 text-white shadow-md font-bold'>x</div></a>
                         </div>
                         
 
@@ -361,7 +342,7 @@ export default function Dashboard() {
 
                             <button
                                 type="submit"
-                                className={`bg-blue-500 text-white w-full rounded h-8 font-bold shadow-lg hover:shadow-none w-full`}
+                                className={`bg-blue-500 text-white w-full rounded h-8 font-bold shadow-lg hover:bg-blue-800`}
                             >
                                 Add Want
                             </button>
@@ -406,18 +387,19 @@ export default function Dashboard() {
                         <div id="wantsCollapseOne" className="accordion-collapse collapse" aria-labelledby="wantsHeadingOne">
                             <form onSubmit={handleWantsEditSubmit} method="POST">
                                 <div className="accordion-body py-4 px-5 max-h-48  overflow-scroll no-scrollbar">
-
+                                    <a href="" onClick={toggleWantsEditable}>Edit</a>
+                                    {wantItems}
                                     
-                                        {wantItems}
-                                        
-
                                 </div>
-                                <button
-                                    type="submit"
-                                    className={`bg-blue-500 text-white w-full rounded h-8 font-bold shadow-lg hover:shadow-none w-full`}
-                                >
-                                    Save Edits
-                                </button>
+                                {wantsEditable && 
+                                    <button
+                                        type="submit"
+                                        className={`bg-blue-500 text-white w-full rounded h-8 font-bold shadow-lg hover:bg-blue-800`}
+                                    >
+                                        Save Edits
+                                    </button>
+                                }
+                                
                             </form>
                         </div>
                     </div>
@@ -463,10 +445,11 @@ export default function Dashboard() {
 
                     <button
                         type="submit"
-                        className={`bg-blue-500 text-white w-full rounded h-8 font-bold shadow-lg hover:shadow-none w-full`}
+                        className={`bg-blue-500 text-white w-full rounded h-8 font-bold shadow-lg w-full hover:bg-blue-800`}
                     >
                         Add DoNotWant
                     </button>
+                    
 
                 </form>        
 

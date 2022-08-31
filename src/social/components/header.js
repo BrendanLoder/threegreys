@@ -59,7 +59,7 @@ export default function Header() {
                                     firebaseSignOut()
                                 }
                             }}
-                            className="bg-blue-500 hover:bg-gray-400 text-white hover:text-blue-500 font-bold py-1 px-1 rounded text-sm ml-2"
+                            className="bg-blue-500 hover:bg-blue-800 text-white font-bold py-1 px-1 rounded text-sm ml-2"
                         >
                             Signout
                         </button> 
@@ -73,7 +73,7 @@ export default function Header() {
                                     navigate(RoutePaths.SOCIAL_LOGIN)
                                 }
                             }}
-                            className="bg-blue-500 hover:bg-gray-400 text-white hover:text-blue-500 font-bold py-1 px-1 rounded text-sm ml-2"
+                            className="bg-blue-500 hover:bg-blue-800 text-white font-bold py-1 px-1 rounded text-sm ml-2"
                         >
                             Login
                         </button> 

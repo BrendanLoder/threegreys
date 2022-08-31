@@ -11,7 +11,7 @@ export default function Want(want) {
     return (
 
         <div className="bg-gray-100 hover:bg-indigo-50 border-gray-300 leading-normal mb-2 border-y-2 relative">
-            {want.wantsEditable &&
+            {want.isEditable &&
                 <div className="m-1">
                     <label>
                         <input
