@@ -10,9 +10,9 @@ export default function Dashboard() {
     const firebaseAuthUser = useContext(FirebaseUserContext)
     
     const [currentUser, setCurrentUser] = useState({})
+
     const [wants, setWants] = useState([])
     const [doNotWants, setDoNotWants] = useState([])
-
     const [wantItems, setWantItems] = useState([])
     const [doNotWantItems, setDoNotWantItems] = useState([])
 
@@ -37,7 +37,6 @@ export default function Dashboard() {
     const [wantDeleteArray, setWantDeleteArray] = useState([])
     const [wantKeepArray, setWantKeepArray] = useState([])
 
-    // const [wantsEditable] = useState(false)
     const [wantsEditable, setWantsEditable] = useState(false)
 
     const errorText = 'Please Enter a Title or Description'
@@ -72,19 +71,10 @@ export default function Dashboard() {
         
     }, [firebaseAuthUser])
     
-    function displayWants (wants) {
-        const wantItems = wants && wants.length > 0 ? wants.map((want, index) => 
-            <Want key={index} type="wantItem" title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} wantId={want.wantId} isEditable={wantsEditable} index={index} /> 
-        ) : []
-        setWantItems(wantItems)
+    
 
-    }
-
-    useEffect(() => {
-        if(wants.length > 0){
-            displayWants(wants)
-        }
-    }, [wants, wantsEditable])
+    
+// **-------------------- START SHARED WANT AND DO NOT WANT --------------------**
 
     function clearFields(type){
         if(type == 'wantForm'){
@@ -100,21 +90,6 @@ export default function Dashboard() {
             setNewDoNotWantLink('')
         }
     }
-
-    function displayDoNotWants (doNotWants) {
-        const doNotWantItems = doNotWants && doNotWants.length > 0 ? doNotWants.map((doNotWant, index) => 
-            <Want key={index} type="doNotWantItem" title={doNotWant.title} description={doNotWant.description} imageUrl={doNotWant.imageUrl} link={doNotWant.link} index={index}/> 
-        ) : []
-        setDoNotWantItems(doNotWantItems)
-
-    }
-    useEffect(() => {
-
-        if(doNotWants.length > 0){
-            displayDoNotWants(doNotWants)
-        }
-    
-    }, [doNotWants])
 
     const fadeSuccess = (type) => {
 
@@ -132,58 +107,29 @@ export default function Dashboard() {
 
     }
     
-        
-      
+// **-------------------- END SHARED WANT AND DO NOT WANT --------------------**
+  
 
-    const handleNewWantSubmission = async (event) =>
-    {
-        event.preventDefault()
+// **********************************************************************
 
-        if(newWantTitle == '' && newWantDescription == '') {
-            setNewWantError(errorText)
-            return
-        } else {
-            setNewWantError('')
+
+// **-------------------- START DO NOT WANTS SPECIFIC --------------------**
+
+    useEffect(() => {
+
+        if(doNotWants.length > 0){
+            displayDoNotWants(doNotWants)
         }
-        // if(newWantDescription == '') {
-        //     setNewWantError('Please Enter a Description')
-        //     return
-        // }
-        // if(newWantImageUrl == '') {
-        //     setNewWantError('Please Enter an Image Url')
-        //     return
-        // }
-        // if(newWantLink == '') {
-        //     setNewWantError('Please Enter a Link')
-        //     return
-        // }
 
-        const newWantKey = wants.length +1
-        const newWant = {
-            'title': newWantTitle,
-            'description': newWantDescription,
-            'imageUrl': newWantImageUrl,
-            'link': newWantLink,
-            'userId': currentUser.userId
-        }
-        try{
+    }, [doNotWants])
 
-            newWant.wantId = await addUserWant(newWant)
-            const wantList = wants
-            wantList.push(newWant)
-            setWants(wantList)
-            displayWants(wantList)
-            clearFields('wantForm')
-            fadeSuccess('newWant')
+    function displayDoNotWants (doNotWants) {
+        const doNotWantItems = doNotWants && doNotWants.length > 0 ? doNotWants.map((doNotWant, index) => 
+            <Want key={index} type="doNotWantItem" title={doNotWant.title} description={doNotWant.description} imageUrl={doNotWant.imageUrl} link={doNotWant.link} index={index}/> 
+        ) : []
+        setDoNotWantItems(doNotWantItems)
 
-        } catch(err){
-            setNewWantError('want saving error: ' + err)
-        }
-        
     }
-
-
-    // ---------- START handleNewDoNotWantSubmission ----------
 
     const handleNewDoNotWantSubmission = async (event) =>
     {
@@ -224,6 +170,63 @@ export default function Dashboard() {
         
     }
 
+// **-------------------- END DO NOT WANT SPECIFIC --------------------**
+
+    
+// **********************************************************************
+
+
+// **-------------------- START WANTS SPECIFIC --------------------**
+
+    useEffect(() => {
+        if(wants.length > 0){
+            displayWants(wants)
+        }
+    }, [wants, wantsEditable])
+
+    function displayWants (wants) {
+        const wantItems = wants && wants.length > 0 ? wants.map((want, index) => 
+            <Want key={index} type="wantItem" title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} wantId={want.wantId} isEditable={wantsEditable} index={index} /> 
+        ) : []
+        setWantItems(wantItems)
+
+    }
+
+    const handleNewWantSubmission = async (event) =>
+    {
+        event.preventDefault()
+
+        if(newWantTitle == '' && newWantDescription == '') {
+            setNewWantError(errorText)
+            return
+        } else {
+            setNewWantError('')
+        }
+
+        const newWantKey = wants.length +1
+        const newWant = {
+            'title': newWantTitle,
+            'description': newWantDescription,
+            'imageUrl': newWantImageUrl,
+            'link': newWantLink,
+            'userId': currentUser.userId
+        }
+        try{
+
+            newWant.wantId = await addUserWant(newWant)
+            const wantList = wants
+            wantList.push(newWant)
+            setWants(wantList)
+            displayWants(wantList)
+            clearFields('wantForm')
+            fadeSuccess('newWant')
+
+        } catch(err){
+            setNewWantError('want saving error: ' + err)
+        }
+        
+    }
+
     const toggleNewWantFormDisplay = (e) => {
         if(e) e.preventDefault()
 
@@ -236,8 +239,6 @@ export default function Dashboard() {
             setAddNewWantButtonDisplayClass('')
         } 
     }
-
-     // ---------- END handleNewDoNotWantSubmission ----------
 
     const handleWantsEditSubmit = async (event) => {
         event.preventDefault()
@@ -266,6 +267,8 @@ export default function Dashboard() {
         event.preventDefault()
         setWantsEditable(!wantsEditable)
     }
+
+// **-------------------- END WANTS SPECIFIC --------------------**
     
 
     return (
@@ -288,7 +291,7 @@ export default function Dashboard() {
 
                         {/* Close new want form */}
                         <div className='absolute right-1 top-1'>
-                            <a href='' onClick={toggleNewWantFormDisplay}><div className='w-6 h-6 text-md rounded-full content-between text-center bg-blue-500 text-white shadow-md font-bold'>x</div></a>
+                            <a href='' onClick={toggleNewWantFormDisplay}><div className='w-6 h-6 text-md rounded-full content-between text-center bg-blue-500 text-white shadow-md font-bold hover:bg-blue-800'>x</div></a>
                         </div>
                         
 
@@ -387,7 +390,9 @@ export default function Dashboard() {
                         <div id="wantsCollapseOne" className="accordion-collapse collapse" aria-labelledby="wantsHeadingOne">
                             <form onSubmit={handleWantsEditSubmit} method="POST">
                                 <div className="accordion-body py-4 px-5 max-h-48  overflow-scroll no-scrollbar">
-                                    <a href="" onClick={toggleWantsEditable}>Edit</a>
+                                    <a href="" className={`${wantsEditable ? "bg-red-500" : "bg-blue-500"} hover:bg-blue-800 text-white font-bold py-1 px-1 rounded text-md mx-1`} onClick={toggleWantsEditable}>
+                                        Edit
+                                    </a>
                                     {wantItems}
                                     
                                 </div>
