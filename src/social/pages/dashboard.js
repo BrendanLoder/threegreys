@@ -42,6 +42,12 @@ export default function Dashboard() {
     const [newDoNotWantImageUrl, setNewDoNotWantImageUrl] = useState('');
     const [newDoNotWantLink, setNewDoNotWantLink] = useState('');
     const [newDoNotWantError, setNewDoNotWantError] = useState('');
+    const [newDoNotWantSaveSuccess, setNewDoNotWantSaveSuccess] = useState('')
+    const [newDoNotWantFormDisplayClass, setNewDoNotWantFormDisplayClass] = useState('hidden')
+    const [addNewDoNotWantButtonDisplayClass, setAddNewDoNotWantButtonDisplayClass] = useState('')
+    const [doNotWantDeleteArray, setDoNotWantDeleteArray] = useState([])
+    const [doNotWantKeepArray, setDoNotWantKeepArray] = useState([])
+    const [doNotWantsEditable, setDoNotWantsEditable] = useState(false)
 
     // End Do Not Wants Specific States
 
@@ -100,9 +106,13 @@ export default function Dashboard() {
             setTimeout(() => {
                 setNewWantSaveSuccess('')
                 toggleNewWantFormDisplay()
-            }, 2000)
+            }, 1000)
         } else if(type == 'newDoNotWant') {
-
+            setNewDoNotWantSaveSuccess(saveMessage)
+            setTimeout(() => {
+                setNewDoNotWantSaveSuccess('')
+                toggleNewDoNotWantFormDisplay()
+            }, 1000)
         }
     }
     
@@ -118,7 +128,7 @@ export default function Dashboard() {
         if(doNotWants.length > 0){
             displayDoNotWants(doNotWants)
         }
-    }, [doNotWants])
+    }, [doNotWants, doNotWantsEditable])
 
     function displayDoNotWants (doNotWants) {
         const doNotWantItems = doNotWants && doNotWants.length > 0 ? doNotWants.map((doNotWant, index) => 
@@ -127,25 +137,35 @@ export default function Dashboard() {
         setDoNotWantItems(doNotWantItems)
     }
 
+    const toggleNewDoNotWantFormDisplay = (e) => {
+        if(e) e.preventDefault()
+
+        if(newDoNotWantFormDisplayClass == 'hidden') {
+            setNewDoNotWantFormDisplayClass('')
+            setAddNewDoNotWantButtonDisplayClass('hidden')
+        } else {
+            setNewDoNotWantFormDisplayClass('hidden')
+            clearFields('doNotWantForm')
+            setAddNewDoNotWantButtonDisplayClass('')
+        } 
+        console.log('toggleNewDoNotWantFormDisplay() called with newDoNotWantFormDisplayClass = ', newDoNotWantFormDisplayClass)
+    }
+
+    
+    
+    
+    
+    
+    
     const handleNewDoNotWantSubmission = async (event) =>
     {
         event.preventDefault()
 
-        if(newDoNotWantTitle == '') {
-            setNewDoNotWantError('Please Enter a Title')
+        if(newDoNotWantTitle == '' && newDoNotWantDescription == '') {
+            setNewDoNotWantError(errorText)
             return
-        }
-        if(newDoNotWantDescription == '') {
-            setNewDoNotWantError('Please Enter a Description')
-            return
-        }
-        if(newDoNotWantImageUrl == '') {
-            setNewDoNotWantError('Please Enter an Image Url')
-            return
-        }
-        if(newDoNotWantLink == '') {
-            setNewDoNotWantError('Please Enter a Link')
-            return
+        } else {
+            setNewDoNotWantError('')
         }
         
         const newDoNotWantKey = doNotWants.length +1
@@ -157,12 +177,31 @@ export default function Dashboard() {
             'userId': currentUser.userId
         }
 
-        await addUserDoNotWant(newDoNotWant)
-        const doNotWantList = doNotWants
-        doNotWantList.push(newDoNotWant)
-        setDoNotWants(doNotWantList)
-        displayDoNotWants(doNotWantList)
+        try{
+
+            newDoNotWant.wantId = await addUserDoNotWant(newDoNotWant)
+            const doNotWantList = doNotWants
+            doNotWantList.push(newDoNotWant)
+            setDoNotWants(doNotWantList)
+            displayDoNotWants(doNotWantList)
+            fadeSuccess('newDoNotWant')
+            clearFields('doNotWantForm')
+
+        } catch(err){
+            setNewDoNotWantError('do not want saving error: ' + err)
+        }
     }
+
+
+
+
+
+
+
+
+
+
+
 
     // **-------------------- End Do Not Want Specific Functions --------------------**
 
@@ -293,8 +332,8 @@ export default function Dashboard() {
                             {/* New Want Title */}
                             <div>
                                 <input
-                                    aria-label="Enter Want Title"
-                                    placeholder="Want Title"
+                                    aria-label="Enter Title"
+                                    placeholder="Title"
                                     value={newWantTitle}
                                     onChange={({ target }) => setNewWantTitle(target.value)}
                                     className='w-full border-2 border-blue-100 rounded-md mb-1 px-2 py-1 text-sm font-medium shadow-md'
@@ -304,8 +343,8 @@ export default function Dashboard() {
                             {/* New Want Description */}
                             <div>
                                 <input
-                                    aria-label="Enter Want Description"
-                                    placeholder="Want Description"
+                                    aria-label="Enter Description"
+                                    placeholder="Description"
                                     value={newWantDescription}
                                     onChange={({ target }) => setNewWantDescription(target.value)}
                                     className='w-full border-2 border-blue-100 rounded-md mb-1 px-2 py-1 text-sm font-medium shadow-md'
@@ -315,8 +354,8 @@ export default function Dashboard() {
                             {/* New Want Image Url */}
                             <div>
                                 <input
-                                    aria-label="Enter Want Image Url"
-                                    placeholder="Want Image Url"
+                                    aria-label="Enter Image Url"
+                                    placeholder="Image Url"
                                     value={newWantImageUrl}
                                     onChange={({ target }) => setNewWantImageUrl(target.value)}
                                     className='w-full border-2 border-blue-100 rounded-md mb-1 px-2 py-1 text-sm font-medium shadow-md'
@@ -326,8 +365,8 @@ export default function Dashboard() {
                             {/* New Want Link */}
                             <div>
                                 <input
-                                    aria-label="Enter Want Link"
-                                    placeholder="Want Link"
+                                    aria-label="Enter Link"
+                                    placeholder="Link"
                                     value={newWantLink}
                                     onChange={({ target }) => setNewWantLink(target.value)}
                                     className='w-full border-2 border-blue-100 rounded-md mb-1 px-2 py-1 text-sm font-medium shadow-md'
@@ -407,51 +446,104 @@ export default function Dashboard() {
                 </div>
                 {/* End Wants Accordion */}
 
-                {/* --------- Start New Do Not Want Submit Form ---------- */}
-                <form onSubmit={handleNewDoNotWantSubmission} method="POST" className='w-full'>
 
-                    <p>{newDoNotWantError}</p>
-                    <p><input
-                        aria-label="Enter DoNotWant Title"
-                        placeholder="DoNotWant Title"
-                        value={newDoNotWantTitle}
-                        onChange={({ target }) => setNewDoNotWantTitle(target.value)}
-                        className='w-full'
-                    /></p>
 
-                    <p><input
-                        aria-label="Enter DoNotWant Description"
-                        placeholder="DoNotWant Description"
-                        value={newDoNotWantDescription}
-                        onChange={({ target }) => setNewDoNotWantDescription(target.value)}
-                        className='w-full'
-                    /></p>
 
-                    <p><input
-                        aria-label="Enter DoNotWant Image Url"
-                        placeholder="DoNotWant Image Url"
-                        value={newDoNotWantImageUrl}
-                        onChange={({ target }) => setNewDoNotWantImageUrl(target.value)}
-                        className='w-full'
-                    /></p>
 
-                    <p><input
-                            aria-label="Enter DoNotWant Link"
-                            placeholder="Want DoNotLink"
-                            value={newDoNotWantLink}
-                            onChange={({ target }) => setNewDoNotWantLink(target.value)}
-                            className='w-full'
-                    /></p>
+{/* --------------------------------------------------- */}
 
-                    <button
-                        type="submit"
-                        className={`bg-blue-500 text-white w-full rounded h-8 font-bold shadow-lg w-full hover:bg-blue-800`}
-                    >
-                        Add DoNotWant
+{/* Add Want Button */}
+                    <button className={` bg-blue-500 hover:bg-blue-800 text-white font-bold py-1 px-1 rounded text-sm m-1 w-20 text-center ${addNewDoNotWantButtonDisplayClass}`} onClick={toggleNewDoNotWantFormDisplay}>
+                        Add Do NotWant
                     </button>
-        
-                </form>
-                {/* --------- End New Do Not Want Submit Form ---------- */}      
+
+        {/* Add Do Not Want Form Window */}
+        <div className={`px-5 pt-0 pb-5 p-1 w-80 mb-3 rounded-lg border-2 bg-blue-50 border-blue-200 shadow-md m-auto relative ${newDoNotWantFormDisplayClass}`}>
+
+        {/* Close Add Do Not Want Window Button */}
+        <div className='absolute right-1 top-1'>
+            <a href='' onClick={toggleNewDoNotWantFormDisplay}><div className='w-6 h-6 text-md rounded-full content-between text-center bg-blue-500 text-white shadow-md font-bold hover:bg-blue-800'>x</div></a>
+        </div>
+
+        {/* --------- Start New Do Not Want Submit Form ---------- */}
+
+        <form onSubmit={handleNewDoNotWantSubmission} method="POST" className='w-full px-2'>
+
+            {/* New Do Not Want Form Error/Success Message */}
+            <div className="text-xs text-red-500 mb-1 w-full text-center text-center text-red-700  min-h-[20px] h-[20px] pt-1">
+                <span className='text-indigo-600'>{newDoNotWantSaveSuccess}</span>
+                {newDoNotWantError}
+            </div>
+
+            {/* New Do Not Want Title */}
+            <div>
+                <input
+                    aria-label="Enter Title"
+                    placeholder="Title"
+                    value={newDoNotWantTitle}
+                    onChange={({ target }) => setNewDoNotWantTitle(target.value)}
+                    className='w-full border-2 border-blue-100 rounded-md mb-1 px-2 py-1 text-sm font-medium shadow-md'
+                />
+            </div>
+
+            {/* New Do Not Want Description */}
+            <div>
+                <input
+                    aria-label="Enter Description"
+                    placeholder="Description"
+                    value={newDoNotWantDescription}
+                    onChange={({ target }) => setNewDoNotWantDescription(target.value)}
+                    className='w-full border-2 border-blue-100 rounded-md mb-1 px-2 py-1 text-sm font-medium shadow-md'
+                />
+            </div>
+
+            {/* New Do Not Want Image Url */}
+            <div>
+                <input
+                    aria-label="Enter Image Url"
+                    placeholder="Image Url"
+                    value={newDoNotWantImageUrl}
+                    onChange={({ target }) => setNewDoNotWantImageUrl(target.value)}
+                    className='w-full border-2 border-blue-100 rounded-md mb-1 px-2 py-1 text-sm font-medium shadow-md'
+                />
+            </div>
+
+            {/* New Do Not Want Link */}
+            <div>
+                <input
+                    aria-label="Enter Want Link"
+                    placeholder="Want Link"
+                    value={newDoNotWantLink}
+                    onChange={({ target }) => setNewDoNotWantLink(target.value)}
+                    className='w-full border-2 border-blue-100 rounded-md mb-1 px-2 py-1 text-sm font-medium shadow-md'
+                />
+            </div>
+
+            {/* New Do Not Want Submit Button */}
+            <button
+                type="submit"
+                className={`bg-blue-500 text-white w-full rounded h-8 font-bold shadow-lg hover:bg-blue-800`}
+            >
+                Add Do Not Want
+            </button>
+
+        </form>
+
+        {/* --------- End New Do Not Want Submit Form ---------- */}
+
+        </div>                
+
+
+
+
+
+
+
+
+
+
+                
+                     
 
                 {/* Start Do Not Want Accordion */}
                 <div className="accordion accordion-flush" id="doNotWantsAccordion">
