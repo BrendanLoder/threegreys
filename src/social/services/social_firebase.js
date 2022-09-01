@@ -213,6 +213,39 @@ export async function updateUserWants({
 
 
 
+// TESTING FUNCTION THAT UPDATES WANTS START
+export async function updateUserDoNotWants({
+    userId,
+    deleteArray,
+    keepArray
+}) {
+    try {
+        const user = await getUserByUserId(userId)
+        const userRef = doc(db, "social-users", user.userDocId)
+        if(keepArray && keepArray.length > 0) {
+            await updateDoc(userRef, {
+                doNotWantIds: keepArray
+            });
+        }
+        // await deleteDoc(doc(db, "cities", "DC"));
+        
+        if(deleteArray && deleteArray.length > 0) {
+            await Promise.all(deleteArray.map(async (wantId) => deleteDoc(doc(db, "social-user-wants", wantId))));
+        }
+    } catch(error){
+        console.log('Error in updateUserWants():', error)
+    }
+    
+    // JX96J0bLvnwvWJwyZKjS
+    
+    console.log('in updateUserDoNotWants() - userId: ', userId)
+    // console.log('in updateUserWants() - user: ', user)
+    console.log('in updateUserDoNotWants() - deleteArray: ', deleteArray)
+    console.log('in updateUserDoNotWants() - keepArray: ', keepArray)
+}
+// TESTING UPDATE DO NOT WANTS END
+
+
 
 
 export async function testGetUserByUserId(userId) {

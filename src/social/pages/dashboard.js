@@ -1,6 +1,6 @@
 import FirebaseUserContext from "../../context/firebaseUser"
 import { useEffect, useState, useContext } from "react";
-import { getUserByUserId, getWantsByUserId, getWantItemsByUserId, getDoNotWantItemsByUserId, addUserWant, addUserDoNotWant, updateUserWants } from "../services/social_firebase";
+import { getUserByUserId, getWantsByUserId, getWantItemsByUserId, getDoNotWantItemsByUserId, addUserWant, addUserDoNotWant, updateUserWants, updateUserDoNotWants } from "../services/social_firebase";
 import Header from '../components/header'
 import { useNavigate } from 'react-router-dom';
 import Want from "../components/want";
@@ -130,12 +130,16 @@ export default function Dashboard() {
         }
     }, [doNotWants, doNotWantsEditable])
 
+
+
     function displayDoNotWants (doNotWants) {
         const doNotWantItems = doNotWants && doNotWants.length > 0 ? doNotWants.map((doNotWant, index) => 
-            <Want key={index} type="doNotWantItem" title={doNotWant.title} description={doNotWant.description} imageUrl={doNotWant.imageUrl} link={doNotWant.link} index={index}/> 
+            <Want key={index} type="doNotWantItem" title={doNotWant.title} description={doNotWant.description} imageUrl={doNotWant.imageUrl} link={doNotWant.link} wantId={doNotWant.wantId} isEditable={doNotWantsEditable} index={index}/> 
         ) : []
         setDoNotWantItems(doNotWantItems)
     }
+
+
 
     const toggleNewDoNotWantFormDisplay = (e) => {
         if(e) e.preventDefault()
@@ -150,11 +154,6 @@ export default function Dashboard() {
         } 
         console.log('toggleNewDoNotWantFormDisplay() called with newDoNotWantFormDisplayClass = ', newDoNotWantFormDisplayClass)
     }
-
-    
-    
-    
-    
     
     
     const handleNewDoNotWantSubmission = async (event) =>
@@ -195,7 +194,42 @@ export default function Dashboard() {
 
 
 
+    // TEST
 
+
+
+
+    const handleDoNotWantsEditSubmit = async (event) => {
+        event.preventDefault()
+        const target = event.target;
+        Array.prototype.forEach.call(event.target.elements, (element) => {
+            if(element && element.value && element.checked) {
+                setDoNotWantDeleteArray(doNotWantDeleteArray.push(element.value)) 
+            } else if(element && element.value && !element.checked) {
+                setDoNotWantKeepArray(doNotWantKeepArray.push(element.value))
+            }
+            
+        })
+        
+        await updateUserDoNotWants({
+            userId: currentUser.userId,
+            deleteArray: doNotWantDeleteArray,
+            keepArray: doNotWantKeepArray
+        })
+
+        const doNotWants = await getDoNotWantItemsByUserId(currentUser.userId)
+        doNotWants && doNotWants.length > 0 && setDoNotWants(doNotWants)
+        setDoNotWantDeleteArray([])
+        setDoNotWantKeepArray([])
+    }
+
+
+    function toggleDoNotWantEditable() {
+        setDoNotWantsEditable(!doNotWantsEditable)
+    }
+
+
+    // END TEST
 
 
 
@@ -569,10 +603,96 @@ export default function Dashboard() {
                             Nein ({doNotWants.length})
                             </button>
                         </h2>
+
+
+
+
+
+
+
+
+                                {/* // TEST START */}
+
+
+
+                                {/* <form onSubmit={handleDoNotWantsEditSubmit} method="POST">
+                            
+                                
+                                    <button href="" className={`${doNotWantsEditable ? "bg-red-500" : "bg-blue-500"} hover:bg-blue-800 text-white font-bold py-1 px-1 rounded text-md text-center w-full`} onClick={toggleDoNotWantEditable}>
+                                        {doNotWantsEditable ? 
+                                        <span>Click To Cancel Edit</span> 
+                                        : 
+                                        <span>Click To Edit</span>
+                                        
+                                    }
+                                        
+                                    </button>
+
+                                <div className="accordion-body py-4 px-5 max-h-48  overflow-scroll no-scrollbar">
+                                    
+                                    {doNotWantItems}
+                                    
+                                </div>
+                                {doNotWantsEditable && 
+                                    <button
+                                        type="submit"
+                                        className={`bg-blue-500 text-white w-full rounded h-8 font-bold shadow-lg hover:bg-blue-800`}
+                                    >
+                                        Save Edits
+                                    </button>
+                                }
+                                
+                            </form> */}
+
+
+
+
+                                {/* TEST END */}
+
+
+
+
                         <div id="doNotWantsCollapseOne" className="accordion-collapse collapse" aria-labelledby="doNotWantsHeadingOne">
-                            <div className="accordion-body py-4 px-5 max-h-48  overflow-scroll no-scrollbar">
+
+
+                            {/* TRYING TO GET IN EDIT FORM START */}
+
+                            <form onSubmit={handleDoNotWantsEditSubmit} method="POST">
+                            
+                                
+                                    <button href="" className={`${doNotWantsEditable ? "bg-red-500" : "bg-blue-500"} hover:bg-blue-800 text-white font-bold py-1 px-1 rounded text-md text-center w-full`} onClick={toggleDoNotWantEditable}>
+                                        {doNotWantsEditable ? 
+                                        <span>Click To Cancel Edit</span> 
+                                        : 
+                                        <span>Click To Edit</span>
+                                        
+                                    }
+                                        
+                                    </button>
+
+                                <div className="accordion-body py-4 px-5 max-h-48  overflow-scroll no-scrollbar">
+                                    
+                                    {doNotWantItems}
+                                    
+                                </div>
+                                {doNotWantsEditable && 
+                                    <button
+                                        type="submit"
+                                        className={`bg-blue-500 text-white w-full rounded h-8 font-bold shadow-lg hover:bg-blue-800`}
+                                    >
+                                        Save Edits
+                                    </button>
+                                }
+                                
+                            </form>
+
+                                {/* TRYING TO GET IN EDIT FORM END */}
+
+
+                            
+                            {/* <div className="accordion-body py-4 px-5 max-h-48  overflow-scroll no-scrollbar">
                                 {doNotWantItems}
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
