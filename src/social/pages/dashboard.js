@@ -488,7 +488,7 @@ export default function Dashboard() {
 
 {/* Add Want Button */}
                     <button className={` bg-blue-500 hover:bg-blue-800 text-white font-bold py-1 px-1 rounded text-sm m-1 w-20 text-center ${addNewDoNotWantButtonDisplayClass}`} onClick={toggleNewDoNotWantFormDisplay}>
-                        Add Do NotWant
+                        Add Avoid
                     </button>
 
         {/* Add Do Not Want Form Window */}
