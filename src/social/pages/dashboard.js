@@ -133,10 +133,23 @@ export default function Dashboard() {
 
 
     function displayDoNotWants (doNotWants) {
-        const doNotWantItems = doNotWants && doNotWants.length > 0 ? doNotWants.map((doNotWant, index) => 
-            <Want key={index} type="doNotWantItem" title={doNotWant.title} description={doNotWant.description} imageUrl={doNotWant.imageUrl} link={doNotWant.link} wantId={doNotWant.wantId} isEditable={doNotWantsEditable} index={index}/> 
-        ) : []
+        try {
+            if(!doNotWants) {
+                console.log('In displayWants() - no doNotWants to display')
+            }
+            let doNotWantItems = []
+            if (doNotWants && doNotWants.length > 0) {
+                doNotWants.map((doNotWant, index) =>  {
+                    if(doNotWant && doNotWant !== undefined){
+                        doNotWantItems.push(<Want key={index} type="doNotWantItem" title={doNotWant.title} description={doNotWant.description} imageUrl={doNotWant.imageUrl} link={doNotWant.link} doNotWantId={doNotWant.doNotWantId} isEditable={wantsEditable} index={index} /> )
+                    }
+                })
+            }
         setDoNotWantItems(doNotWantItems)
+        } catch(error) {
+            console.log('Error in displayWants():', error)
+        }
+        
     }
 
 
@@ -250,10 +263,23 @@ export default function Dashboard() {
     }, [wants, wantsEditable])
 
     function displayWants (wants) {
-        const wantItems = wants && wants.length > 0 ? wants.map((want, index) => 
-            <Want key={index} type="wantItem" title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} wantId={want.wantId} isEditable={wantsEditable} index={index} /> 
-        ) : []
+        try {
+            if(!wants) {
+                console.log('In displayWants() - no wants to display')
+            }
+            let wantItems = []
+            if (wants && wants.length > 0) {
+                wants.map((want, index) =>  {
+                    if(want && want !== undefined){
+                        wantItems.push(<Want key={index} type="wantItem" title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} wantId={want.wantId} isEditable={wantsEditable} index={index} /> )
+                    }
+                })
+            }
         setWantItems(wantItems)
+        } catch(error) {
+            console.log('Error in displayWants():', error)
+        }
+        
     }
 
     const handleNewWantSubmission = async (event) =>
