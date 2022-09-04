@@ -1,5 +1,7 @@
 export default function Want(want) {
-    const key = `${want.type}_${want.index}`
+    // console.log('type:', want.type)
+    // console.log('want is:', want)
+    // const key = `${want.type}_${want.wantId}`
     // console.log(' -- START IN WANT.JS -- ')
     // console.log('want.link: '  + want.link)
     // console.log('want.imageUrl: '  + want.imageUrl)
@@ -19,8 +21,9 @@ export default function Want(want) {
                             type="checkbox"
                             name="deleteWants"
                             value={want.wantId}
+                            key={want.wantKey}
                         />
-                        &nbsp;<span className='text-xs text-red-400'>Delete</span>
+                        &nbsp;<span className='text-xs text-red-400'>xx {want.wantId} xx Delete</span>
                     </label>
               </div>
             }

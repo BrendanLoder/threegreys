@@ -1,6 +1,7 @@
 import FirebaseUserContext from "../../context/firebaseUser"
 import { useEffect, useState, useContext } from "react";
 import { getUserByUserId, getWantsByUserId, getWantItemsByUserId, getDoNotWantItemsByUserId, addUserWant, addUserDoNotWant, updateUserWants, updateUserDoNotWants } from "../services/social_firebase";
+import { createWantDisplayObjects } from "../services/social";
 import Header from '../components/header'
 import { useNavigate } from 'react-router-dom';
 import Want from "../components/want";
@@ -126,7 +127,16 @@ export default function Dashboard() {
 
     useEffect(() => {
         if(doNotWants.length > 0){
-            displayDoNotWants(doNotWants)
+            // displayDoNotWants(doNotWants)
+            const doNotWantDisplayObjects = createWantDisplayObjects({
+                'wantData': doNotWants,
+                'type': 'doNotWantItem',
+                'isEditable': doNotWantsEditable,
+                'foo': 'bar'
+
+            })
+            setDoNotWantItems(doNotWantDisplayObjects)
+            console.log("!! IN DASHBOARD createWantDisplayObjects array:", doNotWantDisplayObjects)
         }
     }, [doNotWants, doNotWantsEditable])
 
@@ -141,10 +151,11 @@ export default function Dashboard() {
             if (doNotWants && doNotWants.length > 0) {
                 doNotWants.map((doNotWant, index) =>  {
                     if(doNotWant && doNotWant !== undefined){
-                        doNotWantItems.push(<Want key={index} type="doNotWantItem" title={doNotWant.title} description={doNotWant.description} imageUrl={doNotWant.imageUrl} link={doNotWant.link} doNotWantId={doNotWant.doNotWantId} isEditable={wantsEditable} index={index} /> )
+                        doNotWantItems.push(<Want wantKey={`doNotWantItem_${doNotWant.wantId}`} type="doNotWantItem" title={doNotWant.title} description={doNotWant.description} imageUrl={doNotWant.imageUrl} link={doNotWant.link} wantId={doNotWant.wantId} isEditable={doNotWantsEditable} index={index} /> )
                     }
                 })
             }
+            console.log('!! displayDoNotWants() array:',doNotWantItems)
         setDoNotWantItems(doNotWantItems)
         } catch(error) {
             console.log('Error in displayWants():', error)
@@ -195,7 +206,16 @@ export default function Dashboard() {
             const doNotWantList = doNotWants
             doNotWantList.push(newDoNotWant)
             setDoNotWants(doNotWantList)
-            displayDoNotWants(doNotWantList)
+
+            const doNotWantDisplayObjects = createWantDisplayObjects({
+                'wantData': doNotWants,
+                'type': 'doNotWantItem',
+                'isEditable': doNotWantsEditable,
+                'foo': 'bar'
+
+            })
+            setDoNotWantItems(doNotWantDisplayObjects)
+            // displayDoNotWants(doNotWantList)
             fadeSuccess('newDoNotWant')
             clearFields('doNotWantForm')
 
@@ -223,7 +243,8 @@ export default function Dashboard() {
             }
             
         })
-        
+        console.log('doNotWantDeleteArray = ', doNotWantDeleteArray)
+        console.log('doNotWantKeepArray = ', doNotWantKeepArray)
         await updateUserDoNotWants({
             userId: currentUser.userId,
             deleteArray: doNotWantDeleteArray,
