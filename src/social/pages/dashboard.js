@@ -31,6 +31,8 @@ export default function Dashboard() {
     const [wantDeleteArray, setWantDeleteArray] = useState([])
     const [wantKeepArray, setWantKeepArray] = useState([])
     const [wantsEditable, setWantsEditable] = useState(false)
+    const [hideNewWantFormFields, setHideNewWantFormFields] = useState(false)
+    const [newWantFormFieldsClass, setNewWantFormFieldsClass] = useState('')
 
     // End Wants Specific States
 
@@ -49,6 +51,8 @@ export default function Dashboard() {
     const [doNotWantDeleteArray, setDoNotWantDeleteArray] = useState([])
     const [doNotWantKeepArray, setDoNotWantKeepArray] = useState([])
     const [doNotWantsEditable, setDoNotWantsEditable] = useState(false)
+    const [hideNewDoNotWantFormFields, setHideNewDoNotWantFormFields] = useState(false)
+    const [newDoNotWantFormFieldsClass, setNewDoNotWantFormFieldsClass] = useState('')
 
     // End Do Not Wants Specific States
 
@@ -103,17 +107,34 @@ export default function Dashboard() {
         const saveMessage = 'Save successful'
         if(type == 'newWant'){
             setNewWantSaveSuccess(saveMessage)
-
+            setNewWantFormFieldsClass('hidden')
             setTimeout(() => {
                 setNewWantSaveSuccess('')
                 toggleNewWantFormDisplay()
+                setNewWantFormFieldsClass('')
             }, 1000)
         } else if(type == 'newDoNotWant') {
             setNewDoNotWantSaveSuccess(saveMessage)
+            setNewDoNotWantFormFieldsClass('hidden')
             setTimeout(() => {
                 setNewDoNotWantSaveSuccess('')
                 toggleNewDoNotWantFormDisplay()
+                setNewDoNotWantFormFieldsClass('')
             }, 1000)
+        }
+    }
+
+    function toggleEdit(type){
+        type && type==='wants' ? setWantsEditable(!wantsEditable) :
+        setDoNotWantsEditable(!doNotWantsEditable)
+    }
+
+    function toggleFormFieldsVisibility(type)
+    {
+        if  (type == 'newWant'){
+            setHideNewWantFormFields(!hideNewWantFormFields)
+        } else if (type == 'newDoNotWant') {
+            setHideNewDoNotWantFormFields(!hideNewDoNotWantFormFields)
         }
     }
     
@@ -131,37 +152,13 @@ export default function Dashboard() {
             const doNotWantDisplayObjects = createWantDisplayObjects({
                 'wantData': doNotWants,
                 'type': 'doNotWantItem',
-                'isEditable': doNotWantsEditable,
-                'foo': 'bar'
+                'isEditable': doNotWantsEditable
 
             })
             setDoNotWantItems(doNotWantDisplayObjects)
             console.log("!! IN DASHBOARD createWantDisplayObjects array:", doNotWantDisplayObjects)
         }
     }, [doNotWants, doNotWantsEditable])
-
-
-
-    function displayDoNotWants (doNotWants) {
-        try {
-            if(!doNotWants) {
-                console.log('In displayWants() - no doNotWants to display')
-            }
-            let doNotWantItems = []
-            if (doNotWants && doNotWants.length > 0) {
-                doNotWants.map((doNotWant, index) =>  {
-                    if(doNotWant && doNotWant !== undefined){
-                        doNotWantItems.push(<Want wantKey={`doNotWantItem_${doNotWant.wantId}`} type="doNotWantItem" title={doNotWant.title} description={doNotWant.description} imageUrl={doNotWant.imageUrl} link={doNotWant.link} wantId={doNotWant.wantId} isEditable={doNotWantsEditable} index={index} /> )
-                    }
-                })
-            }
-            console.log('!! displayDoNotWants() array:',doNotWantItems)
-        setDoNotWantItems(doNotWantItems)
-        } catch(error) {
-            console.log('Error in displayWants():', error)
-        }
-        
-    }
 
 
 
@@ -215,7 +212,7 @@ export default function Dashboard() {
 
             })
             setDoNotWantItems(doNotWantDisplayObjects)
-            // displayDoNotWants(doNotWantList)
+            // toggleFormFieldsVisibility('newDoNotWant')
             fadeSuccess('newDoNotWant')
             clearFields('doNotWantForm')
 
@@ -257,51 +254,26 @@ export default function Dashboard() {
         setDoNotWantKeepArray([])
     }
 
-
-    function toggleDoNotWantEditable() {
-        setDoNotWantsEditable(!doNotWantsEditable)
-    }
-
-
-    // END TEST
-
-
-
-
-
-
-
     // **-------------------- End Do Not Want Specific Functions --------------------**
 
+
     // **********************************************************************
+
 
     // **-------------------- Start Wants Specific Functions --------------------**
 
     useEffect(() => {
         if(wants.length > 0){
-            displayWants(wants)
+            const wantDisplayObjects = createWantDisplayObjects({
+                'wantData': wants,
+                'type': 'wantItem',
+                'isEditable': wantsEditable
+
+            })
+            setWantItems(wantDisplayObjects)
         }
     }, [wants, wantsEditable])
-
-    function displayWants (wants) {
-        try {
-            if(!wants) {
-                console.log('In displayWants() - no wants to display')
-            }
-            let wantItems = []
-            if (wants && wants.length > 0) {
-                wants.map((want, index) =>  {
-                    if(want && want !== undefined){
-                        wantItems.push(<Want key={index} type="wantItem" title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} wantId={want.wantId} isEditable={wantsEditable} index={index} /> )
-                    }
-                })
-            }
-        setWantItems(wantItems)
-        } catch(error) {
-            console.log('Error in displayWants():', error)
-        }
-        
-    }
+    
 
     const handleNewWantSubmission = async (event) =>
     {
@@ -328,7 +300,13 @@ export default function Dashboard() {
             const wantList = wants
             wantList.push(newWant)
             setWants(wantList)
-            displayWants(wantList)
+            const wantDisplayObjects = createWantDisplayObjects({
+                'wantData': doNotWants,
+                'type': 'wantItem',
+                'isEditable': wantsEditable
+
+            })
+            setWantItems(wantDisplayObjects)
             clearFields('wantForm')
             fadeSuccess('newWant')
 
@@ -374,10 +352,6 @@ export default function Dashboard() {
         setWantKeepArray([])
     }
 
-    function toggleWantsEditable() {
-        setWantsEditable(!wantsEditable)
-    }
-
     // **-------------------- End Wants Specific Functions --------------------**
     
     return (
@@ -396,20 +370,22 @@ export default function Dashboard() {
                     <div className={`px-5 pt-0 pb-5 p-1 w-80 mb-3 rounded-lg border-2 bg-blue-50 border-blue-200 shadow-md m-auto relative ${newWantFormDisplayClass}`}>
 
                         {/* Close Add Want Window Button */}
-                        <div className='absolute right-1 top-1'>
+                        <div className={`absolute right-1 top-1 ${newWantFormFieldsClass}`}>
                             <a href='' onClick={toggleNewWantFormDisplay}><div className='w-6 h-6 text-md rounded-full content-between text-center bg-blue-500 text-white shadow-md font-bold hover:bg-blue-800'>x</div></a>
                         </div>
+                            {/* New Want Form Success Message */}
+                            <div className="text-red-500 w-full text-center text-center text-red-700 mt-2">
+                                <span className='text-indigo-600'>{newWantSaveSuccess}</span>
+                            </div>
                         
                         {/* --------- Start New Want Submit Form ---------- */}
 
-                        <form onSubmit={handleNewWantSubmission} method="POST" className='w-full px-2'>
+                        <form onSubmit={handleNewWantSubmission} method="POST" className={`w-full px-2 ${newWantFormFieldsClass}`}>
 
-                            {/* New Want Form Error/Success Message */}
-                            <div className="text-xs text-red-500 mb-1 w-full text-center text-center text-red-700  min-h-[20px] h-[20px] pt-1">
-                                <span className='text-indigo-600'>{newWantSaveSuccess}</span>
-                                {newWantError}
-                            </div>
-
+                                {/* New Want Form Error Message */}
+                                <div className="text-xs text-red-500 mb-1 w-full text-center text-center text-red-700  min-h-[20px] h-[20px] pt-1 mt-2">
+                                    {newWantError}
+                                </div>
                             {/* New Want Title */}
                             <div>
                                 <input
@@ -497,7 +473,7 @@ export default function Dashboard() {
                             <form onSubmit={handleWantsEditSubmit} method="POST">
                             {/* ${wantsEditable ? "bg-red-500" : "bg-blue-500"} */}
                                 
-                                    <button href="" className={`${wantsEditable ? "bg-red-500" : "bg-blue-500"} hover:bg-blue-800 text-white font-bold py-1 px-1 rounded text-md text-center w-full`} onClick={toggleWantsEditable}>
+                                    <button href="" className={`${wantsEditable ? "bg-red-500" : "bg-blue-500"} hover:bg-blue-800 text-white font-bold py-1 px-1 rounded text-md text-center w-full`} onClick={() => toggleEdit('wants')}>
                                         {wantsEditable ? 
                                         <span>Click To Cancel Edit</span> 
                                         : 
@@ -542,17 +518,21 @@ export default function Dashboard() {
         <div className={`px-5 pt-0 pb-5 p-1 w-80 mb-3 rounded-lg border-2 bg-blue-50 border-blue-200 shadow-md m-auto relative ${newDoNotWantFormDisplayClass}`}>
 
         {/* Close Add Do Not Want Window Button */}
-        <div className='absolute right-1 top-1'>
+        <div className={`absolute right-1 top-1 ${newDoNotWantFormFieldsClass}`}>
             <a href='' onClick={toggleNewDoNotWantFormDisplay}><div className='w-6 h-6 text-md rounded-full content-between text-center bg-blue-500 text-white shadow-md font-bold hover:bg-blue-800'>x</div></a>
         </div>
 
         {/* --------- Start New Do Not Want Submit Form ---------- */}
 
-        <form onSubmit={handleNewDoNotWantSubmission} method="POST" className='w-full px-2'>
-
             {/* New Do Not Want Form Error/Success Message */}
-            <div className="text-xs text-red-500 mb-1 w-full text-center text-center text-red-700  min-h-[20px] h-[20px] pt-1">
+            <div className="text-red-500 w-full text-center text-center text-red-700 mt-2">
                 <span className='text-indigo-600'>{newDoNotWantSaveSuccess}</span>
+            </div>
+
+        <form onSubmit={handleNewDoNotWantSubmission} method="POST" className={`w-full px-2 ${newDoNotWantFormFieldsClass}`}>
+
+            {/* New Want Form Error Message */}
+            <div className="text-xs text-red-500 mb-1 w-full text-center text-center text-red-700  min-h-[20px] h-[20px] pt-1 mt-2">
                 {newDoNotWantError}
             </div>
 
@@ -707,7 +687,7 @@ export default function Dashboard() {
                             <form onSubmit={handleDoNotWantsEditSubmit} method="POST">
                             
                                 
-                                    <button href="" className={`${doNotWantsEditable ? "bg-red-500" : "bg-blue-500"} hover:bg-blue-800 text-white font-bold py-1 px-1 rounded text-md text-center w-full`} onClick={toggleDoNotWantEditable}>
+                                    <button href="" className={`${doNotWantsEditable ? "bg-red-500" : "bg-blue-500"} hover:bg-blue-800 text-white font-bold py-1 px-1 rounded text-md text-center w-full`} onClick={() => toggleEdit('doNotWants')}>
                                         {doNotWantsEditable ? 
                                         <span>Click To Cancel Edit</span> 
                                         : 

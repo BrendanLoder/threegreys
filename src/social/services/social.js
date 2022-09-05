@@ -19,7 +19,7 @@ export function  createWantDisplayObjects({
         } else {
             wantData.map((want, index) =>  {
                 if(want && want !== undefined){
-                    wantDisplayObjects.push(<Want wantKey={`${type}_${want.wantId}`} type={type} title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} id={want.wantId} isEditable={isEditable} index={index} /> )
+                    wantDisplayObjects.push(<Want wantKey={`${type}_${want.wantId}`} type={type} title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} wantId={want.wantId} isEditable={isEditable} index={index} /> )
                 }
             })
 

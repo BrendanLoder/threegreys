@@ -9,6 +9,7 @@ export default function Want(want) {
     // console.log('want.description: '  + want.description)
     // console.log('key: '  + key)
     // console.log('want being made for', want.title)
+    console.log()
     // console.log('-- END IN WANT.JS --')
     
     return (
