@@ -1,16 +1,4 @@
 export default function Want(want) {
-    // console.log('type:', want.type)
-    // console.log('want is:', want)
-    // const key = `${want.type}_${want.wantId}`
-    // console.log(' -- START IN WANT.JS -- ')
-    // console.log('want.link: '  + want.link)
-    // console.log('want.imageUrl: '  + want.imageUrl)
-    // console.log('want.title: '  + want.title)
-    // console.log('want.description: '  + want.description)
-    // console.log('key: '  + key)
-    // console.log('want being made for', want.title)
-    console.log()
-    // console.log('-- END IN WANT.JS --')
     
     return (
 
@@ -24,7 +12,7 @@ export default function Want(want) {
                             value={want.wantId}
                             key={want.wantKey}
                         />
-                        &nbsp;<span className='text-xs text-red-400'>xx {want.wantId} xx Delete</span>
+                        &nbsp;<span className='text-xs text-red-400'>Delete</span>
                     </label>
               </div>
             }
@@ -44,4 +32,5 @@ export default function Want(want) {
         </div>
         
     )
+
 }

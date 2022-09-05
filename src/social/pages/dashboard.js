@@ -352,6 +352,10 @@ export default function Dashboard() {
         setWantKeepArray([])
     }
 
+    function toggleWantsEditable() {
+        setWantsEditable(!wantsEditable)
+    }
+
     // **-------------------- End Wants Specific Functions --------------------**
     
     return (
