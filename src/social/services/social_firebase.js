@@ -194,8 +194,6 @@ export async function updateUserWants({
                 wantIds: keepArray
             });
         }
-        // await deleteDoc(doc(db, "cities", "DC"));
-        
         if(deleteArray && deleteArray.length > 0) {
             await Promise.all(deleteArray.map(async (wantId) => deleteDoc(doc(db, "social-user-wants", wantId))));
         }
@@ -203,17 +201,11 @@ export async function updateUserWants({
         console.log('Error in updateUserWants():', error)
     }
     
-    // JX96J0bLvnwvWJwyZKjS
-    
     console.log('in updateUserWants() - userId: ', userId)
-    // console.log('in updateUserWants() - user: ', user)
     console.log('in updateUserWants() - deleteArray: ', deleteArray)
     console.log('in updateUserWants() - keepArray: ', keepArray)
 }
 
-
-
-// TESTING FUNCTION THAT UPDATES WANTS START
 export async function updateUserDoNotWants({
     userId,
     deleteArray,
@@ -227,61 +219,18 @@ export async function updateUserDoNotWants({
                 doNotWantIds: keepArray
             });
         }
-        // await deleteDoc(doc(db, "cities", "DC"));
         
         if(deleteArray && deleteArray.length > 0) {
+            console.log('am actually hitting firebase for delete docs')
             await Promise.all(deleteArray.map(async (wantId) => deleteDoc(doc(db, "social-user-wants", wantId))));
         }
     } catch(error){
         console.log('Error in updateUserWants():', error)
     }
-    
-    // JX96J0bLvnwvWJwyZKjS
-    
-    console.log('in updateUserDoNotWants() - userId: ', userId)
-    // console.log('in updateUserWants() - user: ', user)
-    console.log('in updateUserDoNotWants() - deleteArray: ', deleteArray)
-    console.log('in updateUserDoNotWants() - keepArray: ', keepArray)
-}
-// TESTING UPDATE DO NOT WANTS END
-
-
-
-
-export async function testGetUserByUserId(userId) {
-    let user
-    let wantIdList = []
-    if(userId){
-        const q = query(collection(db, "social-users"), where("userId", "==", userId));
-        const querySnapshot = await getDocs(q)
-        if(!querySnapshot.empty) {
-            querySnapshot.forEach((myDoc) => {
-                user = myDoc.data()
-            }); 
-        }
-
-    }
-
-    return user
-
 }
 
-// DOESNT WORK
-// export async function getCurrentUser(firebaseAuthUser) {
-//     let currentUser = {}
-//     if(firebaseAuthUser){
-//         getUserByUserId(firebaseAuthUser.uid)
-//         .then(dbUser => {
-//             firebaseAuthUser = dbUser
-//         })
-//         .catch(err=> console.log('error in social_firebase.js getUserByID promise:', err))
-//     } else {
-//         currentUser = {}
-//     }
-//     return currentUser
-// }
 
-
+// all from igclone
 
 // export async function isUserFollowingProfile(activeUsername, profileUserId) {
 //     const result = await firebase

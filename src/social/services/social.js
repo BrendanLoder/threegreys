@@ -5,8 +5,6 @@ export function  createWantDisplayObjects({
     type,
     isEditable
 }) {
-
-    // console.log('IN SOCIALJS wantData?', wantData)
     let wantDisplayObjects = []
     
     try {
@@ -27,7 +25,6 @@ export function  createWantDisplayObjects({
     } catch(error) {
         console.log('Error in createWantDisplayObjects():', error)
     }
-    console.log("IN SOCIALJS createWantDisplayObjects() wantDisplayObjects:", wantDisplayObjects)
     return wantDisplayObjects
     
 }
