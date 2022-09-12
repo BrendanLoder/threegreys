@@ -277,7 +277,7 @@ export default function Dashboard() {
             wantList.push(newWant)
             setWants(wantList)
             const wantDisplayObjects = createWantDisplayObjects({
-                'wantData': doNotWants,
+                'wantData': wants,
                 'type': 'wantItem',
                 'isEditable': wantsEditable
 

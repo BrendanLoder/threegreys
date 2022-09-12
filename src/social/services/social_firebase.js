@@ -229,6 +229,51 @@ export async function updateUserDoNotWants({
     }
 }
 
+export async function updateWantData(data) {
+    const title = data && data.title ? data.title: ''
+    const description = data && data.description ? data.description: ''
+    const link = data && data.link ? data.link: ''
+    const imageUrl = data && data.imageUrl ? data.imageUrl: ''
+    const id = data && data.id ? data.id: ''
+    console.log('in updateWantData() title=',title)
+    console.log('in updateWantData() description=',description)
+    console.log('in updateWantData() link=',link)
+    console.log('in updateWantData() imageUrl=',imageUrl)
+    console.log('in updateWantData() id=',id)
+
+    
+    try {
+        if (id != '') {
+            const wantRef = doc(db, "social-user-wants", data.id)
+            await updateDoc(wantRef, {
+                title: title,
+                description: description,
+                link: link,
+                imageUrl: imageUrl
+            });
+            return {
+                title: title,
+                description: title,
+                link: title,
+                imageUrl: title
+            }
+        } else {
+            console.log('Error in updateWantData() - no id provided')
+        }
+
+    } catch(error) {
+            console.log('Error in updateWantData():', error)
+
+    }
+
+    return {
+        title: "",
+        description: "",
+        link: "",
+        imageUrl: ""
+    }
+}
+
 
 // all from igclone
 
