@@ -14,6 +14,7 @@ export default function Want(want) {
     const [wantDeleted, setWantDeleted] = useState(false)
     const wantId = want && want.wantId ? want.wantId : ''
     const userId = want && want.userId ? want.userId : ''
+    const userDocId = want && want.userDocId ? want.userDocId : ''
     const wantType = want && want.type ? want.type : ''
 
 
@@ -24,7 +25,6 @@ export default function Want(want) {
         setNewWantDescription(wantDescription)
         setNewWantImageUrl(wantImageUrl)
         setNewWantLink(wantLink)
-        toggleEditData()
     }
 
     async function deleteWantWithType() {
@@ -55,23 +55,26 @@ export default function Want(want) {
     return (
 
         <div className="bg-gray-100 hover:bg-indigo-50 border-gray-300 leading-normal mb-2 border-y-2 relative">
+            userId: {userId}<br/>
+            wantId: {wantId}<br/>
+            type: {wantType}
 
-            {!updateData &&   
+            {want.isEditable && !updateData &&   
                  <div
-                    className={`bg-blue-500 text-white text-sm rounded p-1 font-bold shadow-lg hover:bg-blue-800 w-16 cursor-pointer m-2 text-center`}
+                    className={`bg-blue-500 text-white text-sm rounded p-1 font-bold shadow-lg hover:bg-blue-800 w-32 cursor-pointer`}
                     onClick={toggleEditData}
 
-                >Edit</div>
+                >Edit Data</div>
             }
-            {/* {updateData &&   
+            {want.isEditable && updateData &&   
                  <div
                     className={`bg-blue-500 text-white text-sm rounded p-1 font-bold shadow-lg hover:bg-blue-800 w-32 cursor-pointer`}
                     onClick={toggleEditData}
 
                 >Cancel Edit Data</div>
-            } */}
+            }
             
-            {updateData &&
+            {want.isEditable && updateData &&
                 <div className="px-5 py-5 w-80 mb-3 mt-3 rounded-lg border-2 bg-yellow-50 border-yellow-200 shadow-md m-auto relative">
                 
                     <input 
@@ -105,17 +108,23 @@ export default function Want(want) {
                         className='w-full border-2 border-yellow-100 rounded-md mb-1 px-2 py-1 text-sm font-medium shadow-md'
                         onChange={({ target }) => setNewWantLink(target.value)}
                     />
-                    <br/>
 
                     <div
-                        className={`bg-blue-500 text-white text-sm rounded p-1 font-bold shadow-lg hover:bg-blue-800 w-16 cursor-pointer float-right text-center`}
+                        className={`bg-blue-500 text-white text-sm rounded p-1 font-bold shadow-lg hover:bg-blue-800 w-16 cursor-pointer float-right`}
                         id={`update_form_button_${want.wantId}`}
                         onClick={cancelUpdateWantData}
 
                     >Cancel</div>
 
                     <div
-                        className={`bg-blue-500 text-white text-sm rounded p-1 font-bold shadow-lg hover:bg-blue-800 w-16 cursor-pointer float-right text-center`}
+                        className={`bg-blue-500 text-white text-sm rounded p-1 font-bold shadow-lg hover:bg-blue-800 w-16 cursor-pointer float-right`}
+                        id={`update_form_button_${want.wantId}`}
+                        onClick={deleteWantWithType}
+
+                    >Delete</div>
+
+                    <div
+                        className={`bg-blue-500 text-white text-sm rounded p-1 font-bold shadow-lg hover:bg-blue-800 w-32 cursor-pointer`}
                         id={`update_form_button_${want.wantId}`}
                         onClick={ async () => {
                             const returnData = await updateWant({
@@ -131,31 +140,35 @@ export default function Want(want) {
                             setWantLink(returnData.link)
                         }}
 
-                    >Confirm</div>
-
-                    <div
-                        className={`bg-blue-500 text-white text-sm rounded p-1 font-bold shadow-lg hover:bg-blue-800 w-16 cursor-pointer text-center`}
-                        id={`update_form_button_${want.wantId}`}
-                        onClick={deleteWantWithType}
-
-                    >Delete</div>
+                    >Update Want Data</div>
                         
             </div>
             }
-            {!updateData &&
-                <div className="p-2">
-                    <a {... wantLink ? {href: wantLink} : {}}>
-                        {wantImageUrl && wantImageUrl.length > 0 &&
-                            <img src={wantImageUrl} className="w-20 mb-5 m-auto"/>
-                        }
-
-                        <div className="p-5">
-                            <p className="font-bold text-sm">{wantTitle}</p>
-                            <p className="text-sm">{wantDescription}</p>
-                        </div>
-                    </a>
-                </div>
+            {want.isEditable &&
+                <div className="m-1">
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="deleteWants"
+                            value={want.wantId}
+                            key={want.wantKey}
+                        />
+                        &nbsp;<span className='text-xs text-red-400'>Delete</span>
+                    </label>
+              </div>
             }
+            <div className="p-2">
+                <a {... wantLink ? {href: wantLink} : {}}>
+                    {wantImageUrl && wantImageUrl.length > 0 &&
+                        <img src={wantImageUrl} className="w-20 mb-5 m-auto"/>
+                    }
+
+                    <div className="p-5">
+                        <p className="font-bold text-sm">{wantTitle}</p>
+                        <p className="text-sm">{wantDescription}</p>
+                    </div>
+                </a>
+            </div>
 
         </div>
         

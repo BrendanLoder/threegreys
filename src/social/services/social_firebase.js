@@ -229,17 +229,17 @@ export async function updateUserDoNotWants({
     }
 }
 
-export async function updateWantData(data) {
+export async function updateWant(data) {
     const title = data && data.title ? data.title: ''
     const description = data && data.description ? data.description: ''
     const link = data && data.link ? data.link: ''
     const imageUrl = data && data.imageUrl ? data.imageUrl: ''
     const id = data && data.id ? data.id: ''
-    console.log('in updateWantData() title=',title)
-    console.log('in updateWantData() description=',description)
-    console.log('in updateWantData() link=',link)
-    console.log('in updateWantData() imageUrl=',imageUrl)
-    console.log('in updateWantData() id=',id)
+    console.log('in updateWant() title=',title)
+    console.log('in updateWant() description=',description)
+    console.log('in updateWant() link=',link)
+    console.log('in updateWant() imageUrl=',imageUrl)
+    console.log('in updateWant() id=',id)
 
     
     try {
@@ -253,16 +253,16 @@ export async function updateWantData(data) {
             });
             return {
                 title: title,
-                description: title,
-                link: title,
-                imageUrl: title
+                description: description,
+                link: link,
+                imageUrl: imageUrl
             }
         } else {
-            console.log('Error in updateWantData() - no id provided')
+            console.log('Error in updateWant() - no id provided')
         }
 
     } catch(error) {
-            console.log('Error in updateWantData():', error)
+            console.log('Error in updateWant():', error)
 
     }
 
@@ -274,162 +274,48 @@ export async function updateWantData(data) {
     }
 }
 
+export async function deleteWantById(id) {
+    if(id && id != '') {
+        await deleteDoc(doc(db, "social-user-wants", id))
+    } else {
+        console.log('in deleteWantById() - no id passed in')
+    }
+}
 
-// all from igclone
 
-// export async function isUserFollowingProfile(activeUsername, profileUserId) {
-//     const result = await firebase
-//         .firestore()
-//         .collection('users')
-//         .where('username', '==', activeUsername) // karl (active logged in user)
-//         .where('following', 'array-contains', profileUserId)
-//         .get();
-        
-//     const [response = {}] = result.docs.map((item) => ({
-//         ...item.data(),
-//         docId: item.id
-//     }));
-    
-//     return !!response.fullName;
-// }
+export async function deleteWantByIdAndUserIdAndType({wantId, userId, wantType}) {
+    if(wantId && userId && wantType){
+        const want = await getWantById(wantId)
+        // console.log('want is:', want)
+        const user = await getUserByUserId(userId)
+        // console.log('user.wantIds:', user.wantIds)
+        // console.log('user.doNotWantIds:', user.wantIds)
+        const userDocId = user.userDocId
+        let userWantIds = user.wantIds ? user.wantIds : []
+        let userDoNotWantIds = user.doNotWantIds ? user.doNotWantIds : []
 
-// export async function doesUsernameExist(username) {
-//     const result = await firebase
-//         .firestore()
-//         .collection('users')
-//         .where('username', '==', username)
-//         .get();
-        
-//     return result.docs.map((user) => user.data().length > 0);
-// }
+        const userRef = doc(db, "social-users", userDocId) 
 
-// export async function getUserByUserId(userId) {
-//     const result = await firebase
-//         .firestore()
-//         .collection('users')
-//         .where('userId', '==', userId)
-//         .get();
-        
-//     const user = result.docs.map((item) => ({
-//         ...item.data(),
-//         docId: item.id
-//     }));
- 
-//     return user;       
-// }
-
-// export async function getUserFollowedPhotos(userId, followingUserIds) {
-//     const result = await firebase
-//         .firestore()
-//         .collection('photos')
-//         .where('userId', 'in', followingUserIds)
-//         .get();
-        
-//     const userFollowedPhotos = result.docs.map((item) => ({
-//         ...item.data(),
-//         docId: item.id
-//     }));
-    
-//     const photosWithUserDetails = await Promise.all(
-//         userFollowedPhotos.map(async (photo) => {
-//             let userLikedPhoto = false;
-//             if (photo.likes.includes(userId)) {
-//                 userLikedPhoto = true;
-//             }
-//             const user = await getUserByUserId(photo.userId);
-//             const username = user[0].username;
-//             return { username, ...photo, userLikedPhoto };
-//         })
-//     );
-    
-//     return photosWithUserDetails;
-// }
-
-// export async function getSuggestedProfiles(userId) {
-//     const result = await firebase.firestore().collection('users').limit(10).get();
-//     const [{ following }] = await getUserByUserId(userId);
-        
-//     return result.docs
-//         .map((user) => ({ ...user.data(), docId: user.id }))
-//         .filter((profile) => profile.userId !== userId && !following.includes(profile.userId));
-// }
-    
-// export async function updateUserFollowing(docId, profileId, isFollowingProfile) {
-//     return firebase
-//         .firestore()
-//         .collection('users')
-//         .doc(docId)
-//         .update({
-//             following: isFollowingProfile
-//                 ? FieldValue.arrayRemove(profileId)
-//                 : FieldValue.arrayUnion(profileId)
-//         });
-// }
-
-// export async function updateFollowedUserFollowers(docId, followingUserId, isFollowingProfile) {
-//     return firebase
-//         .firestore()
-//         .collection('users')
-//         .doc(docId)
-//         .update({
-//             followers: isFollowingProfile
-//                 ? FieldValue.arrayRemove(followingUserId)
-//                 : FieldValue.arrayUnion(followingUserId)
-//         });
-// }
-
-// export async function getUserByUsername(username) {
-//     const result = await firebase
-//         .firestore()
-//         .collection('users')
-//         .where('username', '==', username)
-//         .get();
-        
-//     const user = result.docs.map((item) => ({
-//         ...item.data(),
-//         docId: item.id
-//     }));
- 
-//     return user.length > 0 ? user : false;  
-// }
-
-// export async function getUserIdByUsername(username) {
-//     const result = await firebase
-//         .firestore()
-//         .collection('users')
-//         .where('username', '==', username)
-//         .get();
-        
-//     const [{ userId = null }] = result.docs.map((item) => ({
-//         ...item.data(),
-//     }));
-    
-//     return userId;
-// }
-
-// export async function getUserPhotosByUsername(username) {
-//     const userId = await getUserIdByUsername(username);
-//     const result = await firebase
-//         .firestore()
-//         .collection('photos')
-//         .where('userId', '==', userId)
-//         .get();
-        
-//     const photos = result.docs.map((item) => ({
-//         ...item.data(),
-//         docId: item.id
-//     }));
-    
-//     return photos;
-// }
-
-// export async function toggleFollow(
-//     isFollowingProfile,
-//     activeUserDocId,
-//     profileDocId,
-//     profileId,
-//     followingUserId
-// ) {
-//     await updateUserFollowing(activeUserDocId, profileId, isFollowingProfile);
-//     await updateFollowedUserFollowers(profileDocId, followingUserId, isFollowingProfile);
-// }
+        if(wantType == 'wantItem' && userWantIds.length > 0) {
+            const index = userWantIds.indexOf(wantId);
+            if (index > -1) {
+                userWantIds.splice(index, 1)
+            }
+            await updateDoc(userRef, {
+                wantIds: userWantIds
+            })
+            await deleteWantById(wantId)
+        } else if(wantType == 'doNotWantItem' && userDoNotWantIds.length > 0) {
+            const index = userDoNotWantIds.indexOf(wantId);
+            if (index > -1) {
+                userDoNotWantIds.splice(index, 1)
+            }
+            await updateDoc(userRef, {
+                doNotWantIds: userDoNotWantIds
+            })
+            await deleteWantById(wantId)
+        }
+    } else {
+        console.log('in deleteWantByWantIdAndUserId() wantId or userId or wantType are missing')
+    }
+}

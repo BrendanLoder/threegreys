@@ -3,10 +3,11 @@ import Want from "../components/want"
 export function  createWantDisplayObjects({
     wantData,
     type,
-    isEditable
+    isEditable,
+    userId,
+    userDocId
 }) {
     let wantDisplayObjects = []
-    
     try {
         if(!wantData) {
             console.log('In createWantDisplayObjects() - no wantData')
@@ -17,7 +18,7 @@ export function  createWantDisplayObjects({
         } else {
             wantData.map((want, index) =>  {
                 if(want && want !== undefined){
-                    wantDisplayObjects.push(<Want wantKey={`${type}_${want.wantId}`} type={type} title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} wantId={want.wantId} isEditable={isEditable} index={index} /> )
+                    wantDisplayObjects.push(<Want wantKey={`${type}_${want.wantId}`} type={type} userId={userId} userDocId={userDocId} title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} wantId={want.wantId} isEditable={isEditable} index={index}/> )
                 }
             })
 

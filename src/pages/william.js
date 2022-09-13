@@ -8,9 +8,7 @@ function William() {
         <div>
             <b className="text-xl text-purple-800">
             
-                t3rgtrcbt5fg44frfegvtgfvbfrrghbrghjbtfghvnbeuyghnhre551234567890qwertyuiopasdfghjklzxcvbnmhhgbtbvhgtnybn       vyuiyuy76y5uhh
-                poo draganddrop
-                dad
+            hhghghtrergyrggccvvdbbdfhbhgnuft6yrjh1234567890qwertyuiop[]asdfgghkjkl;'zxcvbnm,./'
             </b><br/>
             <div className="w-72 m-auto">
             <img src="/images/william.jpg"/>

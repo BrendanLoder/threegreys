@@ -453,6 +453,15 @@ export default function Dashboard() {
                             </button>
                         </h2>
                         <div id="wantsCollapseOne" className="accordion-collapse collapse" aria-labelledby="wantsHeadingOne">
+                            <button href="" className={`${wantsEditable ? "bg-red-500" : "bg-blue-500"} hover:bg-blue-800 text-white font-bold py-1 px-1 rounded text-md text-center w-full`} onClick={() => toggleEdit('wants')}>
+                                {wantsEditable ? 
+                                <span>Click To Cancel Edit</span> 
+                                : 
+                                <span>Click To Edit</span>
+                                
+                            }
+                                
+                            </button>
 
                             <form onSubmit={handleWantsEditSubmit} method="POST">
                                 <div className="accordion-body py-4 px-5 max-h-48  overflow-scroll no-scrollbar">
@@ -460,6 +469,14 @@ export default function Dashboard() {
                                     {wantItems}
                                     
                                 </div>
+                                {wantsEditable && 
+                                    <button
+                                        type="submit"
+                                        className={`bg-blue-500 text-white w-full rounded h-8 font-bold shadow-lg hover:bg-blue-800`}
+                                    >
+                                        Save Edits
+                                    </button>
+                                }
                                 
                             </form>
                         </div>
@@ -585,7 +602,15 @@ export default function Dashboard() {
 
 
                             {/* TRYING TO GET IN EDIT FORM START */}
-                            
+                            <button href="" className={`${doNotWantsEditable ? "bg-red-500" : "bg-blue-500"} hover:bg-blue-800 text-white font-bold py-1 px-1 rounded text-md text-center w-full`} onClick={() => toggleEdit('doNotWants')}>
+                                {doNotWantsEditable ? 
+                                    <span>Click To Cancel Edit</span> 
+                                    : 
+                                    <span>Click To Edit</span>
+                                    
+                                }
+                                    
+                            </button>
                             <form onSubmit={handleDoNotWantsEditSubmit} method="POST">
                             
                                 
@@ -596,6 +621,14 @@ export default function Dashboard() {
                                     {doNotWantItems}
                                     
                                 </div>
+                                {doNotWantsEditable && 
+                                    <button
+                                        type="submit"
+                                        className={`bg-blue-500 text-white w-full rounded h-8 font-bold shadow-lg hover:bg-blue-800`}
+                                    >
+                                        Save Edits
+                                    </button>
+                                }
                                 
                             </form>
 
