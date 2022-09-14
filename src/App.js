@@ -29,7 +29,7 @@ const Social_Dashboard = lazy(() => import ('./social/pages/dashboard'));
 const Social_Signup = lazy(() => import ('./social/pages/signup'));
 const Social_Login = lazy(() => import ('./social/pages/login'));
 const Social_Profile = lazy(() => import ('./social/pages/profile'));
-const Test = lazy(() => import ('./social/pages/test'))
+const Test = lazy(() => import ('./test'))
 
 
 const App = ({ signOut, user }) => {    

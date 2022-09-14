@@ -52,10 +52,16 @@ export default function Dashboard() {
     const [hideNewDoNotWantFormFields, setHideNewDoNotWantFormFields] = useState(false)
     const [newDoNotWantFormFieldsClass, setNewDoNotWantFormFieldsClass] = useState('')
 
+    const [refreshWants, setRefreshWants] = useState('pooop')
+
     // End Do Not Wants Specific States
 
     // New Want/Do Not Want Form Error
     const errorText = 'Please Enter a Title or Description'
+
+    useEffect(() => {
+        console.log('In use effect - refreshWants is:', refreshWants)
+    }, [refreshWants])
 
     // Get User useEffect
     useEffect(()=>{
@@ -142,7 +148,8 @@ export default function Dashboard() {
                 'type': 'doNotWantItem',
                 'isEditable': doNotWantsEditable,
                 'userId': currentUser.userId,
-                'userDocId': currentUser.userDocId
+                'userDocId': currentUser.userDocId,
+                'setRefreshWants': setRefreshWants
 
         })  
             setDoNotWantItems(doNotWantDisplayObjects)
@@ -197,7 +204,8 @@ export default function Dashboard() {
                 'type': 'doNotWantItem',
                 'isEditable': doNotWantsEditable,
                 'userId': currentUser.userId,
-                'userDocId': currentUser.userDocId
+                'userDocId': currentUser.userDocId,
+                'setRefreshWants': setRefreshWants
 
             })
             setDoNotWantItems(doNotWantDisplayObjects)
@@ -248,7 +256,8 @@ export default function Dashboard() {
                 'type': 'wantItem',
                 'isEditable': wantsEditable,
                 'userId': currentUser.userId,
-                'userDocId': currentUser.userDocId
+                'userDocId': currentUser.userDocId,
+                'setRefreshWants': setRefreshWants
 
             })
             setWantItems(wantDisplayObjects)
@@ -286,7 +295,8 @@ export default function Dashboard() {
                 'type': 'wantItem',
                 'isEditable': wantsEditable,
                 'userId': currentUser.userId,
-                'userDocId': currentUser.userDocId
+                'userDocId': currentUser.userDocId,
+                'setRefreshWants': setRefreshWants
 
             })
             setWantItems(wantDisplayObjects)

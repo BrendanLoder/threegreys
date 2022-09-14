@@ -15,8 +15,11 @@ export default function Want(want) {
     const wantId = want && want.wantId ? want.wantId : ''
     const userId = want && want.userId ? want.userId : ''
     const wantType = want && want.type ? want.type : ''
+    const ts = want.setRefreshWants
 
 
+    console.log('in want.js setRefreshWants is', ts)
+    ts('hi')
     const [updateData, setUpdateData] = useState(false)
 
     function cancelUpdateWantData() {

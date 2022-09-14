@@ -5,8 +5,10 @@ export function  createWantDisplayObjects({
     type,
     isEditable,
     userId,
-    userDocId
+    userDocId,
+    setRefreshWants
 }) {
+    console.log('setRefreshWants is', setRefreshWants)
     let wantDisplayObjects = []
     try {
         if(!wantData) {
@@ -18,7 +20,7 @@ export function  createWantDisplayObjects({
         } else {
             wantData.map((want, index) =>  {
                 if(want && want !== undefined){
-                    wantDisplayObjects.push(<Want wantKey={`${type}_${want.wantId}`} type={type} userId={userId} userDocId={userDocId} title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} wantId={want.wantId} isEditable={isEditable} index={index}/> )
+                    wantDisplayObjects.push(<Want wantKey={`${type}_${want.wantId}`} type={type} userId={userId} userDocId={userDocId} title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} wantId={want.wantId} isEditable={isEditable} index={index} setRefreshWants={setRefreshWants}/> )
                 }
             })
 
