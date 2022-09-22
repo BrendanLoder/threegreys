@@ -36,6 +36,7 @@ export default function Want(want) {
                     userId,
                     wantType
                 })
+                setUpdateData(false)
                 refreshListData()
             } catch (error) {
                 console.log('in deleteWantWithType() error:', error)
@@ -127,8 +128,6 @@ export default function Want(want) {
                         onClick={deleteWantWithType}
 
                     >Delete</div>
-                    <a href='#' onClick={refreshListData}>Click to refreshListData</a>
-                    <div>wantType: {wantType}</div>
                         
             </div>
             }

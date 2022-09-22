@@ -63,6 +63,8 @@ export default function Dashboard() {
         if(event) {
             event.preventDefault()
         }
+        setDoNotWantsEditable(false)
+        setWantsEditable(false)
         const d = new Date();
         let time = d.getTime()
         setRefreshWants(time)
