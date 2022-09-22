@@ -15,11 +15,9 @@ export default function Want(want) {
     const wantId = want && want.wantId ? want.wantId : ''
     const userId = want && want.userId ? want.userId : ''
     const wantType = want && want.type ? want.type : ''
+    const refreshListData = want && want.refreshListData ? want.refreshListData : ''
     const ts = want.setRefreshWants
 
-
-    console.log('in want.js setRefreshWants is', ts)
-    ts('hi')
     const [updateData, setUpdateData] = useState(false)
 
     function cancelUpdateWantData() {
@@ -38,7 +36,7 @@ export default function Want(want) {
                     userId,
                     wantType
                 })
-                setWantDeleted(true)
+                refreshListData()
             } catch (error) {
                 console.log('in deleteWantWithType() error:', error)
             }
@@ -48,12 +46,6 @@ export default function Want(want) {
     function toggleEditData() {
         setUpdateData(!updateData)
     }
-
-    useEffect(() => {
-        // deleteWantByWantIdAndUserIdAndType({userId: want.userId, wantId: want.wantId})
-    }, []);
-
-    if (wantDeleted) return <></>
     
     return (
 
@@ -66,13 +58,6 @@ export default function Want(want) {
 
                 >Edit</div>
             }
-            {/* {updateData &&   
-                 <div
-                    className={`bg-blue-500 text-white text-sm rounded p-1 font-bold shadow-lg hover:bg-blue-800 w-32 cursor-pointer`}
-                    onClick={toggleEditData}
-
-                >Cancel Edit Data</div>
-            } */}
             
             {updateData &&
                 <div className="px-5 py-5 w-80 mb-3 mt-3 rounded-lg border-2 bg-yellow-50 border-yellow-200 shadow-md m-auto relative">
@@ -142,6 +127,8 @@ export default function Want(want) {
                         onClick={deleteWantWithType}
 
                     >Delete</div>
+                    <a href='#' onClick={refreshListData}>Click to refreshListData</a>
+                    <div>wantType: {wantType}</div>
                         
             </div>
             }

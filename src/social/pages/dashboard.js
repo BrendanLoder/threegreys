@@ -52,15 +52,88 @@ export default function Dashboard() {
     const [hideNewDoNotWantFormFields, setHideNewDoNotWantFormFields] = useState(false)
     const [newDoNotWantFormFieldsClass, setNewDoNotWantFormFieldsClass] = useState('')
 
-    const [refreshWants, setRefreshWants] = useState('pooop')
+    const [refreshWants, setRefreshWants] = useState('')
 
     // End Do Not Wants Specific States
 
     // New Want/Do Not Want Form Error
     const errorText = 'Please Enter a Title or Description'
 
+    const refreshListData = (event) =>  {
+        if(event) {
+            event.preventDefault()
+        }
+        const d = new Date();
+        let time = d.getTime()
+        setRefreshWants(time)
+    }
+
     useEffect(() => {
-        console.log('In use effect - refreshWants is:', refreshWants)
+        const refreshData = async () => {
+
+            const wants = await getWantItemsByUserId(currentUser.userId)
+            wants && wants.length > 0 && setWants(wants)
+            const wantDisplayObjects = createWantDisplayObjects({
+                'wantData': wants,
+                'type': 'wantItem',
+                'isEditable': wantsEditable,
+                'userId': currentUser.userId,
+                'userDocId': currentUser.userDocId,
+                'setRefreshWants': setRefreshWants,
+                'refreshListData': refreshListData
+
+            })
+            setWantItems(wantDisplayObjects)
+
+            const doNotWants = await getDoNotWantItemsByUserId(currentUser.userId)
+            doNotWants && doNotWants.length > 0 && setDoNotWants(doNotWants)
+            const doNotWantDisplayObjects = createWantDisplayObjects({
+                'wantData': doNotWants,
+                'type': 'doNotWantItem',
+                'isEditable': doNotWantsEditable,
+                'userId': currentUser.userId,
+                'userDocId': currentUser.userDocId,
+                'setRefreshWants': setRefreshWants,
+                'refreshListData': refreshListData
+            })  
+            setDoNotWantItems(doNotWantDisplayObjects)
+
+        }
+        refreshData()
+        // const wants = await getWantItemsByUserId(currentUser.userId)
+        // // wants && wants.length > 0 && setWants(wants)
+
+        // console.log('wants is:', wants)
+
+        // const doNotWants = await getDoNotWantItemsByUserId(currentUser.userId)
+        // // doNotWants && doNotWants.length > 0 && setDoNotWants(doNotWants)
+
+
+        // console.log('doNotWants is:', doNotWants)
+
+
+    //     const wantDisplayObjects = createWantDisplayObjects({
+    //         'wantData': wants,
+    //         'type': 'wantItem',
+    //         'isEditable': wantsEditable,
+    //         'userId': currentUser.userId,
+    //         'userDocId': currentUser.userDocId,
+    //         'setRefreshWants': setRefreshWants,
+    //         'refreshListData': refreshListData
+
+    //     })
+    //     setWantItems(wantDisplayObjects)
+    //     const doNotWantDisplayObjects = createWantDisplayObjects({
+    //         'wantData': doNotWants,
+    //         'type': 'doNotWantItem',
+    //         'isEditable': doNotWantsEditable,
+    //         'userId': currentUser.userId,
+    //         'userDocId': currentUser.userDocId,
+    //         'setRefreshWants': setRefreshWants,
+    //         'refreshListData': refreshListData
+
+    // })  
+        // setDoNotWantItems(doNotWantDisplayObjects)
     }, [refreshWants])
 
     // Get User useEffect
@@ -149,7 +222,8 @@ export default function Dashboard() {
                 'isEditable': doNotWantsEditable,
                 'userId': currentUser.userId,
                 'userDocId': currentUser.userDocId,
-                'setRefreshWants': setRefreshWants
+                'setRefreshWants': setRefreshWants,
+                'refreshListData': refreshListData
 
         })  
             setDoNotWantItems(doNotWantDisplayObjects)
@@ -205,7 +279,8 @@ export default function Dashboard() {
                 'isEditable': doNotWantsEditable,
                 'userId': currentUser.userId,
                 'userDocId': currentUser.userDocId,
-                'setRefreshWants': setRefreshWants
+                'setRefreshWants': setRefreshWants,
+                'refreshListData': refreshListData
 
             })
             setDoNotWantItems(doNotWantDisplayObjects)
@@ -257,7 +332,8 @@ export default function Dashboard() {
                 'isEditable': wantsEditable,
                 'userId': currentUser.userId,
                 'userDocId': currentUser.userDocId,
-                'setRefreshWants': setRefreshWants
+                'setRefreshWants': setRefreshWants,
+                'refreshListData': refreshListData
 
             })
             setWantItems(wantDisplayObjects)
@@ -296,7 +372,8 @@ export default function Dashboard() {
                 'isEditable': wantsEditable,
                 'userId': currentUser.userId,
                 'userDocId': currentUser.userDocId,
-                'setRefreshWants': setRefreshWants
+                'setRefreshWants': setRefreshWants,
+                'refreshListData': refreshListData
 
             })
             setWantItems(wantDisplayObjects)

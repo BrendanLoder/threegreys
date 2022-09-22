@@ -146,6 +146,7 @@ export async function addUserDoNotWant (want) {
 
     let userDoNotWantIds = []
     let newUserDoNotWantIds = []
+    let newDoNotWantId
     
 try {
 
@@ -169,6 +170,7 @@ try {
         await updateDoc(userRef, {
             doNotWantIds: newUserDoNotWantIds
         });
+        newDoNotWantId = newDoNotWantRefId
 
     } else {
         console.log('DO NOT have a user')
@@ -178,7 +180,7 @@ try {
     console.log('error in social_firebase/addUserDoNotWant:', error)
 }
 
-return newUserDoNotWantIds
+return newDoNotWantId
 }
 
 export async function updateUserWants({
@@ -200,10 +202,6 @@ export async function updateUserWants({
     } catch(error){
         console.log('Error in updateUserWants():', error)
     }
-    
-    console.log('in updateUserWants() - userId: ', userId)
-    console.log('in updateUserWants() - deleteArray: ', deleteArray)
-    console.log('in updateUserWants() - keepArray: ', keepArray)
 }
 
 export async function updateUserDoNotWants({
@@ -221,7 +219,6 @@ export async function updateUserDoNotWants({
         }
         
         if(deleteArray && deleteArray.length > 0) {
-            console.log('am actually hitting firebase for delete docs')
             await Promise.all(deleteArray.map(async (wantId) => deleteDoc(doc(db, "social-user-wants", wantId))));
         }
     } catch(error){
@@ -235,11 +232,6 @@ export async function updateWant(data) {
     const link = data && data.link ? data.link: ''
     const imageUrl = data && data.imageUrl ? data.imageUrl: ''
     const id = data && data.id ? data.id: ''
-    console.log('in updateWant() title=',title)
-    console.log('in updateWant() description=',description)
-    console.log('in updateWant() link=',link)
-    console.log('in updateWant() imageUrl=',imageUrl)
-    console.log('in updateWant() id=',id)
 
     
     try {
@@ -276,7 +268,12 @@ export async function updateWant(data) {
 
 export async function deleteWantById(id) {
     if(id && id != '') {
-        await deleteDoc(doc(db, "social-user-wants", id))
+        try {
+            await deleteDoc(doc(db, "social-user-wants", id))
+        } catch (error) {
+            console.log('in deleteWantById() - error on deleteDoc try is:', error)
+        }
+        
     } else {
         console.log('in deleteWantById() - no id passed in')
     }
@@ -286,10 +283,7 @@ export async function deleteWantById(id) {
 export async function deleteWantByIdAndUserIdAndType({wantId, userId, wantType}) {
     if(wantId && userId && wantType){
         const want = await getWantById(wantId)
-        // console.log('want is:', want)
         const user = await getUserByUserId(userId)
-        // console.log('user.wantIds:', user.wantIds)
-        // console.log('user.doNotWantIds:', user.wantIds)
         const userDocId = user.userDocId
         let userWantIds = user.wantIds ? user.wantIds : []
         let userDoNotWantIds = user.doNotWantIds ? user.doNotWantIds : []
@@ -309,13 +303,13 @@ export async function deleteWantByIdAndUserIdAndType({wantId, userId, wantType})
             const index = userDoNotWantIds.indexOf(wantId);
             if (index > -1) {
                 userDoNotWantIds.splice(index, 1)
-            }
             await updateDoc(userRef, {
                 doNotWantIds: userDoNotWantIds
             })
+            }
             await deleteWantById(wantId)
         }
     } else {
-        console.log('in deleteWantByWantIdAndUserId() wantId or userId or wantType are missing')
+        console.  log('in deleteWantByWantIdAndUserId() wantId or userId or wantType are missing')
     }
 }
