@@ -6,7 +6,6 @@ export function  createWantDisplayObjects({
     isEditable,
     userId,
     userDocId,
-    setRefreshWants,
     refreshListData
 }) {
     let wantDisplayObjects = []
@@ -19,8 +18,9 @@ export function  createWantDisplayObjects({
             console.info('In createWantDisplayObjects() - wantData array is empty')
         } else {
             wantData.map((want, index) =>  {
+                if(type == 'doNotWantItem') console.log('In createWantDisplayObjects. want is:', want)
                 if(want && want !== undefined){
-                    wantDisplayObjects.push(<Want wantKey={`${type}_${want.wantId}`} type={type} userId={userId} userDocId={userDocId} title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} wantId={want.wantId} isEditable={isEditable} index={index} setRefreshWants={setRefreshWants} refreshListData={refreshListData}/> )
+                    wantDisplayObjects.push(<Want wantKey={`${type}_${want.wantId}`} type={type} userId={userId} userDocId={userDocId} title={want.title} description={want.description} imageUrl={want.imageUrl} link={want.link} wantId={want.wantId} isEditable={isEditable} index={index} refreshListData={refreshListData}/> )
                 }
             })
 

@@ -7,7 +7,10 @@ export default function Want(want) {
     const [newWantImageUrl, setNewWantImageUrl] = useState(want.imageUrl)
     const [newWantLink, setNewWantLink] = useState(want.link)
 
+    console.log('at top of want.js want.title is:', want.title)
     const [wantTitle, setWantTitle] = useState(want.title)
+    console.log('at top of want.js wantTitle is:', wantTitle)
+    
     const [wantDescription, setWantDescription] = useState(want.description)
     const [wantImageUrl, setWantImageUrl] = useState(want.imageUrl)
     const [wantLink, setWantLink] = useState(want.link)
@@ -16,7 +19,6 @@ export default function Want(want) {
     const userId = want && want.userId ? want.userId : ''
     const wantType = want && want.type ? want.type : ''
     const refreshListData = want && want.refreshListData ? want.refreshListData : ''
-    const ts = want.setRefreshWants
 
     const [updateData, setUpdateData] = useState(false)
 
@@ -36,7 +38,12 @@ export default function Want(want) {
                     userId,
                     wantType
                 })
+                // setWantTitle('')
+                // setWantDescription('')
+                // setWantImageUrl('')
+                // setWantLink('')
                 setUpdateData(false)
+                // setWantDeleted(true)
                 refreshListData()
             } catch (error) {
                 console.log('in deleteWantWithType() error:', error)
@@ -47,11 +54,36 @@ export default function Want(want) {
     function toggleEditData() {
         setUpdateData(!updateData)
     }
+
+    function test(){
+        // want.title == 'keep me' && console.log('Keeping is:', want)
+        // want.title == 'delete me' && console.log('Deleteing is:', want)
+
+        if(want.title == 'keep me') {
+            console.log('Keeping:')
+            console.log('ID:', want.wantId)
+            console.log('Title:', want.title)
+            console.log('Description:', want.description)
+            console.log('-----------------------')
+        }
+        if(want.title == 'delete me') {
+            console.log('Deleting:')
+            console.log('ID:', want.wantId)
+            console.log('Title:', want.title)
+            console.log('Description:', want.description)
+            console.log('-----------------------')
+        }
+    }
+    test()
     
     return (
-
         <div className="bg-gray-100 hover:bg-indigo-50 border-gray-300 leading-normal mb-2 border-y-2 relative">
+            <div
+                        className={`bg-blue-500 text-white text-sm rounded p-1 m-2 font-bold shadow-lg hover:bg-blue-800 w-16 cursor-pointer text-center`}
+                        id={`update_form_button_${want.wantId}`}
+                        onClick={deleteWantWithType}
 
+                    >Delete</div>
             {!updateData &&   
                  <div
                     className={`bg-blue-500 text-white text-sm rounded p-1 font-bold shadow-lg hover:bg-blue-800 w-16 cursor-pointer m-2 text-center`}
@@ -114,33 +146,37 @@ export default function Want(want) {
                                 imageUrl: newWantImageUrl,
                                 id: wantId
                             })
+                            console.log('IS THERE SOME SORT OF RETURN DATA?? returnData.title:', returnData.title)
                             setWantTitle(returnData.title)
                             setWantDescription(returnData.description)
                             setWantImageUrl(returnData.imageUrl)
                             setWantLink(returnData.link)
+                            toggleEditData()
                         }}
 
                     >Confirm</div>
 
-                    <div
-                        className={`bg-blue-500 text-white text-sm rounded p-1 font-bold shadow-lg hover:bg-blue-800 w-16 cursor-pointer text-center`}
-                        id={`update_form_button_${want.wantId}`}
-                        onClick={deleteWantWithType}
-
-                    >Delete</div>
+                    
                         
             </div>
             }
             {!updateData &&
                 <div className="p-2">
+                    {console.log(`IN CODE: wantTitle: ${wantTitle} and want.title is: ${want.title}`)}
                     <a {... wantLink ? {href: wantLink} : {}}>
                         {wantImageUrl && wantImageUrl.length > 0 &&
                             <img src={wantImageUrl} className="w-20 mb-5 m-auto"/>
                         }
 
                         <div className="p-5">
-                            <p className="font-bold text-sm">{wantTitle}</p>
-                            <p className="text-sm">{wantDescription}</p>
+                            
+                            <p>Want ID in want.js: {wantId}</p>
+                            <p>want.title: {want.title}</p>
+                            <p>wantTitle: {wantTitle}</p>
+                            <p>want.description: {want.description}</p>
+                            <p>wantDescription: {wantDescription}</p>
+                            {/* <p className="font-bold text-sm">{wantTitle}</p> */}
+                            {/* <p className="text-sm">{wantDescription}</p> */}
                         </div>
                     </a>
                 </div>
