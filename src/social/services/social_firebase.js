@@ -310,6 +310,6 @@ export async function deleteWantByIdAndUserIdAndType({wantId, userId, wantType})
             await deleteWantById(wantId)
         }
     } else {
-        console.  log('in deleteWantByWantIdAndUserId() wantId or userId or wantType are missing')
+        console.log('in deleteWantByWantIdAndUserId() wantId or userId or wantType are missing')
     }
 }

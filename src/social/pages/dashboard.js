@@ -64,9 +64,7 @@ export default function Dashboard() {
         setDoNotWantsEditable(false)
         setWantsEditable(false)
         const updatedWantList = await getWantItemsByUserId(currentUser.userId)
-        console.log('in refreshListData() -- updatedWantList is:', updatedWantList)
         updatedWantList && updatedWantList.length > 0 && setWants(updatedWantList)
-        console.log('in refreshListData() -- updatedWantList is:', updatedWantList)
         const updatedDoNotWantList = await getDoNotWantItemsByUserId(currentUser.userId)
         updatedDoNotWantList && updatedDoNotWantList.length > 0 && setDoNotWants(updatedDoNotWantList)
     }
@@ -152,7 +150,6 @@ export default function Dashboard() {
 
     useEffect(() => {
         if(doNotWants.length > 0){
-            console.log('in useEffect that kicks off because of change in doNotWants - doNotWants list is:', doNotWants)
             const doNotWantDisplayObjects = createWantDisplayObjects({
                 'wantData': doNotWants,
                 'type': 'doNotWantItem',
@@ -164,7 +161,6 @@ export default function Dashboard() {
             })  
             setDoNotWantItems(doNotWantDisplayObjects)
             setDoNotWantItems(doNotWantDisplayObjects)
-            console.log('in useEffect that kicks off because of change in doNotWants - doNotWantDisplayObjects list is:', doNotWantDisplayObjects)
             setDoNotWantItems(doNotWantDisplayObjects)
         }
     }, [doNotWants, doNotWantsEditable])
@@ -274,7 +270,6 @@ export default function Dashboard() {
                 'refreshListData': refreshListData
 
             })
-            // console.log('in useEffect that kicks off because of change in wants - wantDisplayObjects  is:', wantDisplayObjects)
             setWantItems(wantDisplayObjects)
         }
     }, [wants, wantsEditable])
