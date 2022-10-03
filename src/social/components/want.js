@@ -6,11 +6,7 @@ export default function Want(want) {
     const [newWantDescription, setNewWantDescription] = useState(want.description)
     const [newWantImageUrl, setNewWantImageUrl] = useState(want.imageUrl)
     const [newWantLink, setNewWantLink] = useState(want.link)
-
-    console.log('at top of want.js want.title is:', want.title)
     const [wantTitle, setWantTitle] = useState(want.title)
-    console.log('at top of want.js wantTitle is:', wantTitle)
-    
     const [wantDescription, setWantDescription] = useState(want.description)
     const [wantImageUrl, setWantImageUrl] = useState(want.imageUrl)
     const [wantLink, setWantLink] = useState(want.link)
@@ -56,9 +52,6 @@ export default function Want(want) {
     }
 
     function test(){
-        // want.title == 'keep me' && console.log('Keeping is:', want)
-        // want.title == 'delete me' && console.log('Deleteing is:', want)
-
         if(want.title == 'keep me') {
             console.log('Keeping:')
             console.log('ID:', want.wantId)
@@ -79,17 +72,17 @@ export default function Want(want) {
     return (
         <div className="bg-gray-100 hover:bg-indigo-50 border-gray-300 leading-normal mb-2 border-y-2 relative">
             <div
-                        className={`bg-blue-500 text-white text-sm rounded p-1 m-2 font-bold shadow-lg hover:bg-blue-800 w-16 cursor-pointer text-center`}
+                        className='bg-blue-500 text-white text-sm font-bold shadow-lg hover:bg-blue-800 cursor-pointer text-center rounded-full w-5 ml-2 mt-2'
                         id={`update_form_button_${want.wantId}`}
                         onClick={deleteWantWithType}
 
-                    >Delete</div>
+                    >X</div>
             {!updateData &&   
                  <div
-                    className={`bg-blue-500 text-white text-sm rounded p-1 font-bold shadow-lg hover:bg-blue-800 w-16 cursor-pointer m-2 text-center`}
+                    className='bg-blue-500 text-white text-sm rounded-full p-1 font-bold shadow-lg hover:bg-blue-800 w-5 cursor-pointer m-2 text-center'
                     onClick={toggleEditData}
 
-                >Edit</div>
+                ><img src='/images/social/edit-16.png' className='w-5'></img></div>
             }
             
             {updateData &&
@@ -128,33 +121,35 @@ export default function Want(want) {
                     />
                     <br/>
 
-                    <div
-                        className={`bg-blue-500 text-white text-sm rounded p-1 font-bold shadow-lg hover:bg-blue-800 w-16 cursor-pointer float-right text-center`}
-                        id={`update_form_button_${want.wantId}`}
-                        onClick={cancelUpdateWantData}
+                    <div className='w-full pt-2 text-center'>
+                        <span
+                            className={`bg-blue-500 text-white text-sm rounded p-1 font-bold shadow-lg hover:bg-blue-800 w-16 cursor-pointer text-center mr-2`}
+                            id={`update_form_button_${want.wantId}`}
+                            onClick={cancelUpdateWantData}
 
-                    >Cancel</div>
+                        >Cancel</span>
 
-                    <div
-                        className={`bg-blue-500 text-white text-sm rounded p-1 font-bold shadow-lg hover:bg-blue-800 w-16 cursor-pointer float-right text-center`}
-                        id={`update_form_button_${want.wantId}`}
-                        onClick={ async () => {
-                            const returnData = await updateWant({
-                                title: newWantTitle,
-                                description: newWantDescription,
-                                link: newWantLink,
-                                imageUrl: newWantImageUrl,
-                                id: wantId
-                            })
-                            console.log('IS THERE SOME SORT OF RETURN DATA?? returnData.title:', returnData.title)
-                            setWantTitle(returnData.title)
-                            setWantDescription(returnData.description)
-                            setWantImageUrl(returnData.imageUrl)
-                            setWantLink(returnData.link)
-                            toggleEditData()
-                        }}
+                        <span
+                            className={`bg-blue-500 text-white text-sm rounded p-1 font-bold shadow-lg hover:bg-blue-800 w-16 cursor-pointer text-center`}
+                            id={`update_form_button_${want.wantId}`}
+                            onClick={ async () => {
+                                const returnData = await updateWant({
+                                    title: newWantTitle,
+                                    description: newWantDescription,
+                                    link: newWantLink,
+                                    imageUrl: newWantImageUrl,
+                                    id: wantId
+                                })
+                                setWantTitle(returnData.title)
+                                setWantDescription(returnData.description)
+                                setWantImageUrl(returnData.imageUrl)
+                                setWantLink(returnData.link)
+                                toggleEditData()
+                            }}
 
-                    >Confirm</div>
+                        >Confirm</span>
+                    </div>
+                    
 
                     
                         
@@ -170,13 +165,13 @@ export default function Want(want) {
 
                         <div className="p-5">
                             
-                            <p>Want ID in want.js: {wantId}</p>
+                            {/* <p>Want ID in want.js: {wantId}</p>
                             <p>want.title: {want.title}</p>
                             <p>wantTitle: {wantTitle}</p>
                             <p>want.description: {want.description}</p>
-                            <p>wantDescription: {wantDescription}</p>
-                            {/* <p className="font-bold text-sm">{wantTitle}</p> */}
-                            {/* <p className="text-sm">{wantDescription}</p> */}
+                            <p>wantDescription: {wantDescription}</p> */}
+                            <p className="font-bold text-sm">{wantTitle}</p>
+                            <p className="text-sm">{wantDescription}</p>
                         </div>
                     </a>
                 </div>

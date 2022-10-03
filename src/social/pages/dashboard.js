@@ -63,21 +63,13 @@ export default function Dashboard() {
         }
         setDoNotWantsEditable(false)
         setWantsEditable(false)
-        // const d = new Date();
-        // let time = d.getTime()
-        console.log('in refreshListData() -- calling setRefreshWants()')
-        // setRefreshWants(time)
-        // refreshData()
         const updatedWantList = await getWantItemsByUserId(currentUser.userId)
+        console.log('in refreshListData() -- updatedWantList is:', updatedWantList)
         updatedWantList && updatedWantList.length > 0 && setWants(updatedWantList)
+        console.log('in refreshListData() -- updatedWantList is:', updatedWantList)
         const updatedDoNotWantList = await getDoNotWantItemsByUserId(currentUser.userId)
         updatedDoNotWantList && updatedDoNotWantList.length > 0 && setDoNotWants(updatedDoNotWantList)
     }
-
-    // useEffect(() => {
-    //     console.log('in useEffect() triggered by "refereshWants" change -- calling refreshData()')
-    //     refreshData()
-    // }, [refreshWants])
 
     // Get User useEffect
     useEffect(()=>{
@@ -108,36 +100,6 @@ export default function Dashboard() {
     
     // **-------------------- Start Shared Want And Do Not Want Functions --------------------**
 
-    const refreshData = async () => {
-
-        const updatedWantList = await getWantItemsByUserId(currentUser.userId)
-        // console.log('in refreshData() - updatedWantList:', updatedWantList)
-        updatedWantList && updatedWantList.length > 0 && setWants(updatedWantList)
-        // const updatedWantDisplayObjects = createWantDisplayObjects({
-        //     'wantData': updatedWantList,
-        //     'type': 'wantItem',
-        //     'isEditable': wantsEditable,
-        //     'userId': currentUser.userId,
-        //     'userDocId': currentUser.userDocId,
-        //     'refreshListData': refreshListData
-
-        // })
-        // setWantItems(updatedWantDisplayObjects)
-
-        const updatedDoNotWantList = await getDoNotWantItemsByUserId(currentUser.userId)
-        console.log('in refreshData() - updatedDoNotWantList:', updatedDoNotWantList)
-        updatedDoNotWantList && updatedDoNotWantList.length > 0 && setDoNotWants(updatedDoNotWantList)
-        // const updatedDoNotWantDisplayObjects = createWantDisplayObjects({
-        //     'wantData': updatedDoNotWantList,
-        //     'type': 'doNotWantItem',
-        //     'isEditable': doNotWantsEditable,
-        //     'userId': currentUser.userId,
-        //     'userDocId': currentUser.userDocId,
-        //     'refreshListData': refreshListData
-        // })  
-        // setDoNotWantItems(updatedDoNotWantDisplayObjects)
-
-    }
 
     function clearFields(type){
         if(type == 'wantForm'){
