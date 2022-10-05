@@ -44,6 +44,7 @@ export default function Want(want) {
 
     function toggleEditData() {
         setUpdateData(!updateData)
+
     }
     
     return (

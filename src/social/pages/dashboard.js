@@ -3,6 +3,7 @@ import { useEffect, useState, useContext } from "react";
 import { getUserByUserId, getWantItemsByUserId, getDoNotWantItemsByUserId, addUserWant, addUserDoNotWant, updateUserWants, updateUserDoNotWants } from "../services/social_firebase";
 import { createWantDisplayObjects } from "../services/social";
 import Header from '../components/header'
+import Spotlight from "../components/spotlight";
 
 export default function Dashboard() {
 
@@ -361,6 +362,8 @@ export default function Dashboard() {
         <div>
             <Header />
             <div className="font-sans container w-full mx-auto py-5">
+
+                <Spotlight />
                 
                 <div className='relative'>
 
