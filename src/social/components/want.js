@@ -45,6 +45,7 @@ export default function Want(want) {
     function toggleEditData() {
         setUpdateData(!updateData)
 
+
     }
     
     return (
@@ -139,7 +140,7 @@ export default function Want(want) {
                 <div className="p-2">
                     <a {... wantLink ? {href: wantLink} : {}}>
                         {wantImageUrl && wantImageUrl.length > 0 &&
-                            <img src={wantImageUrl} className="w-20 mb-5 m-auto"/>
+                            <img src={wantImageUrl} style={{width:300, hight:300}} className="w-20 mb-5 m-auto"/>
                         }
 
                         <div className="p-5">

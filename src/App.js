@@ -11,7 +11,7 @@ import ProtectedRoute from './social/helpers/protected-routes';
 
 import FirebaseUserContext from './context/firebaseUser';
 import useFirebaseAuthListener from './hooks/use-firebase-auth-listener';
-
+import "swiper/css/bundle";
 import 'tw-elements'
 
 const Dashboard = lazy(() => import ('./pages/dashboard'));
@@ -30,6 +30,8 @@ const Social_Signup = lazy(() => import ('./social/pages/signup'));
 const Social_Login = lazy(() => import ('./social/pages/login'));
 const Social_Profile = lazy(() => import ('./social/pages/profile'));
 const Test = lazy(() => import ('./test'))
+
+
 
 
 const App = ({ signOut, user }) => {    

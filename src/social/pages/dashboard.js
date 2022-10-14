@@ -5,6 +5,8 @@ import { createWantDisplayObjects } from "../services/social";
 import Header from '../components/header'
 import Spotlight from "../components/spotlight";
 
+var Carousel = require('react-responsive-carousel').Carousel
+
 export default function Dashboard() {
 
     // Set Page Title useEffect
@@ -357,11 +359,69 @@ export default function Dashboard() {
     }
 
     // **-------------------- End Wants Specific Functions --------------------**
+
+    function testFunction() {
+        console.log('it is the text function')
+    }
+
+    function testFunction2() {
+        console.log('sectond test function')
+    }
     
     return (
         <div>
+            
+
             <Header />
             <div className="font-sans container w-full mx-auto py-5">
+            
+                <Carousel showArrows={true} infiniteLoop={true}>
+                <div>
+        <a href="http://www.google.com" target="_blank">
+          <div>
+            <img src="http://www.gap.com/webcontent/0017/225/023/cn17225023.jpg" />
+          </div>
+        </a>
+        <p className="legend">GapFit Tech Kids Joggers</p>
+      </div>
+                    {/* <div>
+                        <img src="http://www.gap.com/webcontent/0017/225/023/cn17225023.jpg" />
+                        <p className="legend">GapFit Tech Kids Joggers</p>
+                    </div> */}
+                    <div>
+                        <img src="http://www.gap.com/webcontent/0028/248/729/cn28248729.jpg" />
+                        <p className="legend">GapFit Kids Quick-Dry Shorts</p>
+                    </div>
+                    <div>
+                        <img src="http://www.gap.com/webcontent/0020/576/659/cn20576659.jpg" />
+                        <p className="legend">Kids Gap Logo Hoodie</p>
+                    </div>
+                </Carousel>
+
+                {/* <Coverflow
+                    width={960}
+                    height={480}
+                    displayQuantityOfSide={2}
+                    navigation={false}
+                    enableHeading={false}
+                >
+                    <div
+                    onClick={() => fn()}
+                    onKeyDown={() => fn()}
+                    role="menuitem"
+                    tabIndex="0"
+                    >
+                    <img
+                        src='www.gap.com/webcontent/0017/225/023/cn17225023.jpg'
+                        alt='GapFit Tech Kids Joggers'
+                        style={{ display: 'block', width: '100%' }}
+                    />
+                    </div>
+                    <img src='www.gap.com/webcontent/0028/248/729/cn28248729.jpg' alt='GapFit Kids Quick-Dry Shorts' data-action="https://www.gap.com/browse/product.do?pid=824893012&cid=1050851&pcid=1050851&vid=1&cpos=7&cexp=2859&kcid=CategoryIDs%3D1050851&cvar=25399&ctype=Listing&cpid=res22101107455315559383163#pdp-page-content"/>
+                    <img src='www.gap.com/webcontent/0020/576/659/cn20576659.jpg' alt='Kids Gap Logo Hoodie' data-action="https://www.gap.com/browse/product.do?pid=733445012&cid=1117991&pcid=1117991&vid=1&cpos=2&cexp=2859&kcid=CategoryIDs%3D1117991&cvar=25399&ctype=Listing&cpid=res22101107773733801568734#pdp-page-content"/>
+                </Coverflow> */}
+
+                <br/><br/>
 
                 <Spotlight />
                 
