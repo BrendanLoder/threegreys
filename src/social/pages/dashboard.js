@@ -374,20 +374,14 @@ export default function Dashboard() {
 
             <Header />
             <div className="font-sans container w-full mx-auto py-5">
+            <Spotlight />
+            <br/>
             
-                <Carousel showArrows={true} infiniteLoop={true}>
-                <div>
-        <a href="http://www.google.com" target="_blank">
-          <div>
-            <img src="http://www.gap.com/webcontent/0017/225/023/cn17225023.jpg" />
-          </div>
-        </a>
-        <p className="legend">GapFit Tech Kids Joggers</p>
-      </div>
-                    {/* <div>
+                {/* <Carousel showArrows={true} infiniteLoop={true}>
+                    <div>
                         <img src="http://www.gap.com/webcontent/0017/225/023/cn17225023.jpg" />
                         <p className="legend">GapFit Tech Kids Joggers</p>
-                    </div> */}
+                    </div>
                     <div>
                         <img src="http://www.gap.com/webcontent/0028/248/729/cn28248729.jpg" />
                         <p className="legend">GapFit Kids Quick-Dry Shorts</p>
@@ -396,7 +390,7 @@ export default function Dashboard() {
                         <img src="http://www.gap.com/webcontent/0020/576/659/cn20576659.jpg" />
                         <p className="legend">Kids Gap Logo Hoodie</p>
                     </div>
-                </Carousel>
+                </Carousel> */}
 
                 {/* <Coverflow
                     width={960}
@@ -423,7 +417,7 @@ export default function Dashboard() {
 
                 <br/><br/>
 
-                <Spotlight />
+                {/* <Spotlight /> */}
                 
                 <div className='relative'>
 

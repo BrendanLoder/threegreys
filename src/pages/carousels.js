@@ -50,7 +50,50 @@ useEffect(() => {
 
 
             SWIPER:<br/><br/>
+            <div className='swiper-container'>
             <Swiper
+                slidesPerView={1}
+                spaceBetween={30}
+                loop={true}
+                pagination={{
+                clickable: true,
+                }}
+                navigation={true}
+                modules={[Pagination, Navigation]}
+                className="mySwiper"
+            >
+                <SwiperSlide>
+                    <a href="https://www.google.com"><img src="https://swiperjs.com/demos/images/nature-1.jpg" /></a>
+                </SwiperSlide>
+                <SwiperSlide>
+                    <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
+                </SwiperSlide>
+            </Swiper>
+            </div>
+
+
+            {/* <Swiper
                 effect={"coverflow"}
                 grabCursor={true}
                 centeredSlides={true}
@@ -96,7 +139,7 @@ useEffect(() => {
                 <SwiperSlide>
                     <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
                 </SwiperSlide>
-            </Swiper>
+            </Swiper> */}
 
             <br/><br/>
 
