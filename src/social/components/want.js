@@ -143,7 +143,7 @@ export default function Want(want) {
                             <img src={wantImageUrl} style={{width:300, hight:300}} className="w-20 mb-5 m-auto"/>
                         }
 
-                        <div className="p-5">
+                        <div className="p-5 text-center">
                             
                             {/* <p>Want ID in want.js: {wantId}</p>
                             <p>want.title: {want.title}</p>

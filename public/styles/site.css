@@ -33,13 +33,19 @@ body {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23c593d8' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5L3.75 4l-2.5 2.5L2.75 8l4-4-4-4z'/%3e%3c/svg%3e");
 }
 
+/* makes want be full screen */
+.bg-gray-100.hover\:bg-indigo-50.border-gray-300.leading-normal.mb-2.border-y-2.relative {
+    width: 100%;
+    height: 100%
+}
+
 
 /* SWIPER: */
 
 .swiper-slide {
     text-align: center;
     font-size: 18px;
-    background: #fff;
+    /* background: #fff; */
     height: 300px;
   
     /* Center slide text vertically */
