@@ -49,6 +49,7 @@ export default function Dashboard() {
     const [newDoNotWantSaveSuccess, setNewDoNotWantSaveSuccess] = useState('')
     const [newDoNotWantFormDisplayClass, setNewDoNotWantFormDisplayClass] = useState('hidden')
     const [addNewDoNotWantButtonDisplayClass, setAddNewDoNotWantButtonDisplayClass] = useState('')
+    const [addNewSpotlightButtonDisplayClass, setAddNewSpotlightButtonDisplayClass] = useState('')
     const [doNotWantDeleteArray, setDoNotWantDeleteArray] = useState([])
     const [doNotWantKeepArray, setDoNotWantKeepArray] = useState([])
     const [doNotWantsEditable, setDoNotWantsEditable] = useState(false)
@@ -256,9 +257,6 @@ export default function Dashboard() {
     // **-------------------- End Do Not Want Specific Functions --------------------**
 
 
-    // **********************************************************************
-
-
     // **-------------------- Start Wants Specific Functions --------------------**
 
     useEffect(() => {
@@ -359,6 +357,17 @@ export default function Dashboard() {
     }
 
     // **-------------------- End Wants Specific Functions --------------------**
+
+    // **********************************************************************
+
+
+    // **-------------------- Start Spotlight Specific Functions --------------------**
+
+
+    // **-------------------- End Spotlight Specific Functions --------------------**
+
+
+    
 
     function testFunction() {
         console.log('it is the text function')
@@ -544,10 +553,6 @@ export default function Dashboard() {
                 </div>
                 {/* End Wants Accordion */}
 
-
-
-
-
 {/* --------------------------------------------------- */}
 
         {/* Add Do Not Want Button */}
@@ -634,6 +639,7 @@ export default function Dashboard() {
         {/* --------- End New Do Not Want Submit Form ---------- */}
 
         </div>
+
                 {/* Start Do Not Want Accordion */}
                 <div className="accordion accordion-flush" id="doNotWantsAccordion">
                     <div className="accordion-item border-t-0 border-l-0 border-r-0 rounded-none bg-white border border-gray-200 mb-2">
@@ -660,13 +666,9 @@ export default function Dashboard() {
                         </h2>
                         <div id="doNotWantsCollapseOne" className="accordion-collapse collapse" aria-labelledby="doNotWantsHeadingOne">
 
-
                             {/* TRYING TO GET IN EDIT FORM START */}
                             
                             <form onSubmit={handleDoNotWantsEditSubmit} method="POST">
-                            
-                                
-                                    
 
                                 <div className="accordion-body py-4 px-5 max-h-48  overflow-scroll no-scrollbar">
                                     
@@ -681,8 +683,7 @@ export default function Dashboard() {
                     </div>
                 </div>
                 {/* End Do Not Want Accordion */}
-            
-                
+                            
             </div>
         </div>  
     );

@@ -44,8 +44,6 @@ export default function Want(want) {
 
     function toggleEditData() {
         setUpdateData(!updateData)
-
-
     }
     
     return (
@@ -130,21 +128,17 @@ export default function Want(want) {
 
                         >Confirm</span>
                     </div>
-                    
-
-                    
-                        
+                                    
             </div>
             }
             {!updateData &&
-                <div className="p-2">
+                <div className="p-2" id={`want_item_${want.wantId}`}>
                     <a {... wantLink ? {href: wantLink} : {}}>
                         {wantImageUrl && wantImageUrl.length > 0 &&
                             <img src={wantImageUrl} style={{width:300, hight:300}} className="w-20 mb-5 m-auto"/>
                         }
 
-                        <div className="p-5 text-center">
-                            
+                        <div className="p-5 text-center">                            
                             {/* <p>Want ID in want.js: {wantId}</p>
                             <p>want.title: {want.title}</p>
                             <p>wantTitle: {wantTitle}</p>
@@ -156,7 +150,6 @@ export default function Want(want) {
                     </a>
                 </div>
             }
-
         </div>
         
     )

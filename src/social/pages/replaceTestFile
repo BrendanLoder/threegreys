@@ -1,0 +1,63 @@
+// **-------------------- Start SpotlightWants Specific Functions --------------------**
+
+useEffect(() => {
+        if(spotlightWants.length > 0){
+            
+            const spotlightWantDisplayObjects = createWantDisplayObjects({
+                'wantData': spotlightWants,
+                'type': 'spotlightWantItem',
+                'isEditable': spotlightWantsEditable,
+                'userId': currentUser.userId,
+                'userDocId': currentUser.userDocId,
+                'refreshListData': refreshListData
+
+            })
+            setWantItems(spotlightWantDisplayObjects)
+        }
+    }, [spotlightWants, spotlightWantsEditable])
+    
+
+    const handleNewSpotlightWantSubmission = async (event) =>
+    {
+        event.preventDefault()
+
+        if(newSpotlightWantTitle == '' && newSpotlightWantDescription == '') {
+            setNewSpotlightWantError(errorText)
+            return
+        } else {
+            setNewSpotlightWantError('')
+        }
+
+        const newSpotlightWantKey = spotlightWants.length +1
+        const newSpotlightWant = {
+            'title': newSpotlightWantTitle,
+            'description': newSpotlightWantDescription,
+            'imageUrl': newSpotlightWantImageUrl,
+            'link': newSpotlightWantLink,
+            'userId': currentUser.userId
+        }
+        try{
+
+            newSpotlightWant.wantId = await addUserSpotlightWant(newSpotlightWant)
+            const spotlightWantList = spotlightWants
+            spotlightWantList.push(newSpotlightWant)
+            setSpotlightWants(spotlightWantList)
+            const spotlightWantDisplayObjects = createWantDisplayObjects({
+                'wantData': spotlightWants,
+                'type': 'spotlightWantItem',
+                'isEditable': spotlightWantsEditable,
+                'userId': currentUser.userId,
+                'userDocId': currentUser.userDocId,
+                'refreshListData': refreshListData
+
+            })
+            setWantItems(spotlightWantDisplayObjects)
+            clearFields('spotlightWantForm')
+            fadeSuccess('newSpotlightWant')
+
+        } catch(err){
+            setNewWantError('spotlightWant saving error: ' + err)
+        }
+    }
+
+// **-------------------- End Spotlight Wants Specific Functions --------------------**

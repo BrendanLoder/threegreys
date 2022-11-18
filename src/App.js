@@ -30,6 +30,7 @@ const Social_Signup = lazy(() => import ('./social/pages/signup'));
 const Social_Login = lazy(() => import ('./social/pages/login'));
 const Social_Profile = lazy(() => import ('./social/pages/profile'));
 const Test = lazy(() => import ('./test'))
+const Test_Page = lazy(() => import ('./pages/test_page'));
 
 
 
@@ -88,6 +89,7 @@ const App = ({ signOut, user }) => {
                                                 </ProtectedRoute>
                                             }
                                         /> */}
+                                        <Route exact path={RoutePaths.TEST_PAGE} element={<Test_Page />} />
                                         <Route path="*" element={<NotFound/>} />
                                     </Routes>
                                 </Suspense>
