@@ -20,6 +20,7 @@ import React, {
     selectedItem
   }) => {
     const [stageItems, setStageItems] = useState(items);
+    console.log('stageItems:', stageItems)
   
     const [newAddingItemProps, setNewAddingItemProps] = useState({
       hoveredIndex: 0,

@@ -11,13 +11,13 @@ Amplify.configure(config);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <React.StrictMode>
+    // <React.StrictMode>
         
         <FirebaseContext.Provider value={{ firebase, db }}>
             <App />
         </FirebaseContext.Provider>
             
-    </React.StrictMode>
+    // </React.StrictMode>
 );
 
 reportWebVitals();
