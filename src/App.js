@@ -110,6 +110,7 @@ const App = ({ signOut, user }) => {
 export default withAuthenticator(App,
     {
         includeGreetings:true,
-        hideSignUp: true
+        hideSignUp: false,
+        signOut: true
     }
 )
