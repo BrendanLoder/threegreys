@@ -1,6 +1,6 @@
 {
     "name": "threegreys",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "private": true,
     "dependencies": {
         "@aws-amplify/ui-react": "^2.18.0",
@@ -25,7 +25,8 @@
         "swiper": "^8.4.3",
         "tw-elements": "^1.0.0-alpha12",
         "typescript": "^4.7.2",
-        "web-vitals": "^2.1.4"
+        "web-vitals": "^2.1.4",
+        "node": "20.17.0"
     },
     "scripts": {
         "start": "react-scripts start",
